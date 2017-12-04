@@ -16,4 +16,4 @@
 
 下面附加一张我博客的图片：
 
-![wlfsky的博客图片](blog.jpg)
+![wlfsky的博客图片](/images/wlfskyblog.jpg)
