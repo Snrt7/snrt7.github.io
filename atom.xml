@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://wlfsky.com/"/>
-  <updated>2017-12-05T02:09:54.343Z</updated>
+  <updated>2017-12-06T13:12:50.303Z</updated>
   <id>http://wlfsky.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>古典密码</title>
+    <link href="http://wlfsky.com/2017/12/06/%E5%8F%A4%E5%85%B8%E5%AF%86%E7%A0%81/"/>
+    <id>http://wlfsky.com/2017/12/06/古典密码/</id>
+    <published>2017-12-06T11:26:40.000Z</published>
+    <updated>2017-12-06T13:12:50.303Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>作者：wlfsky格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采</code></pre><a id="more"></a><hr><h3 id="古典密码的分类"><a href="#古典密码的分类" class="headerlink" title="古典密码的分类"></a>古典密码的分类</h3><ul><li>棋盘密码</li><li>移位密码</li><li>代换密码</li><li>维吉尼亚密码</li><li>仿射密码</li><li>置换密码</li><li>Hill 密码</li></ul><h5 id="棋盘密码"><a href="#棋盘密码" class="headerlink" title="棋盘密码"></a>棋盘密码</h5><p>​    通过将26个英文字母设法变成十位数来达到加密的目的。棋盘密码的密钥是一个5*5的棋盘，将26个英文字母放置在里面，其中字母i和j被放在同一个方格中，如下表所表示：</p><table><thead><tr><th style="text-align:center"></th><th style="text-align:center">1</th><th style="text-align:center">2</th><th style="text-align:center">3</th><th style="text-align:center">4</th><th style="text-align:center">5</th></tr></thead><tbody><tr><td style="text-align:center">1</td><td style="text-align:center">q</td><td style="text-align:center">w</td><td style="text-align:center">e</td><td style="text-align:center">r</td><td style="text-align:center">t</td></tr><tr><td style="text-align:center">2</td><td style="text-align:center">y</td><td style="text-align:center">u</td><td style="text-align:center">i/j</td><td style="text-align:center">o</td><td style="text-align:center">p</td></tr><tr><td style="text-align:center">3</td><td style="text-align:center">a</td><td style="text-align:center">s</td><td style="text-align:center">d</td><td style="text-align:center">f</td><td style="text-align:center">g</td></tr><tr><td style="text-align:center">4</td><td style="text-align:center">h</td><td style="text-align:center">k</td><td style="text-align:center">l</td><td style="text-align:center">z</td><td style="text-align:center">x</td></tr><tr><td style="text-align:center">5</td><td style="text-align:center">c</td><td style="text-align:center">v</td><td style="text-align:center">b</td><td style="text-align:center">n</td><td style="text-align:center">m</td></tr></tbody></table><h5 id="移位密码"><a href="#移位密码" class="headerlink" title="移位密码"></a>移位密码</h5><p>​    移位密码的加密对象为英文符号。移位密码采用每一字母向前推移<strong><em>key</em></strong>位的方式实现加密。换句话说，移位密码实现了26个英文字母的循环移位。当<strong><em>key=3</em></strong>时，得到的移位密码称为凯撒密码。</p><blockquote><p><strong>移位密码体制</strong>    令M=C=K=Z<sub>26</sub>。对任意的<em>key</em>∈Z<sub>26</sub>，x∈M，y∈C，定义</p><p>e<sub>key</sub>(x) = (x + key)mod26</p><p>d<sub>key</sub>(y) = (y - key)mod26</p></blockquote><p>移位密码的密钥空间大小为25。</p><h5 id="代换密码"><a href="#代换密码" class="headerlink" title="代换密码"></a>代换密码</h5><p>​    26个英文字母和Z<sub>26</sub>的元素之间可以建立一个一一对应关系，于是Z<sub>26</sub>上的任一个置换也就对应了26个英文字母表上的一个置换。因此可以借助Z<sub>26</sub>上的置换来改变英文字符的原有位置，已达到加密的目的，Z<sub>26</sub>上的置换看成了加密所需的秘钥。</p><blockquote><p><strong>代换密码体制</strong>    令M=C=Z<sub>26</sub>，K是Z<sub>26</sub>上所有可能置换构成的集合。对任意的置换π∈K，x∈M，y∈C，定义</p><p>e<sub>x</sub> = π(x)</p><p>d<sub>y</sub> = π<sup>-1</sup>(y)</p></blockquote><p>这里π和π<sub>-1</sub>互为逆置换。代换密码的密钥空间为26!。</p><h5 id="维吉尼亚密码"><a href="#维吉尼亚密码" class="headerlink" title="维吉尼亚密码"></a>维吉尼亚密码</h5><p>​    维吉尼亚密码是一种多表代换密码。</p><blockquote><p><strong>维吉尼亚密码体制</strong>     令m是一个正整数，相应地定义M=C=K=(Z<sub>26</sub>)<sup>m</sup>。对任意的密钥<em>key</em>=(k<sub>1</sub>，k<sub>2</sub>，···，k<sub>m</sub>)∈K，(x<sub>1</sub>，x<sub>2</sub>，···，x<sub>m</sub>)∈M，(y<sub>1</sub>，y<sub>2</sub>，···，y<sub>m</sub>)∈C，定义</p><p>e<sub>key</sub>(x<sub>1</sub>，x<sub>2</sub>，···，x<sub>m</sub>) = (x<sub>1</sub> + k<sub>1</sub>，x<sub>2</sub> + k<sub>2</sub>，···，x<sub>m</sub> + k<sub>m</sub>)mod26</p><p>d<sub>key</sub>(y<sub>1</sub>，y<sub>2</sub>，···，y<sub>m</sub>) = (y<sub>1</sub> + k<sub>1</sub>，y<sub>2</sub> + k<sub>2</sub>，···，y<sub>m</sub> + k<sub>m</sub>)mod26</p></blockquote><p>维吉尼亚密码的密钥空间大小为26<sup>m</sup>。</p><h5 id="仿射密码"><a href="#仿射密码" class="headerlink" title="仿射密码"></a>仿射密码</h5><p>​    仿射密码是代换密码的一个特例。</p><blockquote><p> <strong>仿射密码体制</strong>    令M=C=Z<sub>26</sub>，K={(k<sub>1</sub>，k<sub>2</sub>)∈Z<sub>26</sub> <em> Z<sub>26</sub> : gcd(k<sub>1</sub>，26) = 1}。对任意的密钥</em>key* = (k<sub>1</sub>，k<sub>2</sub>)∈K，x∈M，y∈C，定义</p><p> e<sub>key</sub>(x) = (k<sub>1</sub>x + k<sub>2</sub>)mod26</p><p> d<sub>key</sub>(y) = k<sub>1</sub><sup>-1</sup>(y - k<sub>2</sub>)mod26</p></blockquote><p>其中， k<sub>1</sub><sup>-1</sup>表示 k<sub>1</sub>在Z<sub>26</sub>中的乘法逆，gcd(k<sub>1</sub>，26) = 1表示 k<sub>1</sub>与26互素。当 k<sub>1</sub> = 1时，放射密码变成了移位密码。</p><h5 id="置换密码"><a href="#置换密码" class="headerlink" title="置换密码"></a>置换密码</h5><p>​    通过重新排列消息中元素的位置而不改变元素本身的加密方式。</p><blockquote><p><strong>置换密码体制</strong>    令m ≥ 2 是一个正整数，M=C=(Z<sub>26</sub>)<sup>m</sup>，K是Z<sub>m</sub> = {1，2，···，m}上所有可能置换构成的集合。对任意的(x<sub>1</sub>，x<sub>2</sub>，···，x<sub>m</sub>)∈M，π∈K，y<sub>1</sub>，y<sub>2</sub>，···，y<sub>m</sub>)∈C，定义</p><p>e<sub>π</sub>(x<sub>1</sub>，x<sub>2</sub>，···，x<sub>m</sub>) = (x<sub>π(1)</sub>，x<sub>π(2)</sub>，···，x<sub>π(m)</sub>)</p><p>d<sub>π</sub>(y<sub>1</sub>，y<sub>2</sub>，···，y<sub>m</sub>) = ((y<sub>π(1)</sub>)<sup>-1</sup>，(y<sub>π(2)</sub>)<sup>-1</sup>，···，(y<sub>π(m)</sub>)<sup>-1</sup>)</p></blockquote><p>其中，π和π<sup>-1</sup>互为Z<sub>m</sub>上的逆置换，m称为分组长度。密钥空间为m!。</p><h5 id="Hill-密码"><a href="#Hill-密码" class="headerlink" title="Hill 密码"></a>Hill 密码</h5><p>​    多表代换密码。将明文消息按照步长m进行分组，对每一组的m个明文字母通过线性变换将其转换成m个相应的密文字母。</p><blockquote><p><strong>Hill密码体制</strong>      令m ≥ 2 是一个正整数，M=C=(Z<sub>26</sub>)<sup>m</sup>，K是定义在Z<sub>26</sub>上所有大小为m*m的可逆矩阵的集合。对任意的A∈K，定义</p><p>e<sub>A</sub>(x) = xA mod26</p><p>d<sub>A</sub>(x) = yA<sup>-1</sup> mod26</p></blockquote><p>Hill 密码能够较好地抵御基于字母出现频率的攻击方法。</p><h4 id="常用的密码分析攻击分为以下几类"><a href="#常用的密码分析攻击分为以下几类" class="headerlink" title="常用的密码分析攻击分为以下几类"></a>常用的密码分析攻击分为以下几类</h4><ul><li>唯密文攻击(Ciphertext—only attack)。<br>​    攻击者手中除了截获的密文外，没有其他任何辅助信息。唯密文攻击是最常见的一种密码分析类型，也是难度最大的一种。</li><li>已知明文攻击( Known – plaintext attack)。<br>  攻击者除了掌握密文，还掌握了部分明文和密文的对应关系。举例来看，如果是遵从通信协议的对话，由于协议中使用固定的关键字，如“login”“password”等，通过分析可以确定这关键字对应的密文。如果传输的是法律文件、单位通知等类型的公文，由于大部分公文有固定的格式和一些约定的文字，在截获的公文较多的条件下，可以推测出一些文字、词组对应的密文。</li><li>选择明文攻击( Chosen – plaintext attack)。<br>  攻击者知道加密算法，同时能够选择明文并得到相应明文所对应的密文。这是比较常见的一种密玛分析类型。例如，攻击者截获了有价值的密文，并获取了加密使用设备，向设备中输入任意明文可以得到对应的密文，以此为基础，攻击者尝试对有价值的密文进行破解。选择明文攻击常常被用于破解采用公开密钥密码系统加密的信息内容。</li><li>选择密文攻击( Chosen – ciphertext attack)。<br>  攻击者知道加密算法，同时可以选择密文并得到对应的明文。采用选择密文攻击这种攻击方式，攻击者的攻击目标通常是加密过程使用的密钥。基于公开密钥密码系统的数字签名，容易受到这种类型的攻击。</li></ul><h4 id="密码分析过程中采取的方法"><a href="#密码分析过程中采取的方法" class="headerlink" title="密码分析过程中采取的方法"></a>密码分析过程中采取的方法</h4><ul><li>穷举攻击法。<br>　　穷举攻击法的破解思路是尝试所有的可能以找出明文或者密钥。穷举攻击法可以划分为穷举密钥和穷举明文两类。穷举密钥是指攻击者依次使用各种可能的解密密钥对截收的密文，进行试译，如果某个解密密钥能够产生有意义的明文，则判断相应的密钥就是正确的解密密钥。穷举明文是指攻击者在保持加密密钥不变的条件下，对所有可能的明文进行加密，如果某段明文加密的结果与截获的密文一致，则判断相应的明文就是发送者发送的信息。<br>　　为了对抗穷举攻击，现代密码系统在设计时往往采用扩大密钥空间或者提高加密、解密算法复杂度的方法。当密钥空间扩大以后，采用穷举密钥的方法，在破解的过程中需要尝试更多的解密密钥；提高加密、解密算法的复杂度，将使攻击者无论采用穷举密钥还是穷举明文的方法对密码系统进行破解，每次破解尝试都需要付出更加高昂的计算开销6对于一个完善的现代密码系统，采用穷举攻击法进行破解需要付出的代价很可能超过密文破解产生的价值。</li><li>统计分析法。<br>　　统计分析法是通过分析明文和密文的统计规律来破解密文的一种方法。一些古典密码系统加密的信息，密文中字母及字母组合的统计规律与明文完全相同，此类密码系统容易被统计分析法破解。统计分析法首先需要获得密文的统计规律，在此基础上，将密文的统计规律与已知的明文统计规律对照比较，提取明、密文的对应关系，进而完成密文破解。<br>　　要对抗统计分析攻击，密码系统在设计时应当着力避免密文和明文在统计规律上存在一致，从而使攻击者无法通过分析密文的统计规律来推断明文内容。</li><li>数学分析法。<br>　　大部分现代密码系统以数学难题作为理论基础。数学分析法是指攻击者针对密码系统的数学基础和密码学特性，利用一些已知量，如一些明文和密文的对应关系，通过数学求解破译密钥等未知量的方法。对于基于数学难题的密码系统，数学分析法是一种重要的破解手段。</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;作者：wlfsky
+格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="密码学" scheme="http://wlfsky.com/categories/%E5%AF%86%E7%A0%81%E5%AD%A6/"/>
+    
+    
+      <category term="密码学" scheme="http://wlfsky.com/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/"/>
+    
+  </entry>
   
   <entry>
     <title>终于完工</title>
@@ -45,9 +69,33 @@
     <link href="http://wlfsky.com/2017/12/02/2017-12-02/"/>
     <id>http://wlfsky.com/2017/12/02/2017-12-02/</id>
     <published>2017-12-01T16:00:00.000Z</published>
-    <updated>2017-12-05T02:10:24.822Z</updated>
+    <updated>2017-12-05T02:23:58.790Z</updated>
     
     <content type="html"><![CDATA[<pre><code>作者：wlfsky格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采</code></pre><a id="more"></a><hr><p>时间戳:  2017年12月02日20 : 20</p><h3 id="网站"><a href="#网站" class="headerlink" title="网站"></a>网站</h3><ul><li><p>昨天睡得有点晚，今天十点多才起床，洗漱收拾之后已经十二点多了，然后匆匆吃了个饭继续来到实验室开始新的忙碌的一天。</p></li><li><p>修改排版、修改信息等等一直弄到了现在，连晚饭都没吃，但总算是将网站修改到了自己比较满意的程度，先就这样凑合着用，等放寒假有时间再改造一番，接下来的日子里将重心放到期末考试上，已经大三了，不想再挂科了。写到这里，突然想起了自己现在还挂着的大英二，内心便悲伤的像个二百斤的孩子。</p><p><img src="/life/2017-12-02-网站截图.png" alt="网站截图"></p></li></ul><h3 id="学习"><a href="#学习" class="headerlink" title="学习"></a>学习</h3><ul><li>还有十四天就要考四级了，希望这次可以过！Fighting!!! </li></ul><hr>]]></content>
+    
+    <summary type="html">
+    
+      &lt;pre&gt;&lt;code&gt;作者：wlfsky
+格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="碎碎念" scheme="http://wlfsky.com/categories/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"/>
+    
+    
+      <category term="碎碎念" scheme="http://wlfsky.com/tags/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>建站成功</title>
+    <link href="http://wlfsky.com/2017/12/01/2017-12-01/"/>
+    <id>http://wlfsky.com/2017/12/01/2017-12-01/</id>
+    <published>2017-11-30T16:00:00.000Z</published>
+    <updated>2017-12-05T02:23:38.388Z</updated>
+    
+    <content type="html"><![CDATA[<pre><code>作者：wlfsky格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采</code></pre><a id="more"></a><hr><p>时间戳:  2017年12月01日21 : 32</p><h3 id="迈进了一小步"><a href="#迈进了一小步" class="headerlink" title="迈进了一小步"></a>迈进了一小步</h3><ul><li>很早之前就想建立一个网站，但因为种种原因没有得以实施，最近看知乎看到了在Github上可以托管网站，而且搭建方法也不是很复杂，所以便忙了好几天，终于把网站搭建好了。</li><li>最初想自己编写HTML/CSS/JS等文件，因为在大二时也花了一些精力学了这些技术，但是等我想撸起袖子开始我美妙的前端之旅时才发现之前学到的东西早已记不得了，而且临近期末，不能把时间都花到编写网页这件事情上，于是转念一想，便将Ctrl+C、Ctrl+V的技术用的淋漓精致，开始了我的前端之旅。</li><li>在昨天晚上和今天一天的忙忙碌碌下，终于把网站弄得有模有样了，小小的成就感油然而生。今天过的很充实，明天继续！</li></ul><hr>]]></content>
     
     <summary type="html">
     
@@ -84,30 +132,6 @@
     
     
       <category term="小文艺" scheme="http://wlfsky.com/tags/%E5%B0%8F%E6%96%87%E8%89%BA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>建站成功</title>
-    <link href="http://wlfsky.com/2017/12/01/2017-12-01/"/>
-    <id>http://wlfsky.com/2017/12/01/2017-12-01/</id>
-    <published>2017-11-30T16:00:00.000Z</published>
-    <updated>2017-12-05T02:08:51.707Z</updated>
-    
-    <content type="html"><![CDATA[<pre><code>作者：wlfsky格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采</code></pre><a id="more"></a><hr><p>时间戳:  2017年12月01日21 : 32</p><h3 id="迈进了一小步"><a href="#迈进了一小步" class="headerlink" title="迈进了一小步"></a>迈进了一小步</h3><ul><li>很早之前就想建立一个网站，但因为种种原因没有得以实施，最近看知乎看到了在Github上可以托管网站，而且搭建方法也不是很复杂，所以便忙了好几天，终于把网站搭建好了。</li><li>最初想自己编写HTML/CSS/JS等文件，因为在大二时也花了一些精力学了这些技术，但是等我想撸起袖子开始我美妙的前端之旅时才发现之前学到的东西早已记不得了，而且临近期末，不能把时间都花到编写网页这件事情上，于是转念一想，便将Ctrl+C、Ctrl+V的技术用的淋漓精致，开始了我的前端之旅。</li><li>在昨天晚上和今天一天的忙忙碌碌下，终于把网站弄得有模有样了，小小的成就感油然而生。今天过的很充实，明天继续！</li></ul><hr>]]></content>
-    
-    <summary type="html">
-    
-      &lt;pre&gt;&lt;code&gt;作者：wlfsky
-格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="碎碎念" scheme="http://wlfsky.com/categories/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"/>
-    
-    
-      <category term="碎碎念" scheme="http://wlfsky.com/tags/%E7%A2%8E%E7%A2%8E%E5%BF%B5/"/>
     
   </entry>
   
