@@ -107,7 +107,7 @@
 <meta property="og:site_name" content="清沐园 | wlfsky">
 <meta property="og:description" content="作者：wlfsky 格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-06T13:12:50.303Z">
+<meta property="og:updated_time" content="2017-12-23T05:52:16.812Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="古典密码">
 <meta name="twitter:description" content="作者：wlfsky 格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采">
@@ -339,8 +339,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2017-12-06T21:12:50+08:00">
-                2017-12-06
+              <time title="更新于" itemprop="dateModified" datetime="2017-12-23T13:52:16+08:00">
+                2017-12-23
               </time>
             
           </span>
@@ -444,7 +444,7 @@
 <li>置换密码</li>
 <li>Hill 密码</li>
 </ul>
-<h5 id="棋盘密码"><a href="#棋盘密码" class="headerlink" title="棋盘密码"></a>棋盘密码</h5><p>​    通过将26个英文字母设法变成十位数来达到加密的目的。棋盘密码的密钥是一个5*5的棋盘，将26个英文字母放置在里面，其中字母i和j被放在同一个方格中，如下表所表示：</p>
+<h4 id="棋盘密码"><a href="#棋盘密码" class="headerlink" title="棋盘密码"></a>棋盘密码</h4><p>​    通过将26个英文字母设法变成十位数来达到加密的目的。棋盘密码的密钥是一个5*5的棋盘，将26个英文字母放置在里面，其中字母i和j被放在同一个方格中，如下表所表示：</p>
 <table>
 <thead>
 <tr>
@@ -499,42 +499,42 @@
 </tr>
 </tbody>
 </table>
-<h5 id="移位密码"><a href="#移位密码" class="headerlink" title="移位密码"></a>移位密码</h5><p>​    移位密码的加密对象为英文符号。移位密码采用每一字母向前推移<strong><em>key</em></strong>位的方式实现加密。换句话说，移位密码实现了26个英文字母的循环移位。当<strong><em>key=3</em></strong>时，得到的移位密码称为凯撒密码。</p>
+<h4 id="移位密码"><a href="#移位密码" class="headerlink" title="移位密码"></a>移位密码</h4><p>​    移位密码的加密对象为英文符号。移位密码采用每一字母向前推移<strong><em>key</em></strong>位的方式实现加密。换句话说，移位密码实现了26个英文字母的循环移位。当<strong><em>key=3</em></strong>时，得到的移位密码称为凯撒密码。</p>
 <blockquote>
 <p><strong>移位密码体制</strong>    令M=C=K=Z<sub>26</sub>。对任意的<em>key</em>∈Z<sub>26</sub>，x∈M，y∈C，定义</p>
 <p>e<sub>key</sub>(x) = (x + key)mod26</p>
 <p>d<sub>key</sub>(y) = (y - key)mod26</p>
 </blockquote>
 <p>移位密码的密钥空间大小为25。</p>
-<h5 id="代换密码"><a href="#代换密码" class="headerlink" title="代换密码"></a>代换密码</h5><p>​    26个英文字母和Z<sub>26</sub>的元素之间可以建立一个一一对应关系，于是Z<sub>26</sub>上的任一个置换也就对应了26个英文字母表上的一个置换。因此可以借助Z<sub>26</sub>上的置换来改变英文字符的原有位置，已达到加密的目的，Z<sub>26</sub>上的置换看成了加密所需的秘钥。</p>
+<h4 id="代换密码"><a href="#代换密码" class="headerlink" title="代换密码"></a>代换密码</h4><p>​    26个英文字母和Z<sub>26</sub>的元素之间可以建立一个一一对应关系，于是Z<sub>26</sub>上的任一个置换也就对应了26个英文字母表上的一个置换。因此可以借助Z<sub>26</sub>上的置换来改变英文字符的原有位置，已达到加密的目的，Z<sub>26</sub>上的置换看成了加密所需的秘钥。</p>
 <blockquote>
 <p><strong>代换密码体制</strong>    令M=C=Z<sub>26</sub>，K是Z<sub>26</sub>上所有可能置换构成的集合。对任意的置换π∈K，x∈M，y∈C，定义</p>
 <p>e<sub>x</sub> = π(x)</p>
 <p>d<sub>y</sub> = π<sup>-1</sup>(y)</p>
 </blockquote>
 <p>这里π和π<sub>-1</sub>互为逆置换。代换密码的密钥空间为26!。</p>
-<h5 id="维吉尼亚密码"><a href="#维吉尼亚密码" class="headerlink" title="维吉尼亚密码"></a>维吉尼亚密码</h5><p>​    维吉尼亚密码是一种多表代换密码。</p>
+<h4 id="维吉尼亚密码"><a href="#维吉尼亚密码" class="headerlink" title="维吉尼亚密码"></a>维吉尼亚密码</h4><p>​    维吉尼亚密码是一种多表代换密码。</p>
 <blockquote>
 <p><strong>维吉尼亚密码体制</strong>     令m是一个正整数，相应地定义M=C=K=(Z<sub>26</sub>)<sup>m</sup>。对任意的密钥<em>key</em>=(k<sub>1</sub>，k<sub>2</sub>，···，k<sub>m</sub>)∈K，(x<sub>1</sub>，x<sub>2</sub>，···，x<sub>m</sub>)∈M，(y<sub>1</sub>，y<sub>2</sub>，···，y<sub>m</sub>)∈C，定义</p>
 <p>e<sub>key</sub>(x<sub>1</sub>，x<sub>2</sub>，···，x<sub>m</sub>) = (x<sub>1</sub> + k<sub>1</sub>，x<sub>2</sub> + k<sub>2</sub>，···，x<sub>m</sub> + k<sub>m</sub>)mod26</p>
 <p>d<sub>key</sub>(y<sub>1</sub>，y<sub>2</sub>，···，y<sub>m</sub>) = (y<sub>1</sub> + k<sub>1</sub>，y<sub>2</sub> + k<sub>2</sub>，···，y<sub>m</sub> + k<sub>m</sub>)mod26</p>
 </blockquote>
 <p>维吉尼亚密码的密钥空间大小为26<sup>m</sup>。</p>
-<h5 id="仿射密码"><a href="#仿射密码" class="headerlink" title="仿射密码"></a>仿射密码</h5><p>​    仿射密码是代换密码的一个特例。</p>
+<h4 id="仿射密码"><a href="#仿射密码" class="headerlink" title="仿射密码"></a>仿射密码</h4><p>​    仿射密码是代换密码的一个特例。</p>
 <blockquote>
 <p> <strong>仿射密码体制</strong>    令M=C=Z<sub>26</sub>，K={(k<sub>1</sub>，k<sub>2</sub>)∈Z<sub>26</sub> <em> Z<sub>26</sub> : gcd(k<sub>1</sub>，26) = 1}。对任意的密钥</em>key* = (k<sub>1</sub>，k<sub>2</sub>)∈K，x∈M，y∈C，定义</p>
 <p> e<sub>key</sub>(x) = (k<sub>1</sub>x + k<sub>2</sub>)mod26</p>
 <p> d<sub>key</sub>(y) = k<sub>1</sub><sup>-1</sup>(y - k<sub>2</sub>)mod26</p>
 </blockquote>
-<p>其中， k<sub>1</sub><sup>-1</sup>表示 k<sub>1</sub>在Z<sub>26</sub>中的乘法逆，gcd(k<sub>1</sub>，26) = 1表示 k<sub>1</sub>与26互素。当 k<sub>1</sub> = 1时，放射密码变成了移位密码。</p>
-<h5 id="置换密码"><a href="#置换密码" class="headerlink" title="置换密码"></a>置换密码</h5><p>​    通过重新排列消息中元素的位置而不改变元素本身的加密方式。</p>
+<p>其中， k<sub>1</sub><sup>-1</sup>表示 k<sub>1</sub>在Z<sub>26</sub>中的乘法逆，gcd(k<sub>1</sub>，26) = 1表示 k<sub>1</sub>与26互素。当 k<sub>1</sub> = 1时，仿射密码变成了移位密码。</p>
+<h4 id="置换密码"><a href="#置换密码" class="headerlink" title="置换密码"></a>置换密码</h4><p>​    通过重新排列消息中元素的位置而不改变元素本身的加密方式。</p>
 <blockquote>
 <p><strong>置换密码体制</strong>    令m ≥ 2 是一个正整数，M=C=(Z<sub>26</sub>)<sup>m</sup>，K是Z<sub>m</sub> = {1，2，···，m}上所有可能置换构成的集合。对任意的(x<sub>1</sub>，x<sub>2</sub>，···，x<sub>m</sub>)∈M，π∈K，y<sub>1</sub>，y<sub>2</sub>，···，y<sub>m</sub>)∈C，定义</p>
 <p>e<sub>π</sub>(x<sub>1</sub>，x<sub>2</sub>，···，x<sub>m</sub>) = (x<sub>π(1)</sub>，x<sub>π(2)</sub>，···，x<sub>π(m)</sub>)</p>
 <p>d<sub>π</sub>(y<sub>1</sub>，y<sub>2</sub>，···，y<sub>m</sub>) = ((y<sub>π(1)</sub>)<sup>-1</sup>，(y<sub>π(2)</sub>)<sup>-1</sup>，···，(y<sub>π(m)</sub>)<sup>-1</sup>)</p>
 </blockquote>
 <p>其中，π和π<sup>-1</sup>互为Z<sub>m</sub>上的逆置换，m称为分组长度。密钥空间为m!。</p>
-<h5 id="Hill-密码"><a href="#Hill-密码" class="headerlink" title="Hill 密码"></a>Hill 密码</h5><p>​    多表代换密码。将明文消息按照步长m进行分组，对每一组的m个明文字母通过线性变换将其转换成m个相应的密文字母。</p>
+<h4 id="Hill-密码"><a href="#Hill-密码" class="headerlink" title="Hill 密码"></a>Hill 密码</h4><p>​    多表代换密码。将明文消息按照步长m进行分组，对每一组的m个明文字母通过线性变换将其转换成m个相应的密文字母。</p>
 <blockquote>
 <p><strong>Hill密码体制</strong>      令m ≥ 2 是一个正整数，M=C=(Z<sub>26</sub>)<sup>m</sup>，K是定义在Z<sub>26</sub>上所有大小为m*m的可逆矩阵的集合。对任意的A∈K，定义</p>
 <p>e<sub>A</sub>(x) = xA mod26</p>
@@ -548,9 +548,11 @@
 <li>选择密文攻击( Chosen – ciphertext attack)。<br>  攻击者知道加密算法，同时可以选择密文并得到对应的明文。采用选择密文攻击这种攻击方式，攻击者的攻击目标通常是加密过程使用的密钥。基于公开密钥密码系统的数字签名，容易受到这种类型的攻击。</li>
 </ul>
 <h4 id="密码分析过程中采取的方法"><a href="#密码分析过程中采取的方法" class="headerlink" title="密码分析过程中采取的方法"></a>密码分析过程中采取的方法</h4><ul>
-<li>穷举攻击法。<br>　　穷举攻击法的破解思路是尝试所有的可能以找出明文或者密钥。穷举攻击法可以划分为穷举密钥和穷举明文两类。穷举密钥是指攻击者依次使用各种可能的解密密钥对截收的密文，进行试译，如果某个解密密钥能够产生有意义的明文，则判断相应的密钥就是正确的解密密钥。穷举明文是指攻击者在保持加密密钥不变的条件下，对所有可能的明文进行加密，如果某段明文加密的结果与截获的密文一致，则判断相应的明文就是发送者发送的信息。<br>　　为了对抗穷举攻击，现代密码系统在设计时往往采用扩大密钥空间或者提高加密、解密算法复杂度的方法。当密钥空间扩大以后，采用穷举密钥的方法，在破解的过程中需要尝试更多的解密密钥；提高加密、解密算法的复杂度，将使攻击者无论采用穷举密钥还是穷举明文的方法对密码系统进行破解，每次破解尝试都需要付出更加高昂的计算开销6对于一个完善的现代密码系统，采用穷举攻击法进行破解需要付出的代价很可能超过密文破解产生的价值。</li>
-<li>统计分析法。<br>　　统计分析法是通过分析明文和密文的统计规律来破解密文的一种方法。一些古典密码系统加密的信息，密文中字母及字母组合的统计规律与明文完全相同，此类密码系统容易被统计分析法破解。统计分析法首先需要获得密文的统计规律，在此基础上，将密文的统计规律与已知的明文统计规律对照比较，提取明、密文的对应关系，进而完成密文破解。<br>　　要对抗统计分析攻击，密码系统在设计时应当着力避免密文和明文在统计规律上存在一致，从而使攻击者无法通过分析密文的统计规律来推断明文内容。</li>
-<li>数学分析法。<br>　　大部分现代密码系统以数学难题作为理论基础。数学分析法是指攻击者针对密码系统的数学基础和密码学特性，利用一些已知量，如一些明文和密文的对应关系，通过数学求解破译密钥等未知量的方法。对于基于数学难题的密码系统，数学分析法是一种重要的破解手段。</li>
+<li>穷举攻击法。<br>  穷举攻击法的破解思路是尝试所有的可能以找出明文或者密钥。穷举攻击法可以划分为穷举密钥和穷举明文两类。穷举密钥是指攻击者依次使用各种可能的解密密钥对截收的密文，进行试译，如果某个解密密钥能够产生有意义的明文，则判断相应的密钥就是正确的解密密钥。穷举明文是指攻击者在保持加密密钥不变的条件下，对所有可能的明文进行加密，如果某段明文加密的结果与截获的密文一致，则判断相应的明文就是发送者发送的信息。<pre><code>　　为了对抗穷举攻击，现代密码系统在设计时往往采用扩大密钥空间或者提高加密、解密算法复杂度的方法。当密钥空间扩大以后，采用穷举密钥的方法，在破解的过程中需要尝试更多的解密密钥；提高加密、解密算法的复杂度，将使攻击者无论采用穷举密钥还是穷举明文的方法对密码系统进行破解，每次破解尝试都需要付出更加高昂的计算开销6对于一个完善的现代密码系统，采用穷举攻击法进行破解需要付出的代价很可能超过密文破解产生的价值。
+</code></pre></li>
+<li>统计分析法。<br>  统计分析法是通过分析明文和密文的统计规律来破解密文的一种方法。一些古典密码系统加密的信息，密文中字母及字母组合的统计规律与明文完全相同，此类密码系统容易被统计分析法破解。统计分析法首先需要获得密文的统计规律，在此基础上，将密文的统计规律与已知的明文统计规律对照比较，提取明、密文的对应关系，进而完成密文破解。<pre><code>　　要对抗统计分析攻击，密码系统在设计时应当着力避免密文和明文在统计规律上存在一致，从而使攻击者无法通过分析密文的统计规律来推断明文内容。
+</code></pre></li>
+<li>数学分析法。<br>  大部分现代密码系统以数学难题作为理论基础。数学分析法是指攻击者针对密码系统的数学基础和密码学特性，利用一些已知量，如一些明文和密文的对应关系，通过数学求解破译密钥等未知量的方法。对于基于数学难题的密码系统，数学分析法是一种重要的破解手段。</li>
 </ul>
 
       
@@ -638,6 +640,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/23/仿射密码/" rel="prev" title="仿射密码">
+                仿射密码 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -744,7 +750,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -998,7 +1004,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#古典密码的分类"><span class="nav-number">1.</span> <span class="nav-text">古典密码的分类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#棋盘密码"><span class="nav-number">1.0.1.</span> <span class="nav-text">棋盘密码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#移位密码"><span class="nav-number">1.0.2.</span> <span class="nav-text">移位密码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#代换密码"><span class="nav-number">1.0.3.</span> <span class="nav-text">代换密码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#维吉尼亚密码"><span class="nav-number">1.0.4.</span> <span class="nav-text">维吉尼亚密码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#仿射密码"><span class="nav-number">1.0.5.</span> <span class="nav-text">仿射密码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#置换密码"><span class="nav-number">1.0.6.</span> <span class="nav-text">置换密码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Hill-密码"><span class="nav-number">1.0.7.</span> <span class="nav-text">Hill 密码</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常用的密码分析攻击分为以下几类"><span class="nav-number">1.1.</span> <span class="nav-text">常用的密码分析攻击分为以下几类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#密码分析过程中采取的方法"><span class="nav-number">1.2.</span> <span class="nav-text">密码分析过程中采取的方法</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#古典密码的分类"><span class="nav-number">1.</span> <span class="nav-text">古典密码的分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#棋盘密码"><span class="nav-number">1.1.</span> <span class="nav-text">棋盘密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#移位密码"><span class="nav-number">1.2.</span> <span class="nav-text">移位密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代换密码"><span class="nav-number">1.3.</span> <span class="nav-text">代换密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#维吉尼亚密码"><span class="nav-number">1.4.</span> <span class="nav-text">维吉尼亚密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#仿射密码"><span class="nav-number">1.5.</span> <span class="nav-text">仿射密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#置换密码"><span class="nav-number">1.6.</span> <span class="nav-text">置换密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Hill-密码"><span class="nav-number">1.7.</span> <span class="nav-text">Hill 密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常用的密码分析攻击分为以下几类"><span class="nav-number">1.8.</span> <span class="nav-text">常用的密码分析攻击分为以下几类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#密码分析过程中采取的方法"><span class="nav-number">1.9.</span> <span class="nav-text">密码分析过程中采取的方法</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1032,7 +1038,7 @@ var jiathis_config={
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">3.1k</span>
+    <span title="Site words total count">5.6k</span>
   
 </div>
 
