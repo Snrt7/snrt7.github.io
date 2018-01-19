@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/CNfavicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/CNfavicon.ico?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="DVWA教程," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="清沐园 | wlfsky" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="作者：wlfsky 格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采">
+<meta name="keywords" content="DVWA教程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DVWA之File Upload">
+<meta property="og:url" content="http://wlfsky.com/2018/01/19/DVWA之File-Upload/index.html">
+<meta property="og:site_name" content="清沐园 | wlfsky">
+<meta property="og:description" content="作者：wlfsky 格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://wlfsky.com/img/dvwa-sql-1.png">
+<meta property="og:image" content="http://image.3001.net/images/20161108/14785910509354.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161108/14785912161713.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161108/1478591243183.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161108/14785912718652.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161108/14785913093285.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161108/1478591344486.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161108/14785914897497.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161108/14785915166863.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161108/14785915463508.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161108/14785915747624.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161108/14785916187951.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161108/14785916447119.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161108/14785916693261.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161108/14785917089423.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161108/14785917335700.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161108/14785917654899.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161108/14785917905285.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161108/14785918184375.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161108/14785919066957.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161108/1478591932218.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161108/14785919572763.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161108/14785919855138.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161108/14785920131063.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161108/14785920369582.png!small">
+<meta property="og:image" content="http://image.3001.net/images/20161108/14785921471182.png!small">
+<meta property="og:updated_time" content="2018-01-19T08:29:58.969Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DVWA之File Upload">
+<meta name="twitter:description" content="作者：wlfsky 格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采">
+<meta name="twitter:image" content="http://wlfsky.com/img/dvwa-sql-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://wlfsky.com/2018/01/19/DVWA之File-Upload/"/>
+
+
+
+
+
+  <title>DVWA之File Upload | 清沐园 | wlfsky</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/wlfreesky"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">清沐园 | wlfsky</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">我们终其一生都在寻找</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-life">
+          <a href="/life/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            生活
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wlfsky.com/2018/01/19/DVWA之File-Upload/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wlfsky">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/cathand.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="清沐园 | wlfsky">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">DVWA之File Upload</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-19T15:54:54+08:00">
+                2018-01-19
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-01-19T16:29:58+08:00">
+                2018-01-19
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-book"> 本文总阅读量</i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,403
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  10
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <pre><code>作者：wlfsky
+格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采
+</code></pre><a id="more"></a>
+<hr>
+<p><strong><em>本文转载自 FreeBuf.COM：lonehand</em></strong></p>
+<h2 id="DVWA简介"><a href="#DVWA简介" class="headerlink" title="DVWA简介"></a><strong>DVWA简介</strong></h2><p>DVWA（Damn Vulnerable Web Application）是一个用来进行安全脆弱性鉴定的PHP/MySQL Web应用，旨在为安全专业人员测试自己的专业技能和工具提供合法的环境，帮助web开发者更好的理解web应用安全防范的过程。</p>
+<p>DVWA共有十个模块，分别是</p>
+<blockquote>
+<p>Brute Force（蛮力攻击）</p>
+<p>Command Injection（命令行注入）</p>
+<p>CSRF（跨站请求伪造）</p>
+<p>File Inclusion（文件包含）</p>
+<p>File Upload（文件上传）</p>
+<p>Insecure CAPTCHA （不安全的验证码）</p>
+<p>SQL Injection（SQL注入）</p>
+<p>SQL Injection（Blind）（SQL盲注）</p>
+<p>XSS（Reflected）（反射型跨站脚本）</p>
+<p>XSS（Stored）（存储型跨站脚本）</p>
+</blockquote>
+<p>需要注意的是，DVWA 1.9的代码分为四种安全级别：Low，Medium，High，Impossible。初学者可以通过比较四种级别的代码，接触到一些PHP代码审计的内容。</p>
+<p><img src="/img/dvwa-sql-1.png" alt="dvwa-sql-1.png"></p>
+<h2 id="File-Upload"><a href="#File-Upload" class="headerlink" title="File Upload"></a><strong>File Upload</strong></h2><p>File Upload，即文件上传漏洞，通常是由于对上传文件的类型、内容没有进行严格的过滤、检查，使得攻击者可以通过上传木马获取服务器的webshell权限，因此文件上传漏洞带来的危害常常是毁灭性的，Apache、Tomcat、Nginx等都曝出过文件上传漏洞。</p>
+<p><a href="http://image.3001.net/images/20161108/14785910509354.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161108/14785910509354.png!small" alt="1.png"></a></p>
+<p>下面对四种级别的代码进行分析。</p>
+<h2 id="Low"><a href="#Low" class="headerlink" title="Low"></a><strong>Low</strong></h2><p>服务器端核心代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>( <span class="keyword">isset</span>( $_POST[ <span class="string">'Upload'</span> ] ) ) &#123; </span><br><span class="line">    <span class="comment">// Where are we going to be writing to? </span></span><br><span class="line">    $target_path  = DVWA_WEB_PAGE_TO_ROOT . <span class="string">"hackable/uploads/"</span>; </span><br><span class="line">    $target_path .= basename( $_FILES[ <span class="string">'uploaded'</span> ][ <span class="string">'name'</span> ] ); </span><br><span class="line"></span><br><span class="line">    <span class="comment">// Can we move the file to the upload folder? </span></span><br><span class="line">    <span class="keyword">if</span>( !move_uploaded_file( $_FILES[ <span class="string">'uploaded'</span> ][ <span class="string">'tmp_name'</span> ], $target_path ) ) &#123; </span><br><span class="line">        <span class="comment">// No </span></span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'&lt;pre&gt;Your image was not uploaded.&lt;/pre&gt;'</span>; </span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">else</span> &#123; </span><br><span class="line">        <span class="comment">// Yes! </span></span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"&lt;pre&gt;&#123;$target_path&#125; succesfully uploaded!&lt;/pre&gt;"</span>; </span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p><em>basename(path,suffix)</em> </p>
+<p>函数返回路径中的文件名部分，如果可选参数suffix为空，则返回的文件名包含后缀名，反之不包含后缀名。</p>
+<p>可以看到，服务器对上传文件的类型、内容没有做任何的检查、过滤，存在明显的文件上传漏洞，生成上传路径后，服务器会检查是否上传成功并返回相应提示信息。</p>
+<h3 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a><strong>漏洞利用</strong></h3><p>文件上传漏洞的利用是有限制条件的，首先当然是要能够成功上传木马文件，其次上传文件必须能够被执行，最后就是上传文件的路径必须可知。不幸的是，这里三个条件全都满足。</p>
+<p>上传文件hack.php（一句话木马）</p>
+<p><a href="http://image.3001.net/images/20161108/14785912161713.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161108/14785912161713.png!small" alt="1.png"></a></p>
+<p>上传成功，并且返回了上传路径</p>
+<p><a href="http://image.3001.net/images/20161108/1478591243183.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161108/1478591243183.png!small" alt="1.png"></a></p>
+<p>打开中国菜刀，右键添加，</p>
+<p>地址栏填入上传文件所在路径<a href="">http://192.168.153.130/dvwa/hackable/uploads/hack.php</a></p>
+<p>参数名（一句话木马口令）为apple。</p>
+<p><a href="http://image.3001.net/images/20161108/14785912718652.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161108/14785912718652.png!small" alt="1.png"></a></p>
+<p>然后菜刀就会通过向服务器发送包含apple参数的post请求，在服务器上执行任意命令，获取webshell权限。</p>
+<p>可以下载、修改服务器的所有文件。</p>
+<p><a href="http://image.3001.net/images/20161108/14785913093285.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161108/14785913093285.png!small" alt="1.png"></a></p>
+<p>可以打开服务器的虚拟终端。</p>
+<p><a href="http://image.3001.net/images/20161108/1478591344486.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161108/1478591344486.png!small" alt="1.png"></a> </p>
+<h2 id="Medium"><a href="#Medium" class="headerlink" title="Medium"></a><strong>Medium</strong></h2><p>服务器端核心代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>( <span class="keyword">isset</span>( $_POST[ <span class="string">'Upload'</span> ] ) ) &#123; </span><br><span class="line">    <span class="comment">// Where are we going to be writing to? </span></span><br><span class="line">    $target_path  = DVWA_WEB_PAGE_TO_ROOT . <span class="string">"hackable/uploads/"</span>; </span><br><span class="line">    $target_path .= basename( $_FILES[ <span class="string">'uploaded'</span> ][ <span class="string">'name'</span> ] ); </span><br><span class="line"></span><br><span class="line">    <span class="comment">// File information </span></span><br><span class="line">    $uploaded_name = $_FILES[ <span class="string">'uploaded'</span> ][ <span class="string">'name'</span> ]; </span><br><span class="line">    $uploaded_type = $_FILES[ <span class="string">'uploaded'</span> ][ <span class="string">'type'</span> ]; </span><br><span class="line">    $uploaded_size = $_FILES[ <span class="string">'uploaded'</span> ][ <span class="string">'size'</span> ]; </span><br><span class="line"></span><br><span class="line">    <span class="comment">// Is it an image? </span></span><br><span class="line">    <span class="keyword">if</span>( ( $uploaded_type == <span class="string">"image/jpeg"</span> || $uploaded_type == <span class="string">"image/png"</span> ) &amp;&amp; </span><br><span class="line">        ( $uploaded_size &lt; <span class="number">100000</span> ) ) &#123; </span><br><span class="line"></span><br><span class="line">        <span class="comment">// Can we move the file to the upload folder? </span></span><br><span class="line">        <span class="keyword">if</span>( !move_uploaded_file( $_FILES[ <span class="string">'uploaded'</span> ][ <span class="string">'tmp_name'</span> ], $target_path ) ) &#123; </span><br><span class="line">            <span class="comment">// No </span></span><br><span class="line">            <span class="keyword">echo</span> <span class="string">'&lt;pre&gt;Your image was not uploaded.&lt;/pre&gt;'</span>; </span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">else</span> &#123; </span><br><span class="line">            <span class="comment">// Yes! </span></span><br><span class="line">            <span class="keyword">echo</span> <span class="string">"&lt;pre&gt;&#123;$target_path&#125; succesfully uploaded!&lt;/pre&gt;"</span>; </span><br><span class="line">        &#125; </span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">else</span> &#123; </span><br><span class="line">        <span class="comment">// Invalid file </span></span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'&lt;pre&gt;Your image was not uploaded. We can only accept JPEG or PNG images.&lt;/pre&gt;'</span>; </span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>可以看到，Medium级别的代码对上传文件的类型、大小做了限制，要求文件类型必须是jpeg或者png，大小不能超过100000B（约为97.6KB）。</p>
+<h3 id="漏洞利用-1"><a href="#漏洞利用-1" class="headerlink" title="漏洞利用"></a><strong>漏洞利用</strong></h3><p>1.组合拳（文件包含+文件上传）</p>
+<p>因为采用的是一句话木马，所以文件大小不会有问题，至于文件类型的检查，尝试修改文件名为hack.png。</p>
+<p><a href="http://image.3001.net/images/20161108/14785914897497.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161108/14785914897497.png!small" alt="1.png"></a></p>
+<p>上传成功。</p>
+<p><a href="http://image.3001.net/images/20161108/14785915166863.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161108/14785915166863.png!small" alt="1.png"></a></p>
+<p>启用中国菜刀。</p>
+<p><a href="http://image.3001.net/images/20161108/14785915463508.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161108/14785915463508.png!small" alt="1.png"></a></p>
+<p>不幸的是，虽然成功上传了文件，但是并不能成功获取webshell权限，在菜刀上无论进行什么操作都会返回如下信息。</p>
+<p><a href="http://image.3001.net/images/20161108/14785915747624.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161108/14785915747624.png!small" alt="1.png"></a></p>
+<p>中国菜刀的原理是向上传文件发送包含apple参数的post请求，通过控制apple参数来执行不同的命令，而这里服务器将木马文件解析成了图片文件，因此向其发送post请求时，服务器只会返回这个“图片”文件，并不会执行相应命令。</p>
+<p>那么如何让服务器将其解析为php文件呢？我们想到文件包含漏洞（详见文件包含漏洞教程）。这里可以借助Medium级别的文件包含漏洞来获取webshell权限，打开中国菜刀，右键添加，在地址栏中输入</p>
+<p><a href="">http://192.168.153.130/dvwa/vulnerabilities/fi/?page=hthttp://tp://192.168.153.130/dvwa/hackable/uploads/hack.png</a></p>
+<p>参数名为apple，</p>
+<p>脚本语言选择php。</p>
+<p><a href="http://image.3001.net/images/20161108/14785916187951.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161108/14785916187951.png!small" alt="1.png"></a></p>
+<p>点击添加，成功获取webshell权限。</p>
+<p><a href="http://image.3001.net/images/20161108/14785916447119.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161108/14785916447119.png!small" alt="1.png"></a></p>
+<p>2.抓包修改文件类型</p>
+<p>上传hack.png文件，抓包。</p>
+<p><a href="http://image.3001.net/images/20161108/14785916693261.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161108/14785916693261.png!small" alt="1.png"></a></p>
+<p>可以看到文件类型为image/png，尝试修改filename为hack.php。</p>
+<p><a href="http://image.3001.net/images/20161108/14785917089423.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161108/14785917089423.png!small" alt="1.png"></a></p>
+<p>上传成功。</p>
+<p><a href="http://image.3001.net/images/20161108/14785917335700.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161108/14785917335700.png!small" alt="1.png"></a></p>
+<p>上菜刀，获取webshell权限。</p>
+<p><a href="http://image.3001.net/images/20161108/14785917654899.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161108/14785917654899.png!small" alt="1.png"></a></p>
+<p>3.截断绕过规则</p>
+<p>在php版本小于5.3.4的服务器中，当Magic_quote_gpc选项为off时，可以在文件名中使用%00截断，所以可以把上传文件命名为hack.php%00.png。</p>
+<p>可以看到，包中的文件类型为image/png，可以通过文件类型检查。</p>
+<p><a href="http://image.3001.net/images/20161108/14785917905285.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161108/14785917905285.png!small" alt="1.png"></a></p>
+<p>上传成功。</p>
+<p><a href="http://image.3001.net/images/20161108/14785918184375.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161108/14785918184375.png!small" alt="1.png"></a></p>
+<p>而服务器会认为其文件名为hack.php，顺势解析为php文件。遗憾的是，由于本次实验环境的php版本为5.4.31，所以无法进行验证。</p>
+<h2 id="High"><a href="#High" class="headerlink" title="High"></a><strong>High</strong></h2><p>服务器端核心代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>( <span class="keyword">isset</span>( $_POST[ <span class="string">'Upload'</span> ] ) ) &#123; </span><br><span class="line">    <span class="comment">// Where are we going to be writing to? </span></span><br><span class="line">    $target_path  = DVWA_WEB_PAGE_TO_ROOT . <span class="string">"hackable/uploads/"</span>; </span><br><span class="line">    $target_path .= basename( $_FILES[ <span class="string">'uploaded'</span> ][ <span class="string">'name'</span> ] ); </span><br><span class="line"></span><br><span class="line">    <span class="comment">// File information </span></span><br><span class="line">    $uploaded_name = $_FILES[ <span class="string">'uploaded'</span> ][ <span class="string">'name'</span> ]; </span><br><span class="line">    $uploaded_ext  = substr( $uploaded_name, strrpos( $uploaded_name, <span class="string">'.'</span> ) + <span class="number">1</span>); </span><br><span class="line">    $uploaded_size = $_FILES[ <span class="string">'uploaded'</span> ][ <span class="string">'size'</span> ]; </span><br><span class="line">    $uploaded_tmp  = $_FILES[ <span class="string">'uploaded'</span> ][ <span class="string">'tmp_name'</span> ]; </span><br><span class="line"></span><br><span class="line">    <span class="comment">// Is it an image? </span></span><br><span class="line">    <span class="keyword">if</span>( ( strtolower( $uploaded_ext ) == <span class="string">"jpg"</span> || strtolower( $uploaded_ext ) == <span class="string">"jpeg"</span> || strtolower( $uploaded_ext ) == <span class="string">"png"</span> ) &amp;&amp; </span><br><span class="line">        ( $uploaded_size &lt; <span class="number">100000</span> ) &amp;&amp; </span><br><span class="line">        getimagesize( $uploaded_tmp ) ) &#123; </span><br><span class="line"></span><br><span class="line">        <span class="comment">// Can we move the file to the upload folder? </span></span><br><span class="line">        <span class="keyword">if</span>( !move_uploaded_file( $uploaded_tmp, $target_path ) ) &#123; </span><br><span class="line">            <span class="comment">// No </span></span><br><span class="line">            <span class="keyword">echo</span> <span class="string">'&lt;pre&gt;Your image was not uploaded.&lt;/pre&gt;'</span>; </span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">else</span> &#123; </span><br><span class="line">            <span class="comment">// Yes! </span></span><br><span class="line">            <span class="keyword">echo</span> <span class="string">"&lt;pre&gt;&#123;$target_path&#125; succesfully uploaded!&lt;/pre&gt;"</span>; </span><br><span class="line">        &#125; </span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">else</span> &#123; </span><br><span class="line">        <span class="comment">// Invalid file </span></span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'&lt;pre&gt;Your image was not uploaded. We can only accept JPEG or PNG images.&lt;/pre&gt;'</span>; </span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p><em>strrpos(string,find,start)</em></p>
+<p>函数返回字符串find在另一字符串string中最后一次出现的位置，如果没有找到字符串则返回false，可选参数start规定在何处开始搜索。</p>
+<p><em>getimagesize(string filename)</em></p>
+<p>函数会通过读取文件头，返回图片的长、宽等信息，如果没有相关的图片文件头，函数会报错。</p>
+<p>可以看到，High级别的代码读取文件名中最后一个”.”后的字符串，期望通过文件名来限制文件类型，因此要求上传文件名形式必须是”<em>.jpg”、”</em>.jpeg” 、”*.png”之一。同时，getimagesize函数更是限制了上传文件的文件头必须为图像类型。</p>
+<h3 id="漏洞利用-2"><a href="#漏洞利用-2" class="headerlink" title="漏洞利用"></a><strong>漏洞利用</strong></h3><p>采用%00截断的方法可以轻松绕过文件名的检查，但是需要将上传文件的文件头伪装成图片，由于实验环境的php版本原因，这里只演示如何借助High级别的文件包含漏洞来完成攻击。</p>
+<p>首先利用copy将一句话木马文件php.php与图片文件1.jpg合并</p>
+<p><a href="http://image.3001.net/images/20161108/14785919066957.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161108/14785919066957.png!small" alt="1.png"></a></p>
+<p><a href="http://image.3001.net/images/20161108/1478591932218.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161108/1478591932218.png!small" alt="1.png"></a></p>
+<p>生成的文件hack.jpg</p>
+<p><a href="http://image.3001.net/images/20161108/14785919572763.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161108/14785919572763.png!small" alt="1.png"></a></p>
+<p>打开可以看到，一句话木马藏到了最后。</p>
+<p><a href="http://image.3001.net/images/20161108/14785919855138.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161108/14785919855138.png!small" alt="1.png"></a></p>
+<p>顺利通过文件头检查，可以成功上传。</p>
+<p><a href="http://image.3001.net/images/20161108/14785920131063.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161108/14785920131063.png!small" alt="1.png"></a></p>
+<p>上菜刀，右键添加shell，地址栏填入<a href="">http://192.168.153.130/dvwa/vulnerabilities/fi/?page=file:///C:/xampp/htdocs/dvwa/hackable/uploads/hack.jpg</a></p>
+<p>参数名填apple，</p>
+<p>脚本语言选择php。</p>
+<p><a href="http://image.3001.net/images/20161108/14785920369582.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161108/14785920369582.png!small" alt="1.png"></a></p>
+<p>成功拿到webshell。</p>
+<p><a href="http://image.3001.net/images/20161108/14785921471182.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20161108/14785921471182.png!small" alt="1.png"></a></p>
+<h2 id="Impossible"><a href="#Impossible" class="headerlink" title="Impossible"></a><strong>Impossible</strong></h2><p>服务器端核心代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>( <span class="keyword">isset</span>( $_POST[ <span class="string">'Upload'</span> ] ) ) &#123; </span><br><span class="line">    <span class="comment">// Check Anti-CSRF token </span></span><br><span class="line">    checkToken( $_REQUEST[ <span class="string">'user_token'</span> ], $_SESSION[ <span class="string">'session_token'</span> ], <span class="string">'index.php'</span> ); </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// File information </span></span><br><span class="line">    $uploaded_name = $_FILES[ <span class="string">'uploaded'</span> ][ <span class="string">'name'</span> ]; </span><br><span class="line">    $uploaded_ext  = substr( $uploaded_name, strrpos( $uploaded_name, <span class="string">'.'</span> ) + <span class="number">1</span>); </span><br><span class="line">    $uploaded_size = $_FILES[ <span class="string">'uploaded'</span> ][ <span class="string">'size'</span> ]; </span><br><span class="line">    $uploaded_type = $_FILES[ <span class="string">'uploaded'</span> ][ <span class="string">'type'</span> ]; </span><br><span class="line">    $uploaded_tmp  = $_FILES[ <span class="string">'uploaded'</span> ][ <span class="string">'tmp_name'</span> ]; </span><br><span class="line"></span><br><span class="line">    <span class="comment">// Where are we going to be writing to? </span></span><br><span class="line">    $target_path   = DVWA_WEB_PAGE_TO_ROOT . <span class="string">'hackable/uploads/'</span>; </span><br><span class="line">    <span class="comment">//$target_file   = basename( $uploaded_name, '.' . $uploaded_ext ) . '-'; </span></span><br><span class="line">    $target_file   =  md5( uniqid() . $uploaded_name ) . <span class="string">'.'</span> . $uploaded_ext; </span><br><span class="line">    $temp_file     = ( ( ini_get( <span class="string">'upload_tmp_dir'</span> ) == <span class="string">''</span> ) ? ( sys_get_temp_dir() ) : ( ini_get( <span class="string">'upload_tmp_dir'</span> ) ) ); </span><br><span class="line">    $temp_file    .= DIRECTORY_SEPARATOR . md5( uniqid() . $uploaded_name ) . <span class="string">'.'</span> . $uploaded_ext; </span><br><span class="line"></span><br><span class="line">    <span class="comment">// Is it an image? </span></span><br><span class="line">    <span class="keyword">if</span>( ( strtolower( $uploaded_ext ) == <span class="string">'jpg'</span> || strtolower( $uploaded_ext ) == <span class="string">'jpeg'</span> || strtolower( $uploaded_ext ) == <span class="string">'png'</span> ) &amp;&amp; </span><br><span class="line">        ( $uploaded_size &lt; <span class="number">100000</span> ) &amp;&amp; </span><br><span class="line">        ( $uploaded_type == <span class="string">'image/jpeg'</span> || $uploaded_type == <span class="string">'image/png'</span> ) &amp;&amp; </span><br><span class="line">        getimagesize( $uploaded_tmp ) ) &#123; </span><br><span class="line"></span><br><span class="line">        <span class="comment">// Strip any metadata, by re-encoding image (Note, using php-Imagick is recommended over php-GD) </span></span><br><span class="line">        <span class="keyword">if</span>( $uploaded_type == <span class="string">'image/jpeg'</span> ) &#123; </span><br><span class="line">            $img = imagecreatefromjpeg( $uploaded_tmp ); </span><br><span class="line">            imagejpeg( $img, $temp_file, <span class="number">100</span>); </span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">else</span> &#123; </span><br><span class="line">            $img = imagecreatefrompng( $uploaded_tmp ); </span><br><span class="line">            imagepng( $img, $temp_file, <span class="number">9</span>); </span><br><span class="line">        &#125; </span><br><span class="line">        imagedestroy( $img ); </span><br><span class="line"></span><br><span class="line">        <span class="comment">// Can we move the file to the web root from the temp folder? </span></span><br><span class="line">        <span class="keyword">if</span>( rename( $temp_file, ( getcwd() . DIRECTORY_SEPARATOR . $target_path . $target_file ) ) ) &#123; </span><br><span class="line">            <span class="comment">// Yes! </span></span><br><span class="line">            <span class="keyword">echo</span> <span class="string">"&lt;pre&gt;&lt;a href='$&#123;target_path&#125;$&#123;target_file&#125;'&gt;$&#123;target_file&#125;&lt;/a&gt; succesfully uploaded!&lt;/pre&gt;"</span>; </span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">else</span> &#123; </span><br><span class="line">            <span class="comment">// No </span></span><br><span class="line">            <span class="keyword">echo</span> <span class="string">'&lt;pre&gt;Your image was not uploaded.&lt;/pre&gt;'</span>; </span><br><span class="line">        &#125; </span><br><span class="line"></span><br><span class="line">        <span class="comment">// Delete any temp files </span></span><br><span class="line">        <span class="keyword">if</span>( file_exists( $temp_file ) ) </span><br><span class="line">            unlink( $temp_file ); </span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">else</span> &#123; </span><br><span class="line">        <span class="comment">// Invalid file </span></span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'&lt;pre&gt;Your image was not uploaded. We can only accept JPEG or PNG images.&lt;/pre&gt;'</span>; </span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="comment">// Generate Anti-CSRF token </span></span><br><span class="line">generateSessionToken(); </span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p><em>in_get(varname)</em></p>
+<p>函数返回相应选项的值</p>
+<p><em>imagecreatefromjpeg ( filename )</em></p>
+<p>函数返回图片文件的图像标识，失败返回false</p>
+<p><em>imagejpeg ( image , filename , quality)</em></p>
+<p>从image图像以filename为文件名创建一个JPEG图像，可选参数quality，范围从0（最差质量，文件更小）到100（最佳质量，文件最大）。</p>
+<p><em>imagedestroy( img )</em></p>
+<p>函数销毁图像资源</p>
+<p>可以看到，Impossible级别的代码对上传文件进行了重命名（为md5值，导致%00截断无法绕过过滤规则），加入Anti-CSRF token防护CSRF攻击，同时对文件的内容作了严格的检查，导致攻击者无法上传含有恶意脚本的文件。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="wlfsky 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="wlfsky 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    wlfsky
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://wlfsky.com/2018/01/19/DVWA之File-Upload/" title="DVWA之File Upload">http://wlfsky.com/2018/01/19/DVWA之File-Upload/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DVWA教程/" rel="tag"><i class="fa fa-tag"></i> DVWA教程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/19/DVWA之File-Inclusion/" rel="next" title="DVWA之File Inclusion">
+                <i class="fa fa-chevron-left"></i> DVWA之File Inclusion
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/19/DVWA之Insecure-CAPTCHA/" rel="prev" title="DVWA之Insecure CAPTCHA">
+                DVWA之Insecure CAPTCHA <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/cathand.jpg"
+                alt="wlfsky" />
+            
+              <p class="site-author-name" itemprop="name">wlfsky</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+			  <a title="收藏到书签，偶尔High一下^_^" rel="alternate" class="mw-harlem_shake_slow wobble shake" href='javascript:(function() {
+    function c() {
+        var e = document.createElement("link");
+        e.setAttribute("type", "text/css");
+        e.setAttribute("rel", "stylesheet");
+        e.setAttribute("href", f);
+        e.setAttribute("class", l);
+        document.body.appendChild(e)
+    }
+ 
+    function h() {
+        var e = document.getElementsByClassName(l);
+        for (var t = 0; t < e.length; t++) {
+            document.body.removeChild(e[t])
+        }
+    }
+ 
+    function p() {
+        var e = document.createElement("div");
+        e.setAttribute("class", a);
+        document.body.appendChild(e);
+        setTimeout(function() {
+            document.body.removeChild(e)
+        }, 100)
+    }
+ 
+    function d(e) {
+        return {
+            height : e.offsetHeight,
+            width : e.offsetWidth
+        }
+    }
+ 
+    function v(i) {
+        var s = d(i);
+        return s.height > e && s.height < n && s.width > t && s.width < r
+    }
+ 
+    function m(e) {
+        var t = e;
+        var n = 0;
+        while (!!t) {
+            n += t.offsetTop;
+            t = t.offsetParent
+        }
+        return n
+    }
+ 
+    function g() {
+        var e = document.documentElement;
+        if (!!window.innerWidth) {
+            return window.innerHeight
+        } else if (e && !isNaN(e.clientHeight)) {
+            return e.clientHeight
+        }
+        return 0
+    }
+ 
+    function y() {
+        if (window.pageYOffset) {
+            return window.pageYOffset
+        }
+        return Math.max(document.documentElement.scrollTop, document.body.scrollTop)
+    }
+ 
+    function E(e) {
+        var t = m(e);
+        return t >= w && t <= b + w
+    }
+ 
+    function S() {
+        var e = document.createElement("audio");
+        e.setAttribute("class", l);
+        e.src = i;
+        e.loop = false;
+        e.addEventListener("canplay", function() {
+            setTimeout(function() {
+                x(k)
+            }, 500);
+            setTimeout(function() {
+                N();
+                p();
+                for (var e = 0; e < O.length; e++) {
+                    T(O[e])
+                }
+            }, 15500)
+        }, true);
+        e.addEventListener("ended", function() {
+            N();
+            h()
+        }, true);
+        e.innerHTML = " <p>If you are reading this, it is because your browser does not support the audio element. We recommend that you get a new browser.</p> <p>";
+        document.body.appendChild(e);
+        e.play()
+    }
+ 
+    function x(e) {
+        e.className += " " + s + " " + o
+    }
+ 
+    function T(e) {
+        e.className += " " + s + " " + u[Math.floor(Math.random() * u.length)]
+    }
+ 
+    function N() {
+        var e = document.getElementsByClassName(s);
+        var t = new RegExp("\\b" + s + "\\b");
+        for (var n = 0; n < e.length; ) {
+            e[n].className = e[n].className.replace(t, "")
+        }
+    }
+ 
+    var e = 30;
+    var t = 30;
+    var n = 350;
+    var r = 350;
+    var i = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake.mp3";
+    var s = "mw-harlem_shake_me";
+    var o = "im_first";
+    var u = ["im_drunk", "im_baked", "im_trippin", "im_blown"];
+    var a = "mw-strobe_light";
+    var f = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake-style.css";
+    var l = "mw_added_css";
+    var b = g();
+    var w = y();
+    var C = document.getElementsByTagName("*");
+    var k = null;
+    for (var L = 0; L < C.length; L++) {
+        var A = C[L];
+        if (v(A)) {
+            if (E(A)) {
+                k = A;
+                break
+            }
+        }
+    }
+    if (A === null) {
+        console.warn("Could not find a node of the right size. Please try a different page.");
+        return
+    }
+    c();
+    S();
+    var O = [];
+    for (var L = 0; L < C.length; L++) {
+        var A = C[L];
+        if (v(A)) {
+            O.push(A)
+        }
+    }
+})()'><i class="fa fa-music"></i> High</a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/wlfreesky" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:wlfsky@hotmail.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/5484401731" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-weibo"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://music.163.com/#/user/home?id=387055149" target="_blank" title="网易云音乐">
+                    
+                      <i class="fa fa-fw fa-music"></i>网易云音乐</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.freebuf.com/" title="FreeBuf" target="_blank">FreeBuf</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://bbs.ichunqiu.com/portal.php" title="i春秋" target="_blank">i春秋</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://bbs.pediy.com/" title="看雪" target="_blank">看雪</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://loudong.360.cn/" title="补天" target="_blank">补天</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.owasp.org.cn/owasp-project/2017-owasp-top-10" title="OWASP top10" target="_blank">OWASP top10</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://prompt.ml/0" title="prompt(1)" target="_blank">prompt(1)</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.wechall.net/challs" title="WeChall" target="_blank">WeChall</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://redtiger.labs.overthewire.org/" title="RedTiger" target="_blank">RedTiger</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.somd5.com/" title="SOMD5" target="_blank">SOMD5</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://tool.lu/" title="在线工具" target="_blank">在线工具</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.xctf.org.cn/" title="XCTF社区" target="_blank">XCTF社区</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://xsspt.com/index.php?do=login" title="XSS平台" target="_blank">XSS平台</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#DVWA简介"><span class="nav-number">1.</span> <span class="nav-text">DVWA简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#File-Upload"><span class="nav-number">2.</span> <span class="nav-text">File Upload</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Low"><span class="nav-number">3.</span> <span class="nav-text">Low</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#漏洞利用"><span class="nav-number">3.1.</span> <span class="nav-text">漏洞利用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Medium"><span class="nav-number">4.</span> <span class="nav-text">Medium</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#漏洞利用-1"><span class="nav-number">4.1.</span> <span class="nav-text">漏洞利用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#High"><span class="nav-number">5.</span> <span class="nav-text">High</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#漏洞利用-2"><span class="nav-number">5.1.</span> <span class="nav-text">漏洞利用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Impossible"><span class="nav-number">6.</span> <span class="nav-text">Impossible</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wlfsky</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">28.8k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user">本站访客数</i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye">本站总访问量</i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+
+<div id="hexo-helper-live2d">
+  <canvas id="live2dcanvas" width="150" height="300"></canvas>
+</div>
+<style>
+  #live2dcanvas{
+    position: fixed;
+    width: 150px;
+    height: 300px;
+    opacity:0.7;
+    right: 0px;
+    z-index: 999;
+    pointer-events: none;
+    bottom: -20px;
+  }
+</style>
+<script type="text/javascript" src="/live2d/device.min.js"></script>
+<script type="text/javascript">
+const loadScript = function loadScript(c,b){var a=document.createElement("script");a.type="text/javascript";"undefined"!=typeof b&&(a.readyState?a.onreadystatechange=function(){if("loaded"==a.readyState||"complete"==a.readyState)a.onreadystatechange=null,b()}:a.onload=function(){b()});a.src=c;document.body.appendChild(a)};
+(function(){
+  if((typeof(device) != 'undefined') && (device.mobile())){
+    document.getElementById("live2dcanvas").style.width = '75px';
+    document.getElementById("live2dcanvas").style.height = '150px';
+  }else
+    if (typeof(device) === 'undefined') console.error('Cannot find current-device script.');
+  loadScript("/live2d/script.js", function(){loadlive2d("live2dcanvas", "/live2d/assets/wanko.model.json", 0.5);});
+})();
+</script>
+
+
+</body>
+</html>
