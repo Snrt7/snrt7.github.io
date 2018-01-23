@@ -92,7 +92,7 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="清沐园 | wlfsky" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="WLFSKY" type="application/atom+xml" />
 
 
 
@@ -104,10 +104,10 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="SQL注入技术">
 <meta property="og:url" content="http://wlfsky.com/2018/01/15/SQL注入技术/index.html">
-<meta property="og:site_name" content="清沐园 | wlfsky">
+<meta property="og:site_name" content="WLFSKY">
 <meta property="og:description" content="作者：wlfsky 格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-17T10:03:25.988Z">
+<meta property="og:updated_time" content="2018-01-20T15:56:53.747Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SQL注入技术">
 <meta name="twitter:description" content="作者：wlfsky 格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采">
@@ -146,7 +146,7 @@
 
 
 
-  <title>SQL注入技术 | 清沐园 | wlfsky</title>
+  <title>SQL注入技术 | WLFSKY</title>
   
 
 
@@ -177,7 +177,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">清沐园 | wlfsky</span>
+        <span class="site-title">WLFSKY</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -228,6 +228,16 @@
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
             归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-ctf">
+          <a href="/ctf/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-flag-checkered"></i> <br />
+            
+            CTF
           </a>
         </li>
       
@@ -299,11 +309,11 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="wlfsky">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/cathand.jpg">
+      <meta itemprop="image" content="https://source.unsplash.com/random/200x200">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="清沐园 | wlfsky">
+      <meta itemprop="name" content="WLFSKY">
     </span>
 
     
@@ -339,8 +349,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-01-17T18:03:25+08:00">
-                2018-01-17
+              <time title="更新于" itemprop="dateModified" datetime="2018-01-20T23:56:53+08:00">
+                2018-01-20
               </time>
             
           </span>
@@ -394,7 +404,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,992
+                  2,377
                 </span>
               
 
@@ -410,7 +420,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  8
+                  10
                 </span>
               
             </div>
@@ -609,6 +619,12 @@
 </ul>
 </li>
 </ul>
+<h3 id="SQL宽字节注入详解"><a href="#SQL宽字节注入详解" class="headerlink" title="SQL宽字节注入详解"></a>SQL宽字节注入详解</h3><p><strong><em>addslashes() 函数返回在预定义字符之前添加反斜杠的字符串。</em></strong>导致<code>&#39;</code> 变成了<code>\&#39;</code> 。一般的绕过方式就是处理前面的<code>\</code> 。</p>
+<p>宽字节注入是利用mysql的一个特性，mysql在使用GBK编码的时候，会认为两个字符是一个汉字（前面一个ascii码要大于128，才到汉字的范围）。如果我们输入%df，则%df和单引号前面的反斜杠（%5c）变成了一个汉字“運”，导致反斜杠后面的单引号逃逸出来。</p>
+<p><strong><em>mysql_real_escape_string() 函数转义 SQL 语句中使用的字符串中的特殊字符。</em></strong></p>
+<p>mysql_real_escape_string() 函数并不能抵御宽字节注入，因为没有指定PHP连接MySQL的字符集。我们需要在执行SQL语句之前条用一下<strong><em>mysql_set_charset() 函数</em></strong>，设置当前连接的字符集为GBK就可以避免这个问题了。</p>
+<p><strong>防止宽字节注入</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.gbk编码造成的宽字符注入问题，解决方法是设置character_set_client=binary。</span><br><span class="line">2.矫正人们对于mysql_real_escape_string的误解，单独调用set name=gbk和mysql_real_escape_string是无法避免宽字符注入问题的。还得调用mysql_set_charset来设置一下字符集。</span><br><span class="line">3.谨慎使用iconv来转换字符串编码，很容易出现问题。只要我们把前端html/js/css所有编码设置成gbk，mysql/php编码设置成gbk，就不会出现乱码问题。不用画蛇添足地去调用iconv转换编码，造成不必要的麻烦。</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -791,7 +807,7 @@ var jiathis_config={
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
-                src="/images/cathand.jpg"
+                src="https://source.unsplash.com/random/200x200"
                 alt="wlfsky" />
             
               <p class="site-author-name" itemprop="name">wlfsky</p>
@@ -805,7 +821,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1029,64 +1045,6 @@ var jiathis_config={
 
           
           
-            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
-              <div class="links-of-blogroll-title">
-                <i class="fa  fa-fw fa-globe"></i>
-                Links
-              </div>
-              <ul class="links-of-blogroll-list">
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="http://www.freebuf.com/" title="FreeBuf" target="_blank">FreeBuf</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://bbs.ichunqiu.com/portal.php" title="i春秋" target="_blank">i春秋</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://bbs.pediy.com/" title="看雪" target="_blank">看雪</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="http://loudong.360.cn/" title="补天" target="_blank">补天</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="http://www.owasp.org.cn/owasp-project/2017-owasp-top-10" title="OWASP top10" target="_blank">OWASP top10</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="http://prompt.ml/0" title="prompt(1)" target="_blank">prompt(1)</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="http://www.wechall.net/challs" title="WeChall" target="_blank">WeChall</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="http://redtiger.labs.overthewire.org/" title="RedTiger" target="_blank">RedTiger</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://www.somd5.com/" title="SOMD5" target="_blank">SOMD5</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://tool.lu/" title="在线工具" target="_blank">在线工具</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://www.xctf.org.cn/" title="XCTF社区" target="_blank">XCTF社区</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="http://xsspt.com/index.php?do=login" title="XSS平台" target="_blank">XSS平台</a>
-                  </li>
-                
-              </ul>
-            </div>
-          
 
           
 
@@ -1103,7 +1061,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是SQL注入"><span class="nav-number">1.</span> <span class="nav-text">什么是SQL注入</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL注入基本介绍"><span class="nav-number">1.1.</span> <span class="nav-text">SQL注入基本介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL注入产生的原因"><span class="nav-number">1.2.</span> <span class="nav-text">SQL注入产生的原因</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL注入攻击方式"><span class="nav-number">2.</span> <span class="nav-text">SQL注入攻击方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何进行SQL注入攻击"><span class="nav-number">3.</span> <span class="nav-text">如何进行SQL注入攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL注入攻击中常用的一些参数"><span class="nav-number">3.1.</span> <span class="nav-text">SQL注入攻击中常用的一些参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL注入攻击的步骤"><span class="nav-number">3.2.</span> <span class="nav-text">SQL注入攻击的步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Error-based-SQL-injection"><span class="nav-number">3.2.1.</span> <span class="nav-text">Error-based SQL injection</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#UNION-query-SQL-injection"><span class="nav-number">3.2.2.</span> <span class="nav-text">UNION query SQL injection</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Boolean-based-blind-SQL-injection"><span class="nav-number">3.2.3.</span> <span class="nav-text">Boolean-based blind SQL injection</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Time-based-blind-SQL-injection"><span class="nav-number">3.2.4.</span> <span class="nav-text">Time-based blind SQL injection</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是SQL注入"><span class="nav-number">1.</span> <span class="nav-text">什么是SQL注入</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL注入基本介绍"><span class="nav-number">1.1.</span> <span class="nav-text">SQL注入基本介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL注入产生的原因"><span class="nav-number">1.2.</span> <span class="nav-text">SQL注入产生的原因</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL注入攻击方式"><span class="nav-number">2.</span> <span class="nav-text">SQL注入攻击方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何进行SQL注入攻击"><span class="nav-number">3.</span> <span class="nav-text">如何进行SQL注入攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL注入攻击中常用的一些参数"><span class="nav-number">3.1.</span> <span class="nav-text">SQL注入攻击中常用的一些参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL注入攻击的步骤"><span class="nav-number">3.2.</span> <span class="nav-text">SQL注入攻击的步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Error-based-SQL-injection"><span class="nav-number">3.2.1.</span> <span class="nav-text">Error-based SQL injection</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#UNION-query-SQL-injection"><span class="nav-number">3.2.2.</span> <span class="nav-text">UNION query SQL injection</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Boolean-based-blind-SQL-injection"><span class="nav-number">3.2.3.</span> <span class="nav-text">Boolean-based blind SQL injection</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Time-based-blind-SQL-injection"><span class="nav-number">3.2.4.</span> <span class="nav-text">Time-based blind SQL injection</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL宽字节注入详解"><span class="nav-number">4.</span> <span class="nav-text">SQL宽字节注入详解</span></a></li></ol></div>
             
 
           </div>
@@ -1137,7 +1095,7 @@ var jiathis_config={
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">28.8k</span>
+    <span title="Site words total count">33.2k</span>
   
 </div>
 

