@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/CNfavicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/CNfavicon.ico?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="web安全,PHP安全,文件包含漏洞," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="WLFSKY" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="作者：wlfsky 格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采">
+<meta name="keywords" content="web安全,PHP安全,文件包含漏洞">
+<meta property="og:type" content="article">
+<meta property="og:title" content="精读《白帽子讲Web安全》十">
+<meta property="og:url" content="http://wlfsky.com/2018/01/29/精读《白帽子讲Web安全》十/index.html">
+<meta property="og:site_name" content="WLFSKY">
+<meta property="og:description" content="作者：wlfsky 格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-01-29T07:58:49.407Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="精读《白帽子讲Web安全》十">
+<meta name="twitter:description" content="作者：wlfsky 格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://wlfsky.com/2018/01/29/精读《白帽子讲Web安全》十/"/>
+
+
+
+
+
+  <title>精读《白帽子讲Web安全》十 | WLFSKY</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/wlfreesky"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WLFSKY</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">我们终其一生都在寻找</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-ctf">
+          <a href="/ctf/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-flag-checkered"></i> <br />
+            
+            CTF
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-life">
+          <a href="/life/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            生活
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wlfsky.com/2018/01/29/精读《白帽子讲Web安全》十/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wlfsky">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://source.unsplash.com/random/200x200">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WLFSKY">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">精读《白帽子讲Web安全》十</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-29T11:05:00+08:00">
+                2018-01-29
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-01-29T15:58:49+08:00">
+                2018-01-29
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-book"> 本文总阅读量</i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,680
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  10
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <pre><code>作者：wlfsky
+格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采
+</code></pre><a id="more"></a>
+<hr>
+<h2 id="十四、PHP安全"><a href="#十四、PHP安全" class="headerlink" title="十四、PHP安全"></a>十四、PHP安全</h2><h3 id="文件包含漏洞"><a href="#文件包含漏洞" class="headerlink" title="文件包含漏洞"></a>文件包含漏洞</h3><p>严格来说，文件包含漏洞是“代码注入”的一种。“代码注入”的典型代表就是文件包含（File Inclusion）。文件包含可能会出现在 JSP、PHP、ASP等语言中，常见的导致文件包含的函数如下：</p>
+<ul>
+<li>PHP：include(), include_once(), require(), require_once(), fopen(), readfile(), …</li>
+<li>JSP/Servlet：ava.io.File(), java.io.FileReader(), …</li>
+<li>ASP：include file, include virtual, …</li>
+</ul>
+<p>文件包含是PHP的一种常见用法，主要由四个函数完成：include()、require()、include_once()、require_once()。当使用这4个函数包含一个新的文件时，<strong>该文件将作为PHP代码执行，PHP内核并不会在意该被包含的文件是什么类型。</strong>所以如果被包含的是txt文件、图片文件、远程URL，也都将作为PHP代码执行。这一特性，在攻击中将非常有用。</p>
+<p>要想成功利用文件包含漏洞，需要满足下面两个条件：</p>
+<ol>
+<li>include()等函数通过动态变量的方式引入需要包含的文件；</li>
+<li>用户能够控制该动态变量。</li>
+</ol>
+<p><strong>本地文件包含</strong></p>
+<p>能够打开并包含本地文件的漏洞，被称为本地文件包含漏洞（Local File Inclusion，简称LFI）。字符串截断的技巧%00，也是文件包含中最常用的技巧。若将0字节禁用，则可以利用操作系统对目录最大长度的限制，可以不需要0字节而达到截断的目的。目录字符串，在Windows下256字节、Linux下4096字节时会达到最大值，最大值长度之后的字符将被丢弃。通过<code>./././././abc</code>或者<code>/////////abc</code>或者<code>../1/abc/../1/abc/../1/abc/</code>。除了include()等四个函数外，PHP中能够对文件进行操作的函数都有可能出现漏洞。虽然大多数情况下不能执行PHP代码，但能够读取敏感文件带来的后果也是比较严重的。如：fopen()、fread()……</p>
+<p>利用<code>../../../</code>这样的方式来返回到上层目录中，这种方法又被称为“目录遍历（Path Traversal）”。常见的目录遍历漏洞，还可以通过不同放入编码方式来绕过一些服务器端漏洞。</p>
+<ul>
+<li>%2e%2e%2f等同于../</li>
+<li>%2e%2e/等同于../</li>
+</ul>
+<p>目录遍历漏洞是一种跨越目录读取文件的方法，但当PHP配置了open_basedir时，将很好地保护服务器，使得这种攻击无效。open_basedir的作用是限制在某个特定目录下PHP能打开的文件，其作用与safe_mode是否开启无关。</p>
+<p>要解决文件包含漏洞，应该尽量避免包含动态的变量，尤其是用户可以控制的变量。使用枚举是个不错的办法。</p>
+<p><strong>远程文件包含</strong></p>
+<p>如果PHP的配置选项allow_url_include为ON的话，则include/require函数是可以加载远程文件的，这种漏洞被称为远程文件包含漏洞（Remote File Inclusion，简称RFI）。问号后面的代码被解释成URL的querystring，也是一种“截断”，这是在利用远程文件包含漏洞时的常见技巧。同样的，%00也可以用做截断符号。</p>
+<p>远程文件包含漏洞可以直接用来执行任意命令。</p>
+<p><strong>本地文件包含的利用技巧</strong></p>
+<p>本地文件包含漏洞，其实也是有机会执行PHP代码的，这取决于一些条件。远程文件包含漏洞之所以能够执行命令，就是因为攻击者能够上传自定义被包含的文件内容。因此本地文件包含漏洞想要执行命令，也需要找到一个攻击者能够控制内容的本地文件。</p>
+<p>以下几种常见的技巧，用于本地文件包含后执行PHP代码：</p>
+<ol>
+<li>包含用户上传的文件。</li>
+<li>包含data://或php://input等伪协议。</li>
+<li>包含Session文件。</li>
+<li>包含日志文件，比如Web Server的access log。</li>
+<li>包含/proc/self/environ文件。</li>
+<li>包含上传的临时文件（RFC1867）。</li>
+<li>包含其它应用创建的文件，比如数据库文件、缓存文件、应用日志等，需要具体情况具体分析。</li>
+</ol>
+<p>包含用户上传文件很好理解，这也是最简单的一种方法。用户上传的文件内容如果包含了PHP代码，那么这些代码被include()加载后将会执行。但包含用户上传文件能否攻击成功，取决于文件上传功能的设计，比如要求知道用户上传后文件所在的物理路径等。</p>
+<p>伪协议如php://input等需要服务器支持，同时要求allow_url_include设置为ON。在PHP 5.2.0之后的版本中支持data:伪协议，可以很方便地执行代码，它同样要求allow_url_include为ON。</p>
+<p>包含Session文件的条件也较为苛刻，它需要攻击者能控制部分Session文件的内容。PHP默认生成的Session文件往往存放在/tmp目录下。</p>
+<p>包含日志文件是一种比较通用的技巧。因为服务器一般都会往Web Server的access_log里记录客户端的请求信息，在error_log里记录出错请求。因此攻击者可以间接地将PHP代码写入到日志文件中，在文件包含时，只需要包含日志文件即可。</p>
+<p>包含/proc/self/environ是一种更为通用的方法，因为它根本不需要猜测被包含文件的路径，同时用户也能控制它的内容。</p>
+<p>以上这些方法，都要求PHP能够包含这些文件，而这些文件往往都处于Web目录之外，如果PHP配置了open_basedir，则很可能会使得攻击失效。</p>
+<p>但PHP创建的上传临时文件，往往处于PHP允许访问的目录范围内。包含这个临时文件的方法，其理论意义大于实际意义。PHP会为上传文件创建临时文件，其目录在php.ini的upload_tmp_dir中定义。但该值默认为空，此时在Linux下会使用/tmp目录，在windows下会使用C:\windows\temp目录该临时文件的文件名是随机的，攻击者必须准确的猜测出该文件名才能成功利用漏洞。PHP在此处并没有使用安全的随机函数，因此使得暴力猜解成为可能。在Windows下，仅有65535种不同的文件名。</p>
+<h3 id="变量覆盖漏洞"><a href="#变量覆盖漏洞" class="headerlink" title="变量覆盖漏洞"></a>变量覆盖漏洞</h3><p><strong>全局变量覆盖</strong></p>
+<p>变量如果未被初始化，且能被用户所控制，那么很可能会导致安全问题。而在PHP中，这种情况在register_globals为ON时尤其严重。</p>
+<p><strong>extract()变量覆盖</strong></p>
+<p>extract()函数能将变量从数组导入当前的符号表，其函数定义如下：</p>
+<p><code>int extract (array $var_array [, int $extract_type [, string $prefix]])</code></p>
+<p>其中，第二个参数指定函数将变量导入符号表的行为，最常见的两个值是“EXTR_OVERWRITE”和“EXTR_SKIP”。</p>
+<p>当值为“EXTR_OVERWRITE”时，再将变量导入符号表的过程中，如果变量名发生冲突，则覆盖已有变量；值为“EXTR_SKIP”则表示跳过不覆盖。若第二个参数未指定，则在默认情况下使用“EXTR_OVERWRITE”。</p>
+<p><strong>遍历初始化变量</strong></p>
+<p>常见的一些以遍历的方式释放变量的代码，可能会导致变量覆盖。</p>
+<p><strong>import_request_variables变量覆盖</strong></p>
+<p><strong>parse_str()变量覆盖</strong></p>
+<p>parse_str()函数往往被用于解析URL的query string，但是当参数值能被用户控制时，很可能导致变量覆盖。</p>
+<p><strong>安全建议</strong></p>
+<ul>
+<li>首先，确保register_globals=OFF。若不能自定义php.ini，则应该在代码中控制。</li>
+<li>其次，熟悉可能造成变量覆盖的函数和方法，检查用户是否能够控制变量的来源。</li>
+<li>最后，养成初始化变量的好习惯。</li>
+</ul>
+<h3 id="代码执行漏洞"><a href="#代码执行漏洞" class="headerlink" title="代码执行漏洞"></a>代码执行漏洞</h3><p><strong>“危险函数”执行代码</strong></p>
+<p>危险函数popen()、system()、passthru()、exec()等都可以直接执行系统命令。此外，eval()函数也可以执行PHP代码。<strong>挖掘漏洞的过程，通常需要先找到危险函数，然后回溯函数的调用过程，最终看在整个调用的过程中用户是否有可能控制输入。</strong></p>
+<ul>
+<li>phpMyAdmin 3.4.3.1 远程代码执行漏洞</li>
+<li>MyBB 1.4 远程代码执行漏洞</li>
+</ul>
+<p><strong>“文件写入”执行代码</strong></p>
+<p><strong>其他执行代码方法</strong></p>
+<ul>
+<li>直接执行代码的函数：eval()、assert()、system()、exec()、shell_exec()、passthru()、escapeshellcmd()、pcntl_exec()等。</li>
+<li>文件包含：include()、include_once()、require()、require_once()。</li>
+<li>本地文件写入：file_put_contents()、fwrite()、fputs()等。</li>
+<li>preg_replace()代码执行：当preg_replace()的第一个参数中包含了/e时，用户无论是控制了第二个参数还是第三个参数，都可以导致代码执行。</li>
+<li>动态函数执行</li>
+<li>Curly Syntax：将执行花括号间的代码，并将结果替换回去。</li>
+<li>回调函数执行代码：ob_start()等。</li>
+<li>onserialize()导致代码执行：unserialize()这个函数将序列化的数据重新映射为PHP变量。但是在执行时如果定义了<code>__destruct()</code>函数，或者是 <code>__wakeup()</code>函数，则这两个函数将执行。</li>
+</ul>
+<h3 id="定制安全的PHP环境"><a href="#定制安全的PHP环境" class="headerlink" title="定制安全的PHP环境"></a>定制安全的PHP环境</h3><p>除了熟悉各种PHP漏洞外，还可以通过配置php.ini来加固PHP的运行环境。</p>
+<ul>
+<li>register_globals：当为ON时，PHP不知道变量从何而来，也容易出现一些变量覆盖的问题。故强烈建议register_globals=OFF</li>
+<li>open_basedir：可以限制PHP只能操作指定目录下的文件。在对抗文件包含、目录遍历等攻击时非常有用。</li>
+<li>allow_url_include：为了对抗文件包含，请关闭此选项，同时建议关闭allow_url_fopen。</li>
+<li>display_errors：错误回显，一般常用于开发。推荐关闭此选项。</li>
+<li>log_errors：在正式环境下用这个就行了，把错误信息记录在日志里。正好可以关闭错误回显。</li>
+<li>magic_quotes_gpc：推荐关闭，不值得依赖，有若干种方法可以绕过，甚至可以衍生出新的安全问题。同时关闭它还能提高性能。</li>
+<li>cgi.fix_pathinfo：若PHP以CGI的方式安装，则需要关闭此项，以避免出现文件解析问题。</li>
+<li>session.cookie_httponly：开启HttpOnly。</li>
+<li>session.cookie_secure：若是全站HTTPS则请开启此项。</li>
+<li>safe_mode：如果是共享环境（如App Engine），则建议开启，可以和disable_functions配合使用；如果是单独的应用环境，则可以考虑关闭它，更多地依赖disable_functions控制运行环境安全。</li>
+<li>disable_functions：能够在PHP中禁用函数。是一把双刃剑。如果是独立的应用环境，则禁用一些函数；如果是共享环境，则需要禁用更多的函数。参考新浪的SAE平台。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="wlfsky 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="wlfsky 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    wlfsky
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://wlfsky.com/2018/01/29/精读《白帽子讲Web安全》十/" title="精读《白帽子讲Web安全》十">http://wlfsky.com/2018/01/29/精读《白帽子讲Web安全》十/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/web安全/" rel="tag"><i class="fa fa-tag"></i> web安全</a>
+          
+            <a href="/tags/PHP安全/" rel="tag"><i class="fa fa-tag"></i> PHP安全</a>
+          
+            <a href="/tags/文件包含漏洞/" rel="tag"><i class="fa fa-tag"></i> 文件包含漏洞</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/28/精读《白帽子讲Web安全》九/" rel="next" title="精读《白帽子讲Web安全》九">
+                <i class="fa fa-chevron-left"></i> 精读《白帽子讲Web安全》九
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/29/精读《白帽子讲Web安全》十一/" rel="prev" title="精读《白帽子讲Web安全》十一">
+                精读《白帽子讲Web安全》十一 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://source.unsplash.com/random/200x200"
+                alt="wlfsky" />
+            
+              <p class="site-author-name" itemprop="name">wlfsky</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+			  <a title="收藏到书签，偶尔High一下^_^" rel="alternate" class="mw-harlem_shake_slow wobble shake" href='javascript:(function() {
+    function c() {
+        var e = document.createElement("link");
+        e.setAttribute("type", "text/css");
+        e.setAttribute("rel", "stylesheet");
+        e.setAttribute("href", f);
+        e.setAttribute("class", l);
+        document.body.appendChild(e)
+    }
+ 
+    function h() {
+        var e = document.getElementsByClassName(l);
+        for (var t = 0; t < e.length; t++) {
+            document.body.removeChild(e[t])
+        }
+    }
+ 
+    function p() {
+        var e = document.createElement("div");
+        e.setAttribute("class", a);
+        document.body.appendChild(e);
+        setTimeout(function() {
+            document.body.removeChild(e)
+        }, 100)
+    }
+ 
+    function d(e) {
+        return {
+            height : e.offsetHeight,
+            width : e.offsetWidth
+        }
+    }
+ 
+    function v(i) {
+        var s = d(i);
+        return s.height > e && s.height < n && s.width > t && s.width < r
+    }
+ 
+    function m(e) {
+        var t = e;
+        var n = 0;
+        while (!!t) {
+            n += t.offsetTop;
+            t = t.offsetParent
+        }
+        return n
+    }
+ 
+    function g() {
+        var e = document.documentElement;
+        if (!!window.innerWidth) {
+            return window.innerHeight
+        } else if (e && !isNaN(e.clientHeight)) {
+            return e.clientHeight
+        }
+        return 0
+    }
+ 
+    function y() {
+        if (window.pageYOffset) {
+            return window.pageYOffset
+        }
+        return Math.max(document.documentElement.scrollTop, document.body.scrollTop)
+    }
+ 
+    function E(e) {
+        var t = m(e);
+        return t >= w && t <= b + w
+    }
+ 
+    function S() {
+        var e = document.createElement("audio");
+        e.setAttribute("class", l);
+        e.src = i;
+        e.loop = false;
+        e.addEventListener("canplay", function() {
+            setTimeout(function() {
+                x(k)
+            }, 500);
+            setTimeout(function() {
+                N();
+                p();
+                for (var e = 0; e < O.length; e++) {
+                    T(O[e])
+                }
+            }, 15500)
+        }, true);
+        e.addEventListener("ended", function() {
+            N();
+            h()
+        }, true);
+        e.innerHTML = " <p>If you are reading this, it is because your browser does not support the audio element. We recommend that you get a new browser.</p> <p>";
+        document.body.appendChild(e);
+        e.play()
+    }
+ 
+    function x(e) {
+        e.className += " " + s + " " + o
+    }
+ 
+    function T(e) {
+        e.className += " " + s + " " + u[Math.floor(Math.random() * u.length)]
+    }
+ 
+    function N() {
+        var e = document.getElementsByClassName(s);
+        var t = new RegExp("\\b" + s + "\\b");
+        for (var n = 0; n < e.length; ) {
+            e[n].className = e[n].className.replace(t, "")
+        }
+    }
+ 
+    var e = 30;
+    var t = 30;
+    var n = 350;
+    var r = 350;
+    var i = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake.mp3";
+    var s = "mw-harlem_shake_me";
+    var o = "im_first";
+    var u = ["im_drunk", "im_baked", "im_trippin", "im_blown"];
+    var a = "mw-strobe_light";
+    var f = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake-style.css";
+    var l = "mw_added_css";
+    var b = g();
+    var w = y();
+    var C = document.getElementsByTagName("*");
+    var k = null;
+    for (var L = 0; L < C.length; L++) {
+        var A = C[L];
+        if (v(A)) {
+            if (E(A)) {
+                k = A;
+                break
+            }
+        }
+    }
+    if (A === null) {
+        console.warn("Could not find a node of the right size. Please try a different page.");
+        return
+    }
+    c();
+    S();
+    var O = [];
+    for (var L = 0; L < C.length; L++) {
+        var A = C[L];
+        if (v(A)) {
+            O.push(A)
+        }
+    }
+})()'><i class="fa fa-music"></i> High</a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/wlfreesky" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:wlfsky@hotmail.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/5484401731" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-weibo"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://music.163.com/#/user/home?id=387055149" target="_blank" title="网易云音乐">
+                    
+                      <i class="fa fa-fw fa-music"></i>网易云音乐</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#十四、PHP安全"><span class="nav-number">1.</span> <span class="nav-text">十四、PHP安全</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文件包含漏洞"><span class="nav-number">1.1.</span> <span class="nav-text">文件包含漏洞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量覆盖漏洞"><span class="nav-number">1.2.</span> <span class="nav-text">变量覆盖漏洞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码执行漏洞"><span class="nav-number">1.3.</span> <span class="nav-text">代码执行漏洞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定制安全的PHP环境"><span class="nav-number">1.4.</span> <span class="nav-text">定制安全的PHP环境</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wlfsky</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">54.7k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user">本站访客数</i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye">本站总访问量</i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+
+<div id="hexo-helper-live2d">
+  <canvas id="live2dcanvas" width="150" height="300"></canvas>
+</div>
+<style>
+  #live2dcanvas{
+    position: fixed;
+    width: 150px;
+    height: 300px;
+    opacity:0.7;
+    right: 0px;
+    z-index: 999;
+    pointer-events: none;
+    bottom: -20px;
+  }
+</style>
+<script type="text/javascript" src="/live2d/device.min.js"></script>
+<script type="text/javascript">
+const loadScript = function loadScript(c,b){var a=document.createElement("script");a.type="text/javascript";"undefined"!=typeof b&&(a.readyState?a.onreadystatechange=function(){if("loaded"==a.readyState||"complete"==a.readyState)a.onreadystatechange=null,b()}:a.onload=function(){b()});a.src=c;document.body.appendChild(a)};
+(function(){
+  if((typeof(device) != 'undefined') && (device.mobile())){
+    document.getElementById("live2dcanvas").style.width = '75px';
+    document.getElementById("live2dcanvas").style.height = '150px';
+  }else
+    if (typeof(device) === 'undefined') console.error('Cannot find current-device script.');
+  loadScript("/live2d/script.js", function(){loadlive2d("live2dcanvas", "/live2d/assets/wanko.model.json", 0.5);});
+})();
+</script>
+
+
+</body>
+</html>

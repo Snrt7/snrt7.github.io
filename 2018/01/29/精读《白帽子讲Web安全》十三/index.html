@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/CNfavicon.ico?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/CNfavicon.ico?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="web安全,安全开发流程SDL,安全运营," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="WLFSKY" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="作者：wlfsky 格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采">
+<meta name="keywords" content="web安全,安全开发流程SDL,安全运营">
+<meta property="og:type" content="article">
+<meta property="og:title" content="精读《白帽子讲Web安全》十三">
+<meta property="og:url" content="http://wlfsky.com/2018/01/29/精读《白帽子讲Web安全》十三/index.html">
+<meta property="og:site_name" content="WLFSKY">
+<meta property="og:description" content="作者：wlfsky 格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-01-29T15:20:18.692Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="精读《白帽子讲Web安全》十三">
+<meta name="twitter:description" content="作者：wlfsky 格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://wlfsky.com/2018/01/29/精读《白帽子讲Web安全》十三/"/>
+
+
+
+
+
+  <title>精读《白帽子讲Web安全》十三 | WLFSKY</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/wlfreesky"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WLFSKY</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">我们终其一生都在寻找</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-ctf">
+          <a href="/ctf/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-flag-checkered"></i> <br />
+            
+            CTF
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-life">
+          <a href="/life/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            生活
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wlfsky.com/2018/01/29/精读《白帽子讲Web安全》十三/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wlfsky">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://source.unsplash.com/random/200x200">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WLFSKY">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">精读《白帽子讲Web安全》十三</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-29T20:32:20+08:00">
+                2018-01-29
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-01-29T23:20:18+08:00">
+                2018-01-29
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-book"> 本文总阅读量</i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,812
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  10
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <pre><code>作者：wlfsky
+格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采
+</code></pre><a id="more"></a>
+<hr>
+<h2 id="十七、安全开发流程（SDL）"><a href="#十七、安全开发流程（SDL）" class="headerlink" title="十七、安全开发流程（SDL）"></a>十七、安全开发流程（SDL）</h2><p>安全开发流程，能够帮助企业以最小的成本提高产品的安全性。它符合“Secure at the Source”的战略思想。实施好安全开发流程，对企业安全的发展来说，可以起到事半功倍的效果。</p>
+<h3 id="SDL简介"><a href="#SDL简介" class="headerlink" title="SDL简介"></a>SDL简介</h3><p>SDL的全称是Security Development Lifecucle，即：安全开发生命周期。它是由微软最早提出的，在软件工程中实施，是帮助解决软件安全问题的办法。</p>
+<p>SDL的过程大致分为16个阶段（优化后）：</p>
+<ol>
+<li>培训：核心安全培训</li>
+<li>安全要求：确定安全的要求和需要做的事情。</li>
+<li>质量门/bug栏：确定安全和隐私质量的最低可接受级别。</li>
+<li>安全和隐私风险评估：安全风险评估（SRA）和隐私风险评估（PRA）是一个必需的过程。用于确定软件中需要深入评析的功能环节。</li>
+<li>设计要求：在设计阶段应仔细考虑安全和隐私问题。</li>
+<li>减小攻击面：通过减少攻击者利用潜在弱点或漏洞的机会来降低风险。包括关闭或限制对系统服务的访问，应用“最小权限原则”，以及尽可能地进行分层防御。</li>
+<li>威胁建模：为项目或产品面临的威胁建立模型，明确可能来自的攻击有哪些方面。</li>
+<li>使用指定的工具：在工具的使用上提前和安全团队进行沟通。</li>
+<li>弃用不安全的函数：禁用不安全的函数或API，使用安全团队推荐的函数。</li>
+<li>静态分析：代码静态分析可以由相关工具辅助完成，其结果与人工相结合。</li>
+<li>动态程序分析：是静态的补充，用于测试环节验证程序的安全性。</li>
+<li>模糊测试（Fuzzing Test）：是一种专门形式的动态分析，它通过故意向应用程序引入不良格式或随机数据诱发程序故障。</li>
+<li>威胁模型和攻击面评析：项目经常因为需求变更等因素导致最终的产出偏离原本的设定，因此在项目后期重新对威胁模型和攻击面进行评析是有必要的，能够及时发现问题并修正。</li>
+<li>事件响应计划：受SDL要求约束的每个软件在发布时都必须包含事件响应计划。</li>
+<li>最终安全评析：在发布之前仔细检查对软件执行的所有安全活动。</li>
+<li>发布/存档：在产品发布的同事仍需对各类问题和文档进行存档，为紧急响应和产品升级提供帮助。</li>
+</ol>
+<p>相对于微软的SDL，OWASP退出了SAMM（Software Assurance Maturity Model），帮助开发者在软件工程的过程中实施安全。</p>
+<p>SDL和SAMM的主要区别在于：SDL适用于软件开发商，他们以贩售软件为主要业务；而SAMM更适用于自主开发软件的使用者，如银行或在线服务提供商。</p>
+<h3 id="敏捷SDL"><a href="#敏捷SDL" class="headerlink" title="敏捷SDL"></a>敏捷SDL</h3><h3 id="SDL实战经验"><a href="#SDL实战经验" class="headerlink" title="SDL实战经验"></a>SDL实战经验</h3><p>准则一：与项目经理进行充分沟通，排出足够的时间。</p>
+<p>准则二：规范公司的立项流程，确保所有项目都能通知到安全团队，避免遗漏。</p>
+<p>准则三：树立安全部门的权威，项目必须由安全部门审核完成后才能发布。</p>
+<p>准则四：将技术方案写入开发、测试的工作手册中。</p>
+<p>准则五：给工程师培训安全方案。</p>
+<p>准则六：记录所有的安全bug，激励程序员编写安全的代码。</p>
+<h3 id="需求分析与设计阶段"><a href="#需求分析与设计阶段" class="headerlink" title="需求分析与设计阶段"></a>需求分析与设计阶段</h3><p>需求分析阶段与设计阶段是项目的初始阶段。需求分析阶段将论证项目的目标、可行性、实现方向等问题。在需求阶段，安全工程师需要关心产品主要功能上的安全强度和安全体验是否足够，主要需要思考安全功能。“安全功能”是指产品本身提供给用户的安全功能，比如数字证书、密码取回问题等功能。而“安全的功能”，则指在产品具体功能的实现上要做到安全，不要出现漏洞而被黑客利用。</p>
+<p>在需求分析阶段，可以对项目经理、产品经理或架构师进行访谈，以了解产品背景和技术架构，并给出相应的建议。</p>
+<h3 id="开发阶段"><a href="#开发阶段" class="headerlink" title="开发阶段"></a>开发阶段</h3><p><strong>提供安全的函数</strong></p>
+<p>讲安全方案写入开发规范中，就真正地让安全方案落了地。</p>
+<p><strong>代码安全审计工具</strong></p>
+<p>并非直接检查代码是否安全，而是检查开发者是否遵守了开发规范。</p>
+<h3 id="测试阶段"><a href="#测试阶段" class="headerlink" title="测试阶段"></a>测试阶段</h3><p>在此阶段需要对产品进行充分的安全测试，验证需求分析、设计阶段的安全功能是否符合预期目标，并验证在开发阶段发现的所有安全问题是否得到解决。</p>
+<p>安全测试一般应该独立于代码审计而存在。“安全测试”相对于“代码审计”而言，至少有两个好处：一是有一些代码逻辑较为复杂，通过代码审计难以发现所有问题，而通过安全测试可以将问题看的更清楚；二是有一些逻辑漏洞通过安全测试，可以更快地得到结果。</p>
+<p>安全测试，一般分为自动化测试和手动测试两种方法。自动化测试以覆盖性的测试为目的，可以通过“Web安全扫描器”对项目或产品进行漏洞扫描。</p>
+<p>目前Web安全扫描器针对“XSS”、“SQL Injection”、“Open Redirect”、“PHP File Include”等漏洞检测技术已经比较成熟。这是因为这些漏洞的检测方法主要是检测返回结果的字符串特征。而对于“CSRF”、“越权访问”、“文件上传”等漏洞，却难以达到自动化检测的效果。这是因为这些漏洞涉及系统逻辑或业务逻辑，有时候还需要人机交互参与页面流程。因此这类漏洞的检测更多的需要依靠手动测试完成。</p>
+<p>优秀的Web安全扫描器，商业软件的代表有“IBM Rational Appscan”、 “WebInspect”、“Acunetix WVS”等；在免费的扫描器中，也不乏精品，比如 “w3af”、“skipfish”等。</p>
+<h2 id="十八、安全运营"><a href="#十八、安全运营" class="headerlink" title="十八、安全运营"></a>十八、安全运营</h2><p>俗话说，安全是“三分技术，七分管理”。安全对于企业来说，结果才是最重要的。</p>
+<h3 id="把安全运营起来"><a href="#把安全运营起来" class="headerlink" title="把安全运营起来"></a>把安全运营起来</h3><p>从战略层面上来说，Aberdeen Group提到了三句话：Find and Fix，Defend and Defer，Secure at the Source。</p>
+<p>一个安全评估的过程，就是一个“Find and Fix”的过程。而像入侵检测系统、Web应用防火墙、反DDOS设备等则是一些防御性的工作,这些防御性的工作,是一个”Defend and Defer”的过程。最后“Secure at the Source”指的则是“安全开发流程（SDL）”，它能从源头降低安全风险，提高产品的安全质量。</p>
+<h3 id="漏洞修补流程"><a href="#漏洞修补流程" class="headerlink" title="漏洞修补流程"></a>漏洞修补流程</h3><p>建立漏洞修补流程，是在“Fix”阶段要做的第一件事情。</p>
+<p>（A）建立类似bugtracker的漏洞跟踪机制，并为漏洞的紧急程度选择优先级；</p>
+<p>（B）建立漏洞分析机制，并与程序员一起制定修补方案，同时review补丁的代码实现；</p>
+<p>（C）对曾经出现的漏洞进行归档，并定期统计漏洞修补情况。</p>
+<h3 id="安全监控"><a href="#安全监控" class="headerlink" title="安全监控"></a>安全监控</h3><p>安全监控与报警，是“Defend and Defer”的一种有效手段。</p>
+<h3 id="入侵检测"><a href="#入侵检测" class="headerlink" title="入侵检测"></a>入侵检测</h3><p>常见的安全监控产品有IDS（入侵检测系统）、IPS（入侵防御系统）、DDOS监控设备等。在IDS这个大家庭中，Web应用防火墙（简称WAF）又是近年来兴起的一种产品。相对于传统的IDS来说，WAF专注于应用层攻击的检测和防御。</p>
+<p>IDS、WAF等设备一般的布署方式是串联或并联在网络出口处，对网站的所有流量进行监控。在开源的软件中，也有一些优秀的IDS，比如ModSecurity就是一个非常成熟的WAF。还有一个同样著名的开源WAF是PHPIDS。</p>
+<h3 id="紧急响应流程"><a href="#紧急响应流程" class="headerlink" title="紧急响应流程"></a>紧急响应流程</h3><p>安全监控的目的是为了在最快的时间内做出反应，因此报警机制必不可少。</p>
+<p>入侵检测系统或其他安全监控产品的规则被触发时，根据攻击的严重程度，最终会产生“事件（Event）”或“报警（Alert）”，报警是一种主动通知管理员的提醒方式。</p>
+<p>常见的报警方式有三种：</p>
+<ol>
+<li>邮件报警：这是成本最低的报警方式，建立一个SMTP服务器就可以发送报警邮件。报警内容可以描写得丰富详实。</li>
+<li>IM报警：通过调用一些IM的API，可以实现IM报警。IM报警相对邮件报警来说实时性要好一些，但IM报警的内容长度有限，难以向邮件报警的内容一样丰富。</li>
+<li>短信报警：短信报警需要架设短信网关，或者采用互联网上提供的一些短信发送服务。短信报警的实时性最好，无论管理员在何时何地都能收到报警，但短信报警的局限之处是单条短信能容纳的内容较少，因此短信报警内容一般都短小精悍。</li>
+</ol>
+<p>建立紧急响应流程，首先要建立“紧急响应小组”，这个小组全权负责对紧急安全事件的处理、资源协调工作。小组成员需要包括：</p>
+<ul>
+<li>技术负责人</li>
+<li>产品负责人</li>
+<li>最了解技术架构的资深开发工程师</li>
+<li>资深网络工程师</li>
+<li>资深系统运维工程师</li>
+<li>资深DBA</li>
+<li>资深安全专家</li>
+<li>监控工程师</li>
+<li>公司公关</li>
+</ul>
+<p>这个小组的主要工作是在第一时间弄清楚问题产生的原因，并协调相关的资源进行处理。因此小组的成员可能随时扩大。</p>
+<p>当安全事件发生时，首先应该通知到安全专家，并由安全专家召集紧急响应小组，处理相关问题。在处理安全问题时，有两个需要注意的地方。<strong>一是需要保护安全事件的现场。二是以最快的速度处理完问题。</strong></p>
+<p>经过这一段时间专心精读《白帽子讲Web安全》这本书后，感觉自己在安全这条路上买进了一大步，之前一些模糊不清的知识点都已经弄清楚了，在读这本书的过程中，不止一遍的感叹吴瀚清老师的过人之处，也非常感谢吴瀚清老师呕心沥血编写的这本书。</p>
+<p>安全这条路很难，但我从来不曾止步！Fighting！</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="wlfsky 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="wlfsky 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    wlfsky
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://wlfsky.com/2018/01/29/精读《白帽子讲Web安全》十三/" title="精读《白帽子讲Web安全》十三">http://wlfsky.com/2018/01/29/精读《白帽子讲Web安全》十三/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/web安全/" rel="tag"><i class="fa fa-tag"></i> web安全</a>
+          
+            <a href="/tags/安全开发流程SDL/" rel="tag"><i class="fa fa-tag"></i> 安全开发流程SDL</a>
+          
+            <a href="/tags/安全运营/" rel="tag"><i class="fa fa-tag"></i> 安全运营</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/29/精读《白帽子讲Web安全》十二/" rel="next" title="精读《白帽子讲Web安全》十二">
+                <i class="fa fa-chevron-left"></i> 精读《白帽子讲Web安全》十二
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://source.unsplash.com/random/200x200"
+                alt="wlfsky" />
+            
+              <p class="site-author-name" itemprop="name">wlfsky</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+			  <a title="收藏到书签，偶尔High一下^_^" rel="alternate" class="mw-harlem_shake_slow wobble shake" href='javascript:(function() {
+    function c() {
+        var e = document.createElement("link");
+        e.setAttribute("type", "text/css");
+        e.setAttribute("rel", "stylesheet");
+        e.setAttribute("href", f);
+        e.setAttribute("class", l);
+        document.body.appendChild(e)
+    }
+ 
+    function h() {
+        var e = document.getElementsByClassName(l);
+        for (var t = 0; t < e.length; t++) {
+            document.body.removeChild(e[t])
+        }
+    }
+ 
+    function p() {
+        var e = document.createElement("div");
+        e.setAttribute("class", a);
+        document.body.appendChild(e);
+        setTimeout(function() {
+            document.body.removeChild(e)
+        }, 100)
+    }
+ 
+    function d(e) {
+        return {
+            height : e.offsetHeight,
+            width : e.offsetWidth
+        }
+    }
+ 
+    function v(i) {
+        var s = d(i);
+        return s.height > e && s.height < n && s.width > t && s.width < r
+    }
+ 
+    function m(e) {
+        var t = e;
+        var n = 0;
+        while (!!t) {
+            n += t.offsetTop;
+            t = t.offsetParent
+        }
+        return n
+    }
+ 
+    function g() {
+        var e = document.documentElement;
+        if (!!window.innerWidth) {
+            return window.innerHeight
+        } else if (e && !isNaN(e.clientHeight)) {
+            return e.clientHeight
+        }
+        return 0
+    }
+ 
+    function y() {
+        if (window.pageYOffset) {
+            return window.pageYOffset
+        }
+        return Math.max(document.documentElement.scrollTop, document.body.scrollTop)
+    }
+ 
+    function E(e) {
+        var t = m(e);
+        return t >= w && t <= b + w
+    }
+ 
+    function S() {
+        var e = document.createElement("audio");
+        e.setAttribute("class", l);
+        e.src = i;
+        e.loop = false;
+        e.addEventListener("canplay", function() {
+            setTimeout(function() {
+                x(k)
+            }, 500);
+            setTimeout(function() {
+                N();
+                p();
+                for (var e = 0; e < O.length; e++) {
+                    T(O[e])
+                }
+            }, 15500)
+        }, true);
+        e.addEventListener("ended", function() {
+            N();
+            h()
+        }, true);
+        e.innerHTML = " <p>If you are reading this, it is because your browser does not support the audio element. We recommend that you get a new browser.</p> <p>";
+        document.body.appendChild(e);
+        e.play()
+    }
+ 
+    function x(e) {
+        e.className += " " + s + " " + o
+    }
+ 
+    function T(e) {
+        e.className += " " + s + " " + u[Math.floor(Math.random() * u.length)]
+    }
+ 
+    function N() {
+        var e = document.getElementsByClassName(s);
+        var t = new RegExp("\\b" + s + "\\b");
+        for (var n = 0; n < e.length; ) {
+            e[n].className = e[n].className.replace(t, "")
+        }
+    }
+ 
+    var e = 30;
+    var t = 30;
+    var n = 350;
+    var r = 350;
+    var i = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake.mp3";
+    var s = "mw-harlem_shake_me";
+    var o = "im_first";
+    var u = ["im_drunk", "im_baked", "im_trippin", "im_blown"];
+    var a = "mw-strobe_light";
+    var f = "//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake-style.css";
+    var l = "mw_added_css";
+    var b = g();
+    var w = y();
+    var C = document.getElementsByTagName("*");
+    var k = null;
+    for (var L = 0; L < C.length; L++) {
+        var A = C[L];
+        if (v(A)) {
+            if (E(A)) {
+                k = A;
+                break
+            }
+        }
+    }
+    if (A === null) {
+        console.warn("Could not find a node of the right size. Please try a different page.");
+        return
+    }
+    c();
+    S();
+    var O = [];
+    for (var L = 0; L < C.length; L++) {
+        var A = C[L];
+        if (v(A)) {
+            O.push(A)
+        }
+    }
+})()'><i class="fa fa-music"></i> High</a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/wlfreesky" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:wlfsky@hotmail.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/5484401731" target="_blank" title="微博">
+                    
+                      <i class="fa fa-fw fa-weibo"></i>微博</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="http://music.163.com/#/user/home?id=387055149" target="_blank" title="网易云音乐">
+                    
+                      <i class="fa fa-fw fa-music"></i>网易云音乐</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#十七、安全开发流程（SDL）"><span class="nav-number">1.</span> <span class="nav-text">十七、安全开发流程（SDL）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SDL简介"><span class="nav-number">1.1.</span> <span class="nav-text">SDL简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#敏捷SDL"><span class="nav-number">1.2.</span> <span class="nav-text">敏捷SDL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SDL实战经验"><span class="nav-number">1.3.</span> <span class="nav-text">SDL实战经验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#需求分析与设计阶段"><span class="nav-number">1.4.</span> <span class="nav-text">需求分析与设计阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开发阶段"><span class="nav-number">1.5.</span> <span class="nav-text">开发阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试阶段"><span class="nav-number">1.6.</span> <span class="nav-text">测试阶段</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十八、安全运营"><span class="nav-number">2.</span> <span class="nav-text">十八、安全运营</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#把安全运营起来"><span class="nav-number">2.1.</span> <span class="nav-text">把安全运营起来</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#漏洞修补流程"><span class="nav-number">2.2.</span> <span class="nav-text">漏洞修补流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安全监控"><span class="nav-number">2.3.</span> <span class="nav-text">安全监控</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#入侵检测"><span class="nav-number">2.4.</span> <span class="nav-text">入侵检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#紧急响应流程"><span class="nav-number">2.5.</span> <span class="nav-text">紧急响应流程</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wlfsky</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">54.7k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user">本站访客数</i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye">本站总访问量</i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+
+<div id="hexo-helper-live2d">
+  <canvas id="live2dcanvas" width="150" height="300"></canvas>
+</div>
+<style>
+  #live2dcanvas{
+    position: fixed;
+    width: 150px;
+    height: 300px;
+    opacity:0.7;
+    right: 0px;
+    z-index: 999;
+    pointer-events: none;
+    bottom: -20px;
+  }
+</style>
+<script type="text/javascript" src="/live2d/device.min.js"></script>
+<script type="text/javascript">
+const loadScript = function loadScript(c,b){var a=document.createElement("script");a.type="text/javascript";"undefined"!=typeof b&&(a.readyState?a.onreadystatechange=function(){if("loaded"==a.readyState||"complete"==a.readyState)a.onreadystatechange=null,b()}:a.onload=function(){b()});a.src=c;document.body.appendChild(a)};
+(function(){
+  if((typeof(device) != 'undefined') && (device.mobile())){
+    document.getElementById("live2dcanvas").style.width = '75px';
+    document.getElementById("live2dcanvas").style.height = '150px';
+  }else
+    if (typeof(device) === 'undefined') console.error('Cannot find current-device script.');
+  loadScript("/live2d/script.js", function(){loadlive2d("live2dcanvas", "/live2d/assets/wanko.model.json", 0.5);});
+})();
+</script>
+
+
+</body>
+</html>
