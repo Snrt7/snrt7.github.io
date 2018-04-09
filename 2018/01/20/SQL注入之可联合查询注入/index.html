@@ -115,7 +115,15 @@
 <meta property="og:image" content="http://wlfsky.com/img/sql-fmz-6.png">
 <meta property="og:image" content="http://wlfsky.com/img/sql-fmz-7.png">
 <meta property="og:image" content="http://wlfsky.com/img/sql-fmz-8.png">
-<meta property="og:updated_time" content="2018-01-23T07:52:06.997Z">
+<meta property="og:image" content="http://shiyanbar.com/UploadImage/2018/4/5/159688581134646501.png">
+<meta property="og:image" content="http://shiyanbar.com/UploadImage/2018/4/5/159688601994923601.png">
+<meta property="og:image" content="http://shiyanbar.com/UploadImage/2018/4/5/159688612134865301.png">
+<meta property="og:image" content="http://shiyanbar.com/UploadImage/2018/4/5/159688644404891301.png">
+<meta property="og:image" content="http://shiyanbar.com/UploadImage/2018/4/5/159688684703683101.png">
+<meta property="og:image" content="http://shiyanbar.com/UploadImage/2018/4/5/159688708116147701.png">
+<meta property="og:image" content="http://shiyanbar.com/UploadImage/2018/4/5/159688795299279401.png">
+<meta property="og:image" content="http://shiyanbar.com/UploadImage/2018/4/5/159688811155982401.png">
+<meta property="og:updated_time" content="2018-04-09T03:56:37.982Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SQL注入之可联合查询注入">
 <meta name="twitter:description" content="作者：wlfsky 格言：每一个不曾起舞的日子 都是对生命的辜负    ---尼采">
@@ -358,8 +366,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-01-23T15:52:06+08:00">
-                2018-01-23
+              <time title="更新于" itemprop="dateModified" datetime="2018-04-09T11:56:37+08:00">
+                2018-04-09
               </time>
             
           </span>
@@ -413,7 +421,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  364
+                  619
                 </span>
               
 
@@ -429,7 +437,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2
+                  3
                 </span>
               
             </div>
@@ -487,6 +495,29 @@
 <p><strong>暴出数据：</strong></p>
 <p><a href="">http://lab1.xseclab.com/sqli3_6590b07a0a39c8c27932b92b0e151456/index.php?id=1 union select 1,2,group_concat(id,0x3a,title,0x3a,content) from sae_user_sqli3</a></p>
 <p><img src="/img/sql-fmz-8.png" alt="sql-fmz-8.png"></p>
+<p>得到flag。</p>
+<h2 id="题二：这个看起来有点简单"><a href="#题二：这个看起来有点简单" class="headerlink" title="题二：这个看起来有点简单"></a>题二：这个看起来有点简单</h2><p>题目来自：<a href="http://ctf5.shiyanbar.com/8/index.php?id=1" target="_blank" rel="noopener">实验吧</a></p>
+<p>首先我们进入页面显示如下：</p>
+<p>​​​<img src="http://shiyanbar.com/UploadImage/2018/4/5/159688581134646501.png" alt="img"></p>
+<p>根据这个URL地址我们可以猜测这道题应该是考查数字型SQL注入的，接着我们来判断一下：</p>
+<p>1、先输入 and 1=1，显示如下：</p>
+<p><img src="http://shiyanbar.com/UploadImage/2018/4/5/159688601994923601.png" alt="img"></p>
+<p>2、再输入 and 1=2测试，显示如下：</p>
+<p><img src="http://shiyanbar.com/UploadImage/2018/4/5/159688612134865301.png" alt="img"></p>
+<p>发现页面和之前的正常页面不同，则可以判断该网站存在数字型SQL注入。</p>
+<p>3、接着我们利用order by 来判断SQL查询语句中的字段数：</p>
+<p><img src="http://shiyanbar.com/UploadImage/2018/4/5/159688644404891301.png" alt="img"></p>
+<p>测试后发现，当order by 2 时，页面显示正常，当order by 3时，页面报错，则说明页面显示的字段数为2。</p>
+<p>4、下面我们用union select 1,2,3…来确定字段显示的位置：</p>
+<p><img src="http://shiyanbar.com/UploadImage/2018/4/5/159688684703683101.png" alt="img"></p>
+<p>5、下面开始暴表名：</p>
+<p><img src="http://shiyanbar.com/UploadImage/2018/4/5/159688708116147701.png" alt="img"></p>
+<p>得到数据库中有两个表：”news”和”thiskey”。</p>
+<p>6、然后开始暴”thiskey”这个表的列名：</p>
+<p><img src="http://shiyanbar.com/UploadImage/2018/4/5/159688795299279401.png" alt="img"></p>
+<p>得到表”thiskey”的列名为：k0y。</p>
+<p>7、最后开始暴数据：</p>
+<p>​<img src="http://shiyanbar.com/UploadImage/2018/4/5/159688811155982401.png" alt="img"></p>
 <p>得到flag。</p>
 
       
@@ -924,7 +955,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题一：最简单的SQL注入"><span class="nav-number">1.</span> <span class="nav-text">题一：最简单的SQL注入</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题一：最简单的SQL注入"><span class="nav-number">1.</span> <span class="nav-text">题一：最简单的SQL注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题二：这个看起来有点简单"><span class="nav-number">2.</span> <span class="nav-text">题二：这个看起来有点简单</span></a></li></ol></div>
             
 
           </div>
@@ -958,7 +989,7 @@ var jiathis_config={
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">59.4k</span>
+    <span title="Site words total count">59.7k</span>
   
 </div>
 
